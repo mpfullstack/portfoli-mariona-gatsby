@@ -1,6 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
@@ -9,6 +10,7 @@ export default ({ data }) => {
   const project = data.allStrapiProject.edges[0].node;
   return (
     <Layout>
+      <SEO title={project.title} description={project.introduction} />
       <div>
         <h1>{project.title}</h1>
         <div
@@ -28,6 +30,7 @@ export const query = graphql`
         node {
           id
           title
+          introduction
           content
         }
       }
