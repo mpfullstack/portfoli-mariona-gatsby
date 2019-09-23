@@ -21,7 +21,10 @@ const IndexPage = ({ data }) => {
           data.allStrapiProject.edges.map( item => {
             console.log(item);
             return (
-              <li><Link to={`/${item.node.seo_url}`}>{item.node.title}</Link></li>
+              <li>
+                <Link to={`/${item.node.seo_url}`}>{item.node.title}</Link>
+                <p>{item.node.introduction}</p>
+              </li>
             )
           })
         }
@@ -38,6 +41,7 @@ export const query = graphql`
       edges {
         node {
           title
+          introduction
           seo_url
         }
       }
