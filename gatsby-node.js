@@ -3,7 +3,7 @@
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  // Query for markdown nodes to use in creating pages.
+  // Query for projects model in strapi
   const result = await graphql(
     `
     query {
@@ -12,8 +12,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             id
             title
-            content
-            meta_description
+            seo_url
           }
         }
       }
@@ -27,14 +26,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  // Create pages for each markdown file.
+  // Create pages for each project
   const projectTemplate = require.resolve(`./src/templates/project.js`);
   result.data.allStrapiProject.edges.forEach(({ node }) => {
     createPage({
-      path: `/${node.id}`,
+      path: `/${node.seo_url}`, //TODO: In case seo_url is not present, create a canonical url from title
       component: projectTemplate,
-      // In your blog post template's graphql query, you can use path
-      // as a GraphQL variable to query for data from the markdown file.
+      // In your project template's graphql query, you can use id
+      // as a GraphQL variable to query for data from the strapi project.
       context: { id: node.id }
     })
   })
