@@ -8,6 +8,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Portfolio Mariona Mercadal" />
+      <button className="contact-form">{"Let's talk"}</button>
       <h1>Portfolio Mariona Mercadal</h1>
       <ul className="projects-list">
         {
