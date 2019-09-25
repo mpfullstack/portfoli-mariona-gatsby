@@ -1,4 +1,4 @@
-import React from "react"
+import React/*, { useState, useEffect }*/ from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -8,6 +8,13 @@ const md = new MarkdownIt();
 
 export default ({ data }) => {
   const project = data.allStrapiProject.edges[0].node;
+
+  // Similar to componentDidMount and componentDidUpdate:
+  // useEffect(() => {
+  //   console.log('useEffect');
+  //   console.log(project);
+  // });
+
   return (
     <Layout>
       <SEO title={project.title} description={project.introduction} />
@@ -23,7 +30,7 @@ export const query = graphql`
   query($id: String!) {
     allStrapiProject (
       filter: {
-      	id: { eq: $id}
+      	id: { eq: $id }
       }
     ) {
       edges {
