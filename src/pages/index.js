@@ -9,11 +9,11 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Portfolio Mariona Mercadal" />
       <h1>Portfolio Mariona Mercadal</h1>
-      <ul>
+      <ul className="projects-list">
         {
           data.allStrapiProject.edges.map( item => {
             return (
-              <li>
+              <li className="projects-list__item">
                 <Link to={`/${item.node.seo_url}`}>{item.node.title}</Link>
                 <p>{item.node.introduction}</p>
               </li>
