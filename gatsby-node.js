@@ -32,7 +32,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   pagesResult.data.allStrapiPage.edges.forEach(({ node }) => {
     node.projects.forEach(project => {
       createPage({
-        path: `/${project.seo_url}`, //TODO: In case seo_url is not present, create a canonical url from title
+        path: `/${project.seo_url}`, //TODO: In case seo_url is not present, create a seo friendly url from title
         component: projectTemplate,
         // In your project template's graphql query, you can use id
         // as a GraphQL variable to query for data from the strapi project.
