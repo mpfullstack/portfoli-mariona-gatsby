@@ -25,9 +25,14 @@ const backgroundColor = theme('mode', {
   light: colors.superLightGrey,
   dark: colors.darkGrey
 });
+const textColor = theme('mode', {
+  light: colors.darkGrey,
+  dark: colors.lightGrey
+});
 
 export default {
   backgroundColor,
+  textColor,
   colors,
   sizes
 };

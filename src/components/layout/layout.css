@@ -1,7 +1,4 @@
-html.color-theme-in-transition,
-html.color-theme-in-transition *,
-html.color-theme-in-transition *:before,
-html.color-theme-in-transition *:after {
+html.color-theme-in-transition .main {
   transition: all 750ms !important;
   transition-delay: 0 !important;
 }

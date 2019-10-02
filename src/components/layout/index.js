@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={{ mode }}>
-      <MainContainer>
+      <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <button onClick={() => {
           document.documentElement.classList.add('color-theme-in-transition');
