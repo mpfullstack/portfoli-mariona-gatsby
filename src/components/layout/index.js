@@ -5,13 +5,16 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
+import React, { useState } from 'react';
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
+import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
 import InnerContainerWrapper from './innercontainer.style';
+
+import { ThemeProvider } from 'styled-components';
 
 import "./layout.css"
 
@@ -26,18 +29,30 @@ const Layout = ({ children }) => {
     }
   `)
 
+  // Theme mode state hook
+  const [mode, setThemeMode] = useState('light');
+
   return (
-    <div>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <main>
-        <ContainerWrapper>
-          <InnerContainerWrapper>
-              {children}
-          </InnerContainerWrapper>
-        </ContainerWrapper>
-      </main>
-      <footer></footer>
-    </div>
+    <ThemeProvider theme={{ mode }}>
+      <MainContainer>
+        <Header siteTitle={data.site.siteMetadata.title} />
+        <button onClick={() => {
+          document.documentElement.classList.add('color-theme-in-transition');
+          setThemeMode(mode === 'dark' ? 'light' : 'dark')
+          window.setTimeout(() => document.documentElement.classList.remove('color-theme-in-transition'), 1000);
+        }}>
+          Click me
+        </button>
+        <main>
+          <ContainerWrapper>
+            <InnerContainerWrapper>
+                {children}
+            </InnerContainerWrapper>
+          </ContainerWrapper>
+        </main>
+        <footer></footer>
+      </MainContainer>
+    </ThemeProvider>
   )
 }
 

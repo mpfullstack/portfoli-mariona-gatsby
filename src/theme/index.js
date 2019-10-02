@@ -1,18 +1,33 @@
-const theme = {};
+import theme from 'styled-theming';
 
-theme.dark = {
+// Colors
+// ------------------------------------------------------
+const colors = {
   primary: '#6cc3bf',
-  backgroundColor: '#f9f9f9',
-  grayscale: [
-    '#444444', // 0: Dark grey
-    '#737373', // 1: Medium grey
-    '#bbbbbb' // 2: Light grey
-  ]
-};
+  darkGrey: '#444444',
+  mediumGrey: '#737373',
+  lightGrey: '#bbbbbb',
+  superLightGrey: '#f9f9f9',
+  purple: '#eeeefc',
+  green: '#e8f5e0'
+}
 
-theme.sizes = {
+// Sizes
+// ------------------------------------------------------
+const sizes = {
   small: '768px',
   contentWidth: '1280px'
 }
 
-export default theme;
+// Theme definitions
+// ------------------------------------------------------
+const backgroundColor = theme('mode', {
+  light: colors.superLightGrey,
+  dark: colors.darkGrey
+});
+
+export default {
+  backgroundColor,
+  colors,
+  sizes
+};

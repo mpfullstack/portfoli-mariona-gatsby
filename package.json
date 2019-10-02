@@ -19,7 +19,8 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
-    "styled-components": "4.4.0"
+    "styled-components": "4.4.0",
+    "styled-theming": "2.2.0"
   },
   "devDependencies": {
     "prettier": "^1.18.2"
