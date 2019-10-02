@@ -11,11 +11,15 @@ const IndexPage = ({ data }) => {
       <h1>Portfolio Mariona Mercadal</h1>
       <ul>
         {
-          data.allStrapiProject.edges.map( item => {
+          data.allStrapiProject.edges.map( ({node}) => {
             return (
-              <li>
-                <Link to={`/${item.node.seo_url}`}>{item.node.title}</Link>
-                <p>{item.node.introduction}</p>
+              <li className="projects-list__item">
+                <Link to={`/${node.seo_url}`}>{node.title}</Link>
+                {
+                  node.tags.map(tag => {
+                    return <span>{tag.name}</span>
+                  })
+                }
               </li>
             )
           })
@@ -33,8 +37,10 @@ export const query = graphql`
       edges {
         node {
           title
-          introduction
           seo_url
+          tags {
+            name
+          }
         }
       }
     }

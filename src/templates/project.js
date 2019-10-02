@@ -17,7 +17,7 @@ export default ({ data }) => {
 
   return (
     <Layout>
-      <SEO title={project.title} description={project.introduction} />
+      <SEO title={project.title} description={project.meta_description} />
       <div>
         <h1>{project.title}</h1>
         <div
@@ -37,7 +37,7 @@ export const query = graphql`
         node {
           id
           title
-          introduction
+          meta_description
           content
         }
       }
