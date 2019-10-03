@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "gatsby"
 import styled from 'styled-components';
 import theme from '../theme';
 
@@ -20,8 +21,8 @@ export default () => (
   <LeftContent>
     <div>
       <ul>
-        <li>Works</li>
-        <li>About</li>
+        <li><Link to='/'>Works</Link></li>
+        <li><Link to='/about'>About</Link></li>
       </ul>
     </div>
     <h1>Research.<br /> Think.<br /> Create</h1>
