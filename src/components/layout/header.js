@@ -4,15 +4,14 @@ import React from "react"
 import InnerContainerWrapper from './innercontainer.style';
 
 const Header = ({ siteTitle }) => (
-  <header>
+  <header style={{display: 'none'}}>
     <InnerContainerWrapper>
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
           style={{
             textDecoration: `none`,
-          }}
-        >
+          }}>
           {siteTitle}
         </Link>
       </h1>
