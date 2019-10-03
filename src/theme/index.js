@@ -27,13 +27,18 @@ const backgroundColor = theme('mode', {
   dark: colors.superDarkGrey
 });
 const textColor = theme('mode', {
-  light: colors.darkGrey,
+  light: colors.mediumGrey,
   dark: colors.lightGrey
 });
+const titleColor = theme('mode', {
+  light: colors.darkGrey,
+  dark: colors.lightGrey
+})
 
 export default {
   backgroundColor,
   textColor,
+  titleColor,
   colors,
   sizes
 };

@@ -6,18 +6,20 @@
  */
 
 import React, { useState } from 'react';
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import PropTypes from 'prop-types'
+import { useStaticQuery, graphql } from 'gatsby'
 
-import Header from "./header"
+import Header from './header';
+import Content from './content';
 import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
-import InnerContainerWrapper from './innercontainer.style';
 import ThemeToggleButton from '../themeToggleButton';
-
+import InnerContainerWrapper from './innercontainer.style';
+import FlexContainer from './flexContainer.style';
+import LeftContent from '../leftContent';
 import { ThemeProvider } from 'styled-components';
 
-import "./layout.css"
+import './layout.css'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -41,7 +43,18 @@ const Layout = ({ children }) => {
         <main>
           <ContainerWrapper>
             <InnerContainerWrapper>
-                {children}
+              <FlexContainer>
+                {/*
+                  Left content including Menu, Title and introduction with a contact form button
+                  ------------------------------------------------------------------------------ */}
+                <LeftContent />
+                
+                <div style={{flexGrow: 1, backgroundColor: 'green'}}>
+                  <Content>
+                    {children}
+                  </Content>
+                </div>
+              </FlexContainer>
             </InnerContainerWrapper>
           </ContainerWrapper>
         </main>
