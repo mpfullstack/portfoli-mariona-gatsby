@@ -13,6 +13,7 @@ import Header from "./header"
 import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
 import InnerContainerWrapper from './innercontainer.style';
+import ThemeToggleButton from '../themeToggleButton';
 
 import { ThemeProvider } from 'styled-components';
 
@@ -36,13 +37,7 @@ const Layout = ({ children }) => {
     <ThemeProvider theme={{ mode }}>
       <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
-        <button onClick={() => {
-          document.documentElement.classList.add('color-theme-in-transition');
-          setThemeMode(mode === 'dark' ? 'light' : 'dark')
-          window.setTimeout(() => document.documentElement.classList.remove('color-theme-in-transition'), 1000);
-        }}>
-          Click me
-        </button>
+        <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
         <main>
           <ContainerWrapper>
             <InnerContainerWrapper>
