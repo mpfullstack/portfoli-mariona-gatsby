@@ -4,6 +4,7 @@ import theme from 'styled-theming';
 // ------------------------------------------------------
 const colors = {
   primary: '#6cc3bf',
+  superDarkGrey: '#222222',
   darkGrey: '#444444',
   mediumGrey: '#737373',
   lightGrey: '#bbbbbb',
@@ -23,7 +24,7 @@ const sizes = {
 // ------------------------------------------------------
 const backgroundColor = theme('mode', {
   light: colors.superLightGrey,
-  dark: colors.darkGrey
+  dark: colors.superDarkGrey
 });
 const textColor = theme('mode', {
   light: colors.darkGrey,

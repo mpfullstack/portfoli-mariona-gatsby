@@ -36,6 +36,21 @@ module.exports = {
           `page`
         ]
       }
+    },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Nunito`,
+            subsets: [`latin`]
+          },
+          {
+            family: `Montserrat`,
+            subsets: [`latin`]
+          }
+        ]
+      }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
