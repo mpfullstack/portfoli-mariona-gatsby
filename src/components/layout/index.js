@@ -48,8 +48,8 @@ const Layout = ({ children }) => {
                   Left content including Menu, Title and introduction with a contact form button
                   ------------------------------------------------------------------------------ */}
                 <LeftContent />
-                
-                <div style={{flexGrow: 1, backgroundColor: 'green'}}>
+
+                <div style={{flexGrow: 1, backgroundColor: '#ccc'}}>
                   <Content>
                     {children}
                   </Content>

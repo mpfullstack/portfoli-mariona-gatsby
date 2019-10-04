@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from "gatsby"
+import { Link } from "gatsby";
 import styled from 'styled-components';
-import theme from '../theme';
+import SiteMenu from './layout/siteMenu';
 
 const LeftContent = styled.section`
-  flex-basis: 400px;
-  min-width: 400px;
+  flex-basis: 320px;
+  min-width: 320px;
   h1 {
     font-size: 36px;
     line-height: 49px;
     font-weight: normal;
+    margin-top: 150px;
   }
   p {
     font-size: 16px;
@@ -19,13 +20,8 @@ const LeftContent = styled.section`
 
 export default () => (
   <LeftContent>
-    <div>
-      <ul>
-        <li><Link to='/'>Works</Link></li>
-        <li><Link to='/about'>About</Link></li>
-      </ul>
-    </div>
-    <h1>Research.<br /> Think.<br /> Create</h1>
+    <SiteMenu />
+    <h1>Research.<br /> Think.<br /> Create.</h1>
     <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
     <div>{`Social Links`}</div>
     <button>{`Let's talk`}</button>
