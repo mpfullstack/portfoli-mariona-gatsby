@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from "gatsby";
 import styled from 'styled-components';
 import SiteMenu from './layout/siteMenu';
+import SocialLinks from './layout/socialLinks';
+import theme from '../theme';
 
 const LeftContent = styled.section`
   flex-basis: 320px;
@@ -23,7 +25,7 @@ export default () => (
     <SiteMenu />
     <h1>Research.<br /> Think.<br /> Create.</h1>
     <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
-    <div>{`Social Links`}</div>
+    <SocialLinks />
     <button>{`Let's talk`}</button>
   </LeftContent>
 );
