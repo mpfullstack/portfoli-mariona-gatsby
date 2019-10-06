@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from "gatsby";
 import styled from 'styled-components';
 import SiteMenu from './layout/siteMenu';
 import SocialLinks from './layout/socialLinks';
-import theme from '../theme';
+import Button from './button';
 
 const LeftContent = styled.section`
   flex-basis: 320px;
@@ -18,6 +17,9 @@ const LeftContent = styled.section`
     font-size: 16px;
     line-height: 22px;
   }
+  .contact-form-button {
+    margin-top: 50px;
+  }
 `;
 
 export default () => (
@@ -26,6 +28,6 @@ export default () => (
     <h1>Research.<br /> Think.<br /> Create.</h1>
     <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
     <SocialLinks />
-    <button>{`Let's talk`}</button>
+    <Button className='contact-form-button'>{`Let's talk`}</Button>
   </LeftContent>
 );

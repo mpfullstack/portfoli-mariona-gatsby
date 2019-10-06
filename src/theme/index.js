@@ -37,7 +37,15 @@ const titleColor = theme('mode', {
 const menuBackgroundColor = theme('mode', {
   light: 'rgba(108, 195, 191, 0.6)',
   dark: 'rgba(108, 195, 191, 0.6)'
-})
+});
+const buttonBackgroundColor = theme('mode', {
+  light: colors.primary,
+  dark: colors.primary
+});
+const buttonTextColor = theme('mode', {
+  light: '#ffffff',
+  dark: colors.darkGrey
+});
 
 // Transitions
 // -------------------------------------------------------
@@ -50,6 +58,8 @@ export default {
   textColor,
   titleColor,
   menuBackgroundColor,
+  buttonTextColor,
+  buttonBackgroundColor,
   colors,
   sizes,
   transitions
