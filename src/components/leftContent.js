@@ -23,9 +23,9 @@ const LeftContent = styled.section`
   }
 `;
 
-export default () => (
+export default ({ location }) => (
   <LeftContent>
-    <SiteMenu />
+    <SiteMenu location={location} />
     <h1>Research.<br /> Think.<br /> Create.</h1>
     <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
     <SocialLinks />

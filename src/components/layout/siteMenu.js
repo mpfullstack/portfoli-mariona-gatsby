@@ -32,26 +32,51 @@ const SiteMenu = styled.div`
           top: 42%;
           left: -5px;
         }
-        &:hover {
-          &::after {
-            width: calc(100% + 8px);
-            -webkit-transition: ${theme.transitions.ease};
-            -moz-transition: ${theme.transitions.ease};
-            -ms-transition: ${theme.transitions.ease};
-            -o-transition: ${theme.transitions.ease};
-            transition: ${theme.transitions.ease};
-          }
+      }
+      &.selected a,
+      & a:hover {
+        &::after {
+          width: calc(100% + 8px);
+          -webkit-transition: ${theme.transitions.ease};
+          -moz-transition: ${theme.transitions.ease};
+          -ms-transition: ${theme.transitions.ease};
+          -o-transition: ${theme.transitions.ease};
+          transition: ${theme.transitions.ease};
         }
       }
     }
   }
 `;
 
-export default () => (
-  <SiteMenu>
-    <ul className='menu'>
-      <li className='item'><Link to='/'>Works</Link></li>
-      <li className='item'><Link to='/about'>About</Link></li>
-    </ul>
-  </SiteMenu>
-);
+export default ({ location }) => {
+  console.log('site menu location', location);
+  const menuItems = [
+    {
+      linkTo: '/',
+      name: 'Works'
+    },
+    {
+      linkTo: '/about',
+      name: 'About'
+    }
+  ];
+  return (
+    <SiteMenu>
+      <ul className='menu'>
+      {
+        menuItems.map(menuItem => {
+          const itemCssClasses = ['item'];
+          if (menuItem.linkTo === location.pathname) {
+            itemCssClasses.push('selected');
+          }
+          return (
+            <li className={itemCssClasses.join(' ')} key={menuItem.name}>
+              <Link to={menuItem.linkTo}>{menuItem.name}</Link>
+            </li>
+          );
+        })
+      }
+      </ul>
+    </SiteMenu>
+  );
+}

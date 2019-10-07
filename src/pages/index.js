@@ -5,9 +5,9 @@ import Img from 'gatsby-image';
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ location, data }) => {
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO title="Portfolio Mariona Mercadal" />
       <h1>Portfolio Mariona Mercadal</h1>
       <ul className="projects-list">

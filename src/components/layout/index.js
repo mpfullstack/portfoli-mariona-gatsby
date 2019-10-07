@@ -21,7 +21,7 @@ import { ThemeProvider } from 'styled-components';
 
 import './layout.css'
 
-const Layout = ({ children }) => {
+const Layout = ({ location, children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -30,7 +30,7 @@ const Layout = ({ children }) => {
         }
       }
     }
-  `)
+  `);
 
   // Theme mode state hook
   const [mode, setThemeMode] = useState('light');
@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
                 {/*
                   Left content including Menu, Title and introduction with a contact form button
                   ------------------------------------------------------------------------------ */}
-                <LeftContent />
+                <LeftContent location={location} />
 
                 <div style={{flexGrow: 1}}>
                   <Content>
