@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from "gatsby";
+import { Link } from 'gatsby';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import styled from 'styled-components';
 import theme from '../../theme';
 
@@ -24,7 +25,7 @@ const SiteMenu = styled.div`
         z-index: 1;
         &::after {
           z-index: -1;
-          content: "";
+          content: '';
           height: 12px;
           background-color: ${theme.menuBackgroundColor};
           width: 0;
@@ -49,7 +50,6 @@ const SiteMenu = styled.div`
 `;
 
 export default ({ location }) => {
-  console.log('site menu location', location);
   const menuItems = [
     {
       linkTo: '/',
@@ -71,7 +71,8 @@ export default ({ location }) => {
           }
           return (
             <li className={itemCssClasses.join(' ')} key={menuItem.name}>
-              <Link to={menuItem.linkTo}>{menuItem.name}</Link>
+              {<AniLink fade to={menuItem.linkTo}>{menuItem.name}</AniLink>}
+              {/*<Link to={menuItem.linkTo}>{menuItem.name}</Link>*/}
             </li>
           );
         })

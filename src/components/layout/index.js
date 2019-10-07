@@ -8,16 +8,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-
+import Helmet from 'react-helmet';
 import Header from './header';
-import Content from './content';
 import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
 import ThemeToggleButton from '../themeToggleButton';
 import InnerContainerWrapper from './innercontainer.style';
-import FlexContainer from './flexContainer.style';
 import LeftContent from '../leftContent';
+import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
+import theme from '../../theme';
 
 import './layout.css'
 
@@ -37,24 +37,33 @@ const Layout = ({ location, children }) => {
 
   return (
     <ThemeProvider theme={{ mode }}>
+      {/*
+        Handle background color theme for body element
+        ----------------------------------------------------*/}
+      <Helmet
+        bodyAttributes={{
+            style: `background-color: ${theme.backgroundColor({theme: {mode}})}`
+        }}
+      />
+
       <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
         <main>
           <ContainerWrapper>
             <InnerContainerWrapper>
-              <FlexContainer>
-                {/*
-                  Left content including Menu, Title and introduction with a contact form button
-                  ------------------------------------------------------------------------------ */}
-                <LeftContent location={location} />
+              {/*
+                Left content including Menu, Title and introduction with a contact form button
+                ------------------------------------------------------------------------------ */}
+              <LeftContent location={location} />
 
-                <div style={{flexGrow: 1}}>
-                  <Content>
-                    {children}
-                  </Content>
-                </div>
-              </FlexContainer>
+              {/*
+                Right content
+                ------------------------------------------------------------------------------ */}
+              <RightContent>
+                {children}
+              </RightContent>
+
             </InnerContainerWrapper>
           </ContainerWrapper>
         </main>
