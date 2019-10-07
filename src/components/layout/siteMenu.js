@@ -50,6 +50,11 @@ const SiteMenu = styled.div`
 `;
 
 export default ({ location }) => {
+  if (!location) {
+    location = {
+      pathname: '/'
+    };
+  }
   const menuItems = [
     {
       linkTo: '/',

@@ -25,6 +25,7 @@ const ImageContainer = styled.div`
   vertical-align: bottom;
   .gatsby-image-wrapper {
     z-index: 1;
+    width: 90%;
   }
   .background {
     position: absolute;
@@ -33,6 +34,7 @@ const ImageContainer = styled.div`
     left: 0;
     height: 500px;
     z-index: 0;
+    opacity: .5;
     &.background--purple {
       background-color: ${theme.colors.purple};
     }
