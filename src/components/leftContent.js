@@ -16,6 +16,7 @@ const LeftContent = styled.section`
   p {
     font-size: 16px;
     line-height: 22px;
+    margin-bottom: 50px;
   }
   .contact-form-button {
     margin-top: 50px;

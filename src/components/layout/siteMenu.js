@@ -18,6 +18,7 @@ const SiteMenu = styled.div`
         text-align: right;
         text-transform: uppercase;
         line-height: 20px;
+        letter-spacing: 0.15em;
         position: relative;
         color: ${theme.textColor};
         z-index: 1;
@@ -33,7 +34,7 @@ const SiteMenu = styled.div`
         }
         &:hover {
           &::after {
-            width: calc(100% + 10px);
+            width: calc(100% + 8px);
             -webkit-transition: ${theme.transitions.ease};
             -moz-transition: ${theme.transitions.ease};
             -ms-transition: ${theme.transitions.ease};

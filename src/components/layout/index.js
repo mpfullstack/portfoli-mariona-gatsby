@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
                   ------------------------------------------------------------------------------ */}
                 <LeftContent />
 
-                <div style={{flexGrow: 1, backgroundColor: '#ccc'}}>
+                <div style={{flexGrow: 1}}>
                   <Content>
                     {children}
                   </Content>
