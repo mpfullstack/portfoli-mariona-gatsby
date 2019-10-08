@@ -34,6 +34,10 @@ const titleColor = theme('mode', {
   light: colors.darkGrey,
   dark: colors.lightGrey
 });
+const tagColor = theme('mode', {
+  light: colors.lightGrey,
+  dark: colors.mediumGrey
+});
 const menuBackgroundColor = theme('mode', {
   light: 'rgba(108, 195, 191, 0.6)',
   dark: 'rgba(108, 195, 191, 0.6)'
@@ -57,6 +61,7 @@ export default {
   backgroundColor,
   textColor,
   titleColor,
+  tagColor,
   menuBackgroundColor,
   buttonTextColor,
   buttonBackgroundColor,

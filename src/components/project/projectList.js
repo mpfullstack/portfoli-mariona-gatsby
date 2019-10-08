@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "gatsby";
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
-import theme from '../theme';
+import theme from '../../theme';
+import TagContainer from '../layout/tagContainer.style';
+import Tag from '../tag';
+import arrow from './arrow.png';
 
 const ProjectListWrapper = styled.ul`
   list-style-type: none;
@@ -44,6 +47,36 @@ const ImageContainer = styled.div`
   }
 `;
 
+const ContentWrapper = styled.div`
+  width: 50%;
+  position: absolute;
+  z-index: 10;
+  top: 380px;
+  left: 51%;
+  .project-title {
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 44px;
+    margin: 10px 0;
+    a {
+      color: ${theme.titleColor};
+    }
+  }
+  .know-more {
+    color: ${theme.textColor};
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    &::after {
+      content: url(${arrow});
+      padding-left: 4px;
+    }
+  }
+`;
+
 const ProjectList = ({ projects }) => {
   return (
     <ProjectListWrapper>
@@ -55,12 +88,15 @@ const ProjectList = ({ projects }) => {
                 <Img fluid={node.image.childImageSharp.fluid} />
                 <div className={`background background--${node.background}`} />
               </ImageContainer>
-              {
-                node.tags.map(tag => {
-                  return <span>{tag.name}</span>
-                })
-              }
-              <Link to={`/${node.seo_url}`}>{node.title}</Link>
+              <ContentWrapper>
+                <TagContainer>
+                  {node.tags.map(tag => <Tag>{tag.name}</Tag>)}
+                </TagContainer>
+                <h1 className='project-title'>
+                  {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
+                </h1>
+                <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
+              </ContentWrapper>
             </li>
           )
         })

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Link } from 'gatsby';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import styled from 'styled-components';
 import theme from '../../theme';
@@ -77,7 +76,6 @@ export default ({ location }) => {
           return (
             <li className={itemCssClasses.join(' ')} key={menuItem.name}>
               {<AniLink fade to={menuItem.linkTo}>{menuItem.name}</AniLink>}
-              {/*<Link to={menuItem.linkTo}>{menuItem.name}</Link>*/}
             </li>
           );
         })
