@@ -5,10 +5,9 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-import Helmet from 'react-helmet';
 import Header from './header';
 import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
@@ -19,6 +18,7 @@ import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
 
+// Main layout css
 import './layout.css'
 
 const Layout = ({ location, children }) => {
@@ -32,20 +32,16 @@ const Layout = ({ location, children }) => {
     }
   `);
 
-  // Theme mode state hook
+  // useState hook to set theme mode
   const [mode, setThemeMode] = useState('light');
+
+  // useEffect hook to set theme mode background-color style to body element
+  useEffect(() => {
+    document.body.style.backgroundColor = theme.backgroundColor({theme: {mode}});
+  });
 
   return (
     <ThemeProvider theme={{ mode }}>
-      {/*
-        Handle background color theme for body element
-        ----------------------------------------------------*/}
-      <Helmet
-        bodyAttributes={{
-            style: `background-color: ${theme.backgroundColor({theme: {mode}})}`
-        }}
-      />
-
       <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
