@@ -50,7 +50,14 @@ const buttonTextColor = theme('mode', {
   light: '#ffffff',
   dark: colors.darkGrey
 });
-
+const navigatorItemColor = theme('mode', {
+  light: colors.lightGrey,
+  dark: colors.mediumGrey
+});
+const selectedNavigatorItemColor = theme('mode', {
+  light: colors.primary,
+  dark: colors.mediumGrey
+});
 // Transitions
 // -------------------------------------------------------
 const transitions = {
@@ -58,6 +65,7 @@ const transitions = {
 };
 
 export default {
+  // Theme functions
   backgroundColor,
   textColor,
   titleColor,
@@ -65,6 +73,9 @@ export default {
   menuBackgroundColor,
   buttonTextColor,
   buttonBackgroundColor,
+  navigatorItemColor,
+  selectedNavigatorItemColor,
+  // Constants
   colors,
   sizes,
   transitions

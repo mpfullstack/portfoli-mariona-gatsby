@@ -5,16 +5,29 @@ import styled from 'styled-components';
 import theme from '../../theme';
 import TagContainer from '../layout/tagContainer.style';
 import Tag from '../tag';
+import Navigator from '../navigator';
 import arrow from './arrow.png';
 
-const ProjectListWrapper = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  .project-item {
-    height: 100vh;
-    position: relative;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const ProjectListWrapper = styled.div`
+  flex-grow: 1;
+  .project-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    .project-item {
+      height: 100vh;
+      position: relative;
+    }
   }
+`;
+
+const NavigatorWrapper = styled.div`
+  flex-basis: 20px;
 `;
 
 const ImageContainer = styled.div`
@@ -48,7 +61,7 @@ const ImageContainer = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 50%;
+  width: 48%;
   position: absolute;
   z-index: 10;
   top: 380px;
@@ -79,29 +92,36 @@ const ContentWrapper = styled.div`
 
 const ProjectList = ({ projects }) => {
   return (
-    <ProjectListWrapper>
-      {
-        projects.map( ({ node }) => {
-          return (
-            <li className='project-item'>
-              <ImageContainer>
-                <Img fluid={node.image.childImageSharp.fluid} />
-                <div className={`background background--${node.background}`} />
-              </ImageContainer>
-              <ContentWrapper>
-                <TagContainer>
-                  {node.tags.map(tag => <Tag>{tag.name}</Tag>)}
-                </TagContainer>
-                <h1 className='project-title'>
-                  {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
-                </h1>
-                <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
-              </ContentWrapper>
-            </li>
-          )
-        })
-      }
-    </ProjectListWrapper>
+    <Wrapper>
+      <ProjectListWrapper>
+        <ul className='project-list'>
+          {
+            projects.map( ({ node }) => {
+              return (
+                <li className='project-item'>
+                  <ImageContainer>
+                    <Img fluid={node.image.childImageSharp.fluid} />
+                    <div className={`background background--${node.background}`} />
+                  </ImageContainer>
+                  <ContentWrapper>
+                    <TagContainer>
+                      {node.tags.map(tag => <Tag>{tag.name}</Tag>)}
+                    </TagContainer>
+                    <h1 className='project-title'>
+                      {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
+                    </h1>
+                    <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
+                  </ContentWrapper>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </ProjectListWrapper>
+      <NavigatorWrapper>
+        <Navigator items={projects} />
+      </NavigatorWrapper>
+    </Wrapper>
   );
 }
 
