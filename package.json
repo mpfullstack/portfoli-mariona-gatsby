@@ -12,6 +12,7 @@
     "gatsby-plugin-prefetch-google-fonts": "1.4.3",
     "gatsby-plugin-react-helmet": "^3.1.8",
     "gatsby-plugin-sharp": "^2.2.25",
+    "gatsby-plugin-styled-components": "3.1.8",
     "gatsby-plugin-transition-link": "1.13.0",
     "gatsby-source-filesystem": "^2.1.25",
     "gatsby-source-strapi": "0.0.9",
