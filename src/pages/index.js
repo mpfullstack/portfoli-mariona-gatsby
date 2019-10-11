@@ -21,6 +21,7 @@ export const query = graphql`
     allStrapiProject {
       edges {
         node {
+          id
           title
           seo_url
           background

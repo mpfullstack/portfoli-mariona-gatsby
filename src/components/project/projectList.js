@@ -20,7 +20,7 @@ const ProjectListWrapper = styled.div`
     padding: 0;
     margin: 0;
     .project-item {
-      height: 100vh;
+      height: 94vh;
       position: relative;
     }
   }
@@ -96,16 +96,16 @@ const ProjectList = ({ projects }) => {
       <ProjectListWrapper>
         <ul className='project-list'>
           {
-            projects.map( ({ node }) => {
+            projects.map( ({ node }, i) => {
               return (
-                <li className='project-item'>
+                <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
                   <ImageContainer>
                     <Img fluid={node.image.childImageSharp.fluid} />
                     <div className={`background background--${node.background}`} />
                   </ImageContainer>
                   <ContentWrapper>
                     <TagContainer>
-                      {node.tags.map(tag => <Tag>{tag.name}</Tag>)}
+                      {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                     </TagContainer>
                     <h1 className='project-title'>
                       {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
