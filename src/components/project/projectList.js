@@ -20,7 +20,7 @@ const ProjectListWrapper = styled.div`
     padding: 0;
     margin: 0;
     .project-item {
-      height: 94vh;
+      height: 110vh;
       position: relative;
     }
   }

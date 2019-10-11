@@ -43,7 +43,7 @@ const NavigatorItem = styled.div`
   display: inline-block;
 `;
 
-const Span = styled.span`
+const NavigatorItemTitle = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   font-size: 14px;
@@ -57,16 +57,21 @@ const Span = styled.span`
   width: 100px;
 `;
 
-let smoothScrollEnabled = false;
-
 const Navigator = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState(0); // Item index or item hash from URL
+
+  // useEffect to enable smooth scroll polyfill only once
   useEffect(() => {
-    if (!smoothScrollEnabled) {
-      smoothScrollEnabled = true;
+    if (!window.__smoothScrollEnabled) {
       smoothscroll.polyfill();
+      window.__smoothScrollEnabled = true;
     }
+  });
+
+  // useEffect to show selected project title in navigator and scroll to selected project
+  useEffect(() => {
     if (document.getElementById('span_navigator')) {
+      // Scroll to selected project
       if (selectedItem === 0) {
         window.scroll({ top: 0, behavior: 'smooth' });
       } else {
@@ -75,11 +80,13 @@ const Navigator = ({ items }) => {
           behavior: 'smooth'
         });
       }
+      // Show selected project title
       setTimeout(() => {
         document.getElementById('span_navigator').style.display = 'inline-block';
       }, 700);
     }
   });
+
   let permamentClassNames;
   return (
     <NavigatorWrapper>
@@ -99,7 +106,9 @@ const Navigator = ({ items }) => {
             <NavigatorItemWrapper key={node.id} className={itemClassNames.join(' ')} style={{zIndex: 1000-i}}>
               <NavigatorItem className={itemClassNames.join(' ')} onClick={() => setSelectedItem(i)} />
               {i === selectedItem ?
-                <Span id='span_navigator' className={itemClassNames.join(' ')}>{node.title}</Span>
+                <NavigatorItemTitle id='span_navigator' className={itemClassNames.join(' ')}>
+                  {node.title}
+                </NavigatorItemTitle>
                 :
                 null
               }
