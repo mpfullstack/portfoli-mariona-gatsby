@@ -89,6 +89,25 @@ const scrollToSelectedProject = selectedItem => {
   }
 }
 
+const goToItem = (direction, setSelectedItem, items) => {
+  // Set selected item to state based on mouse wheel direction
+  setSelectedItem(selectedItem => {
+    if (direction === 'UP') {
+      if (selectedItem === 0) {
+        return selectedItem;
+      } else {
+        return selectedItem - 1;
+      }
+    } else {
+      if (selectedItem === items.length-1) {
+        return selectedItem;
+      } else {
+        return selectedItem + 1;
+      }
+    }
+  });
+};
+
 const Navigator = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState(0); // Item index or item hash from URL
 
@@ -99,6 +118,36 @@ const Navigator = ({ items }) => {
       scrollToSelectedProject(selectedItem);
     }
   });
+
+  // useEffect to handle on key down
+  useEffect(() => {
+    var isAnimating = false;
+
+    // Function to handle a key down event
+    const keyDownHandler = event => {
+      var key = event.key || event.keyCode;
+      if (!isAnimating) {
+        let delay = 0;
+        isAnimating = true;
+        // Pressed key is arrow down
+        if (String(key) === 'ArrowDown' || String(key) === '40' || String(key) === 'PageDown' || String(key) === '34') {
+          goToItem('DOWN', setSelectedItem, items);
+          delay = 500;
+        }
+        // Pressed key is arrow up
+        else if (String(key) === 'ArrowUp' || String(key) === '38' || String(key) === 'PageUp' || String(key) === '33') {
+          goToItem('UP', setSelectedItem, items);
+          delay = 200;
+        }
+        setTimeout(() => isAnimating = false, delay);
+      }
+    };
+
+    // Add event listener for keydown event
+    document.addEventListener('keydown', keyDownHandler, false);
+
+    return () => document.removeEventListener('keydown', keyDownHandler, false);
+  }, []);
 
   // useEffect hook to handle scroll mouse wheel
   useEffect(() => {
@@ -127,24 +176,10 @@ const Navigator = ({ items }) => {
     		clearTimeout(isScrolling);
         // Set a timeout to run after scrolling ends
     		isScrolling = setTimeout(() => {
+          // Set selected item to state based on mouse wheel direction
+          goToItem(direction, setSelectedItem, items);
           // Let the animation of item visulization finish before letting scroll to next or previous item
           setTimeout(() => isAnimating = false, direction === 'DOWN' ? 500 : 250);
-          // Set selected item to state based on mouse wheel direction
-          setSelectedItem(selectedItem => {
-            if (direction === 'UP') {
-              if (selectedItem === 0) {
-                return selectedItem;
-              } else {
-                return selectedItem - 1;
-              }
-            } else {
-              if (selectedItem === items.length-1) {
-                return selectedItem;
-              } else {
-                return selectedItem + 1;
-              }
-            }
-          });
     		}, 125);
       }
     }, 50)();
