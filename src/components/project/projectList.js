@@ -91,7 +91,7 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const animationInDuration = 1400;
+const animationInDuration = 1700;
 
 const ProjectList = ({ projects }) => {
   return (
