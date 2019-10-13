@@ -59,7 +59,7 @@ const NavigatorItemTitle = styled.span`
   animation-durcation: 2s;
 `;
 
-function addMouseWheelEventListener(scrollHandler) {
+const addMouseWheelEventListener = scrollHandler => {
   if (!window.__mouseWheelEventEnabled) {
     if (window.addEventListener) {
       // IE9+, Chrome, Safari, Opera
@@ -108,10 +108,84 @@ const goToItem = (direction, setSelectedItem, items) => {
   });
 };
 
+const keyDownEffect = (setSelectedItem, items) => {
+  var isAnimating = false;
+
+  // Function to handle a key down event
+  const keyDownHandler = event => {
+    var key = event.key || event.keyCode;
+    if (!isAnimating) {
+      let delay = 0;
+      isAnimating = true;
+      // Pressed key is arrow down
+      if (String(key) === 'ArrowDown' || String(key) === '40' || String(key) === 'PageDown' || String(key) === '34') {
+        goToItem('DOWN', setSelectedItem, items);
+        delay = 500;
+      }
+      // Pressed key is arrow up
+      else if (String(key) === 'ArrowUp' || String(key) === '38' || String(key) === 'PageUp' || String(key) === '33') {
+        goToItem('UP', setSelectedItem, items);
+        delay = 200;
+      }
+      setTimeout(() => isAnimating = false, delay);
+    }
+  };
+
+  // Add event listener for keydown event
+  document.addEventListener('keydown', keyDownHandler, false);
+
+  return () => document.removeEventListener('keydown', keyDownHandler, false);
+}
+
+const mouseWheelEffect = (setSelectedItem, items) => {
+  let isScrolling;
+  let isAnimating = false;
+
+  // Function to handle a mouse wheel scroll event
+  const scrollHandler = event => throttle(() => {
+    let direction;
+    // cross-browser wheel delta
+    // Chrome / IE: both are set to the same thing - WheelEvent for Chrome, MouseWheelEvent for IE
+    // Firefox: first one is undefined, second one is MouseScrollEvent
+    let e = window.event || event;
+    // Chrome / IE: first one is +/-120 (positive on mouse up), second one is zero
+    // Firefox: first one is undefined, second one is -/+3 (negative on mouse up)
+    var delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
+    if (delta > 0) {
+      direction = 'UP';
+    } else {
+      direction = 'DOWN';
+    }
+    // If item animation is not being done
+    if (!isAnimating) {
+      isAnimating = true;
+      // Clear our timeout throughout the scroll
+      clearTimeout(isScrolling);
+      // Set a timeout to run after scrolling ends
+      isScrolling = setTimeout(() => {
+        // Set selected item to state based on mouse wheel direction
+        goToItem(direction, setSelectedItem, items);
+        // Let the animation of item visulization finish before letting scroll to next or previous item
+        setTimeout(() => isAnimating = false, direction === 'DOWN' ? 500 : 250);
+      }, 125);
+    }
+  }, 50)();
+
+  // Add mouse wheel event listener
+  addMouseWheelEventListener(scrollHandler);
+
+  // Return function to remove event listeners and disable window.__mouseWheelEventEnabled
+  return () => {
+    window.removeEventListener("mousewheel", scrollHandler, false);
+    window.removeEventListener("DOMMouseScroll", scrollHandler, false);
+    window.__mouseWheelEventEnabled = false
+  };
+}
+
 const Navigator = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState(0); // Item index or item hash from URL
 
-  // useEffect scroll to selected project
+  // useEffect scroll to selected item
   useEffect(() => {
     if (document.getElementById('span_navigator')) {
       // Scroll to selected project
@@ -119,81 +193,11 @@ const Navigator = ({ items }) => {
     }
   });
 
-  // useEffect to handle on key down
-  useEffect(() => {
-    var isAnimating = false;
+  // useEffect to handle on key down navigation
+  useEffect(() => keyDownEffect(setSelectedItem, items), [items]);
 
-    // Function to handle a key down event
-    const keyDownHandler = event => {
-      var key = event.key || event.keyCode;
-      if (!isAnimating) {
-        let delay = 0;
-        isAnimating = true;
-        // Pressed key is arrow down
-        if (String(key) === 'ArrowDown' || String(key) === '40' || String(key) === 'PageDown' || String(key) === '34') {
-          goToItem('DOWN', setSelectedItem, items);
-          delay = 500;
-        }
-        // Pressed key is arrow up
-        else if (String(key) === 'ArrowUp' || String(key) === '38' || String(key) === 'PageUp' || String(key) === '33') {
-          goToItem('UP', setSelectedItem, items);
-          delay = 200;
-        }
-        setTimeout(() => isAnimating = false, delay);
-      }
-    };
-
-    // Add event listener for keydown event
-    document.addEventListener('keydown', keyDownHandler, false);
-
-    return () => document.removeEventListener('keydown', keyDownHandler, false);
-  }, []);
-
-  // useEffect hook to handle scroll mouse wheel
-  useEffect(() => {
-    let isScrolling;
-    let isAnimating = false;
-
-    // Function to handle a mouse wheel scroll event
-    const scrollHandler = event => throttle(() => {
-      let direction;
-      // cross-browser wheel delta
-      // Chrome / IE: both are set to the same thing - WheelEvent for Chrome, MouseWheelEvent for IE
-      // Firefox: first one is undefined, second one is MouseScrollEvent
-      let e = window.event || event;
-      // Chrome / IE: first one is +/-120 (positive on mouse up), second one is zero
-      // Firefox: first one is undefined, second one is -/+3 (negative on mouse up)
-      var delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
-      if (delta > 0) {
-        direction = 'UP';
-      } else {
-        direction = 'DOWN';
-      }
-      // If item animation is not being done
-      if (!isAnimating) {
-        isAnimating = true;
-        // Clear our timeout throughout the scroll
-    		clearTimeout(isScrolling);
-        // Set a timeout to run after scrolling ends
-    		isScrolling = setTimeout(() => {
-          // Set selected item to state based on mouse wheel direction
-          goToItem(direction, setSelectedItem, items);
-          // Let the animation of item visulization finish before letting scroll to next or previous item
-          setTimeout(() => isAnimating = false, direction === 'DOWN' ? 500 : 250);
-    		}, 125);
-      }
-    }, 50)();
-
-    // Add mouse wheel event listener
-    addMouseWheelEventListener(scrollHandler);
-
-    // Return function to remove event listeners and disable window.__mouseWheelEventEnabled
-    return () => {
-      window.removeEventListener("mousewheel", scrollHandler, false);
-      window.removeEventListener("DOMMouseScroll", scrollHandler, false);
-      window.__mouseWheelEventEnabled = false
-    };
-  }, []);
+  // useEffect hook to handle scroll mouse wheel navigation
+  useEffect(() => mouseWheelEffect(setSelectedItem, items), [items]);
 
   // useEffect to enable smooth scroll polyfill only once
   useEffect(() => {
