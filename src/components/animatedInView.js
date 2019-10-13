@@ -24,7 +24,7 @@ const AnimatedInView = ({ children, offset, animationIn, ...otherOptions }) => {
 
 AnimatedInView.defaultProps = {
   animationIn: 'fadeIn',
-  offset: 500
+  offset: 400
 }
 
 AnimatedInView.propTypes = {
