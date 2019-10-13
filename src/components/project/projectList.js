@@ -103,15 +103,15 @@ const ProjectList = ({ projects }) => {
               return (
                 <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
                   <ImageContainer>
-                    <AnimatedInView animationIn='fadeInLeft' animationInDuration={animationInDuration}>
+                    <AnimatedInView animationIn='fadeInLeft' animationInDelay={200} animationInDuration={animationInDuration}>
                       <div className={`background background--${node.background}`} />
                     </AnimatedInView>
-                    <AnimatedInView animationIn='fadeInDown' animationInDelay={ i > 0 ? 200 : 0} animationInDuration={animationInDuration}>
+                    <AnimatedInView animationIn='fadeInDown' animationInDelay={ i > 0 ? 300 : 0} animationInDuration={animationInDuration}>
                       <Img fluid={node.image.childImageSharp.fluid} />
                     </AnimatedInView>
                   </ImageContainer>
                   <ContentWrapper>
-                    <AnimatedInView animationIn='fadeInRight' animationInDuration={animationInDuration}>
+                    <AnimatedInView animationIn='fadeInRight' animationInDelay={200} animationInDuration={animationInDuration}>
                       <TagContainer>
                         {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                       </TagContainer>
