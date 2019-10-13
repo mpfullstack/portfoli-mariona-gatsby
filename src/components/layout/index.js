@@ -19,7 +19,9 @@ import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
 
 // Main layout css
-import './layout.css'
+import './layout.css';
+// Animate CSS
+import 'animate.css';
 
 const Layout = ({ location, children }) => {
   const data = useStaticQuery(graphql`

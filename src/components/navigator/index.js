@@ -53,12 +53,35 @@ const NavigatorItemTitle = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: none;
-  width: 100px;
+  display: inline-block;
+  animation-delay: .6s;
+  animation-durcation: 2s;
 `;
+
+/*function addMouseWheelEventListener(scrollHandler) {
+  if (window.addEventListener) {
+    // IE9+, Chrome, Safari, Opera
+    window.addEventListener("mousewheel", scrollHandler, false);
+    // Firefox
+    window.addEventListener("DOMMouseScroll", scrollHandler, false);
+  } else {
+    // // IE 6/7/8
+    window.attachEvent("onmousewheel", scrollHandler);
+  }
+}*/
 
 const Navigator = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState(0); // Item index or item hash from URL
+
+  // useEffect hook to handle scroll mouse wheel
+  /*useEffect(() => {
+    if (!window.__mouseWheelEventEnabled) {
+      addMouseWheelEventListener((event) => {
+        var e = window.event || event;
+      })
+      window.__mouseWheelEventEnabled = true;
+    }
+  });*/
 
   // useEffect to enable smooth scroll polyfill only once
   useEffect(() => {
@@ -68,7 +91,7 @@ const Navigator = ({ items }) => {
     }
   });
 
-  // useEffect to show selected project title in navigator and scroll to selected project
+  // useEffect scroll to selected project
   useEffect(() => {
     if (document.getElementById('span_navigator')) {
       // Scroll to selected project
@@ -80,10 +103,6 @@ const Navigator = ({ items }) => {
           behavior: 'smooth'
         });
       }
-      // Show selected project title
-      setTimeout(() => {
-        document.getElementById('span_navigator').style.display = 'inline-block';
-      }, 700);
     }
   });
 
@@ -106,7 +125,7 @@ const Navigator = ({ items }) => {
             <NavigatorItemWrapper key={node.id} className={itemClassNames.join(' ')} style={{zIndex: 1000-i}}>
               <NavigatorItem className={itemClassNames.join(' ')} onClick={() => setSelectedItem(i)} />
               {i === selectedItem ?
-                <NavigatorItemTitle id='span_navigator' className={itemClassNames.join(' ')}>
+                <NavigatorItemTitle id='span_navigator' className='selected animated fadeIn'>
                   {node.title}
                 </NavigatorItemTitle>
                 :

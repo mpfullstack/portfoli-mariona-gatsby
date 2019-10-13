@@ -3,6 +3,10 @@ html.color-theme-in-transition .main {
   transition-delay: 0 !important;
 }
 
+.tl-edges {
+  overflow-y: hidden;
+}
+
 html {
   font-family: 'Nunito';
   -ms-text-size-adjust: 100%;

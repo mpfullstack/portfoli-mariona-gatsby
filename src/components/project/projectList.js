@@ -7,6 +7,7 @@ import TagContainer from '../layout/tagContainer.style';
 import Tag from '../tag';
 import Navigator from '../navigator';
 import arrow from './arrow.png';
+import AnimatedInView from '../animatedInView';
 
 const Wrapper = styled.div`
   display: flex;
@@ -100,17 +101,23 @@ const ProjectList = ({ projects }) => {
               return (
                 <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
                   <ImageContainer>
-                    <Img fluid={node.image.childImageSharp.fluid} />
-                    <div className={`background background--${node.background}`} />
+                    <AnimatedInView animationIn='fadeInLeft'>
+                      <div className={`background background--${node.background}`} />
+                    </AnimatedInView>
+                    <AnimatedInView animationIn='fadeInDown' animationInDelay={ i > 0 ? 200 : 0}>
+                      <Img fluid={node.image.childImageSharp.fluid} />
+                    </AnimatedInView>
                   </ImageContainer>
                   <ContentWrapper>
-                    <TagContainer>
-                      {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
-                    </TagContainer>
-                    <h1 className='project-title'>
-                      {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
-                    </h1>
-                    <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
+                    <AnimatedInView animationIn='fadeInRight'>
+                      <TagContainer>
+                        {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
+                      </TagContainer>
+                      <h1 className='project-title'>
+                        {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
+                      </h1>
+                      <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
+                    </AnimatedInView>
                   </ContentWrapper>
                 </li>
               )
