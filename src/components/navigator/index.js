@@ -166,8 +166,11 @@ const mouseWheelEffect = (setSelectedItem, items) => {
         // Set selected item to state based on mouse wheel direction
         goToItem(direction, setSelectedItem, items);
         // Let the animation of item visulization finish before letting scroll to next or previous item
-        setTimeout(() => isAnimating = false, direction === 'DOWN' ? 500 : 250);
-      }, 125);
+        setTimeout(() => {
+          isAnimating = false;
+          isScrolling = false;
+        }, 750);
+      }, 300);
     }
   }, 50)();
 
