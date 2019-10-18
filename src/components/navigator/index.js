@@ -57,6 +57,7 @@ const NavigatorItemTitle = styled.span`
   display: inline-block;
   animation-delay: .6s;
   animation-durcation: 2s;
+  width: 100px;
 `;
 
 const addMouseWheelEventListener = scrollHandler => {

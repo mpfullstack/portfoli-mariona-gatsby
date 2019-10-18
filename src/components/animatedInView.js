@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types"
-import useInView from 'use-in-view';
 import { Animated } from "react-animated-css";
+import useInView from './hooks/useInView';
 
 // NOTE: We are imporing it in layout/index.js
 // import 'animate.css';
