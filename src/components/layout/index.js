@@ -17,6 +17,7 @@ import LeftContent from '../leftContent';
 import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
+import useWindowSize from '../hooks/useWindowSize';
 
 // Main layout css
 import './layout.css';
@@ -42,8 +43,11 @@ const Layout = ({ location, children }) => {
     document.body.style.backgroundColor = theme.backgroundColor({theme: {mode}});
   });
 
+  const size = useWindowSize();
+  console.log('size', size);
+
   return (
-    <ThemeProvider theme={{ mode }}>
+    <ThemeProvider theme={{ mode: mode, size: () => size }}>
       <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
