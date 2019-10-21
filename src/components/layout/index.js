@@ -43,11 +43,13 @@ const Layout = ({ location, children }) => {
     document.body.style.backgroundColor = theme.backgroundColor({theme: {mode}});
   });
 
+  // Custom hook to get window dimensions
   const size = useWindowSize();
-  console.log('size', size);
+
+  // console.log('size', size, 'theme.getScreenSize(size.width)', theme.getScreenSize(size.width));
 
   return (
-    <ThemeProvider theme={{ mode: mode, size: () => size }}>
+    <ThemeProvider theme={{ mode: mode, windowDimensions: () => size, screenSize: theme.getScreenSize(size.width) }}>
       <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />

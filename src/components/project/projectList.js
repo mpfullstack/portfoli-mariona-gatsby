@@ -21,8 +21,28 @@ const ProjectListWrapper = styled.div`
     padding: 0;
     margin: 0;
     .project-item {
-      height: 110vh;
+      height: ${props => {
+        if (props.theme.windowDimensions().height > 720) {
+          return '900px';
+        } else {
+          return '720px';
+        }
+      }};
       position: relative;
+      margin: 0;
+      &:first-child > .project-item-image {
+        padding-top: 0;
+        margin-top: ${props => props.theme.windowDimensions().height < 720 && '-60px'};
+      }
+      & > .project-item-image {
+        padding-top: ${props => {
+          if (props.theme.windowDimensions().height >= 720) {
+            return '60px';
+          } else {
+            return '0';
+          }
+        }};
+      }
     }
   }
 `;
@@ -102,7 +122,7 @@ const ProjectList = ({ projects }) => {
             projects.map( ({ node }, i) => {
               return (
                 <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
-                  <ImageContainer>
+                  <ImageContainer className='project-item-image'>
                     <AnimatedInView animationIn='fadeInLeft' animationInDelay={200} animationInDuration={animationInDuration}>
                       <div className={`background background--${node.background}`} />
                     </AnimatedInView>
@@ -111,7 +131,7 @@ const ProjectList = ({ projects }) => {
                     </AnimatedInView>
                   </ImageContainer>
                   <ContentWrapper>
-                    <AnimatedInView animationIn='fadeInRight' animationInDelay={200} animationInDuration={animationInDuration}>
+                    <AnimatedInView animationIn='fadeInRight' animationInDelay={200} animationInDuration={animationInDuration} offset={150}>
                       <TagContainer>
                         {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                       </TagContainer>

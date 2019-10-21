@@ -15,9 +15,25 @@ const colors = {
 
 // Sizes
 // ------------------------------------------------------
+// Function that returns the current screen size string value (xs, s, m, l, xl) based on width
+// Ref. https://mediag.com/blog/popular-screen-resolutions-designing-for-all/
+const getScreenSize = width => {
+  if (width < 479) {
+    return 'xs';
+  } else if (width < 767) {
+    return 's';
+  } else if (width < 991) {
+    return 'm';
+  } else if (width < 1280) {
+    return 'l';
+  } else {
+    return 'xl';
+  }
+}
+
 const sizes = {
   small: '768px',
-  contentWidth: '1280px'
+  maxInnerContentWidth: '1280px'
 }
 
 // Theme definitions
@@ -58,6 +74,16 @@ const selectedNavigatorItemColor = theme('mode', {
   light: colors.primary,
   dark: colors.mediumGrey
 });
+
+// Variants
+// const innerContainerWidth = theme.variants('mode', 'variant', {
+//   xs: { light: 'gray', dark: 'darkgray' },
+//   x: { light: 'blue', dark: 'darkblue' },
+//   m: { light: 'green', dark: 'darkgreen' },
+//   l: { light: 'orange', dark: 'darkorange' },
+//   xl: { light: 'orange', dark: 'darkorange' }
+// });
+
 // Transitions
 // -------------------------------------------------------
 const transitions = {
@@ -78,5 +104,7 @@ export default {
   // Constants
   colors,
   sizes,
-  transitions
+  transitions,
+  // Helpers methods
+  getScreenSize
 };

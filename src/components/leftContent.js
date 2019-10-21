@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SiteMenu from './layout/siteMenu';
 import SocialLinks from './layout/socialLinks';
 import Button from './button';
@@ -9,13 +9,13 @@ const LeftContent = styled.section`
   height: 650px;
   position: fixed;
   .left-inner-content {
-    position: fixed;
+    position: ${props => props.theme.windowDimensions().height < 720 && 'fixed'};
     bottom: 10px;
     h1 {
       font-size: 36px;
       line-height: 49px;
       font-weight: normal;
-      /*margin-top: 150px;*/
+      margin-top: ${props => props.theme.windowDimensions().height >= 720 && '169px'};
     }
     p {
       font-size: 16px;
