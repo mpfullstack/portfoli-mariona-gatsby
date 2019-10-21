@@ -28,6 +28,9 @@ export const query = graphql`
           tags {
             name
           }
+          color {
+            hex_code
+          }
           image {
             childImageSharp {
               fluid(maxWidth: 960) {

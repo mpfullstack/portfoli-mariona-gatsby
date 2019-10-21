@@ -72,12 +72,6 @@ const ImageContainer = styled.div`
     height: 500px;
     z-index: 0;
     opacity: .5;
-    &.background--purple {
-      background-color: ${theme.colors.purple};
-    }
-    &.background--green {
-      background-color: ${theme.colors.green};
-    }
   }
 `;
 
@@ -124,7 +118,7 @@ const ProjectList = ({ projects }) => {
                 <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
                   <ImageContainer className='project-item-image'>
                     <AnimatedInView animationIn='fadeInLeft' animationInDelay={200} animationInDuration={animationInDuration}>
-                      <div className={`background background--${node.background}`} />
+                      <div className='background' style={{backgroundColor: node.color.hex_code}} />
                     </AnimatedInView>
                     <AnimatedInView animationIn='fadeInDown' animationInDelay={ i > 0 ? 300 : 0} animationInDuration={animationInDuration}>
                       <Img fluid={node.image.childImageSharp.fluid} />
