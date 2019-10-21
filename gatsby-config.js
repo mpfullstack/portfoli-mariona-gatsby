@@ -1,10 +1,12 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `UI & UX Designer`,
+    description: `Portfolio Mariona Mercadal`,
+    author: `@mpfullstack`,
   },
   plugins: [
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-transition-link`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -32,7 +34,24 @@ module.exports = {
       options: {
         apiURL: `http://localhost:1337`, //process.env.GATSBY_STRAPI_URL_API,
         contentTypes: [ // List of the Content Types you want to be able to request from Gatsby.
-          `project`
+          `project`,
+          `page`
+        ]
+      }
+    },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Nunito`,
+            subsets: [`latin`]
+          },
+          {
+            family: `Montserrat`,
+            subsets: [`latin`],
+            variants: [`400`, `800`]
+          }
         ]
       }
     }
