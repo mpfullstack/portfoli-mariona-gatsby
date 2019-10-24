@@ -67,11 +67,11 @@ const screenMode = {
   ),
   mainContainerWidth: screenSizeThemeFactory(
     { L: '100%', XL: '100%' },
-    '98%'
+    '100%'
   ),
   mainContainerMargin: screenSizeThemeFactory(
     { L: '0', XL: '0' },
-    '0 1%'
+    '0'
   ),
   mainContainerPadding: screenSizeThemeFactory(
     { L: '40px 0 0 0', XL: '40px 0 0 0' },
@@ -108,6 +108,10 @@ const screenMode = {
   siteMenuPadding: screenSizeThemeFactory(
     { L: '0 20px 0 0', XL: '0 20px 0 0' },
     '0'
+  ),
+  introTop: screenSizeThemeFactory(
+    { L: 'inherit', XL: 'inherit' },
+    '60px'
   )
 };
 

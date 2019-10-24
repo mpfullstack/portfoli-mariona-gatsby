@@ -50,6 +50,7 @@ const LeftContent = styled.section`
           return 0;
         }
       }};
+      top: ${theme.introTop};
       position: ${props => {
         if (props.theme.windowDimensions().height < 720) {
           return 'fixed'
