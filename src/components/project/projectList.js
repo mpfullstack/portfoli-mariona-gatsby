@@ -8,6 +8,7 @@ import Tag from '../tag';
 import Navigator from '../navigator';
 import arrow from './arrow.png';
 import AnimatedInView from '../animatedInView';
+import ProjectTitle from './projectTitle.style';
 
 const Wrapper = styled.div`
   display: flex;
@@ -81,15 +82,6 @@ const ContentWrapper = styled.div`
   z-index: 10;
   top: 380px;
   left: 51%;
-  .project-title {
-    font-size: 32px;
-    font-weight: normal;
-    line-height: 44px;
-    margin: 10px 0;
-    a {
-      color: ${theme.titleColor};
-    }
-  }
   .know-more {
     color: ${theme.textColor};
     font-family: Montserrat;
@@ -129,9 +121,9 @@ const ProjectList = ({ projects }) => {
                       <TagContainer>
                         {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                       </TagContainer>
-                      <h1 className='project-title'>
-                        {<AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>}
-                      </h1>
+                      <ProjectTitle>
+                        <AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>
+                      </ProjectTitle>
                       <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
                     </AnimatedInView>
                   </ContentWrapper>
