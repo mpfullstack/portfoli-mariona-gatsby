@@ -36,6 +36,15 @@ const sizes = {
   maxInnerContentWidth: '1280px'
 }
 
+// Variants
+const rightContentMaxWidth = theme('screenSize', {
+  xs: '100%',
+  x: '100%',
+  m: '100%',
+  l: '65%',
+  xl: '870px'
+});
+
 // Theme definitions
 // ------------------------------------------------------
 const backgroundColor = theme('mode', {
@@ -87,15 +96,6 @@ const labelColor = theme('mode', {
   dark: colors.darkGrey
 });
 
-// Variants
-// const innerContainerWidth = theme.variants('mode', 'variant', {
-//   xs: { light: 'gray', dark: 'darkgray' },
-//   x: { light: 'blue', dark: 'darkblue' },
-//   m: { light: 'green', dark: 'darkgreen' },
-//   l: { light: 'orange', dark: 'darkorange' },
-//   xl: { light: 'orange', dark: 'darkorange' }
-// });
-
 // Transitions
 // -------------------------------------------------------
 const transitions = {
@@ -116,6 +116,7 @@ export default {
   borderInputColor,
   borderInputColorHover,
   labelColor,
+  rightContentMaxWidth,
   // Constants
   colors,
   sizes,

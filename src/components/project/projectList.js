@@ -77,11 +77,29 @@ const ImageContainer = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: 48%;
+  width: ${props => {
+    if (props.theme.windowDimensions().width < 1280) {
+      return '100%';
+    } else {
+      return '48%';
+    }
+  }};
+  top: ${props => {
+    if (props.theme.windowDimensions().width < 1280) {
+      return '470px';
+    } else {
+      return '380px';
+    }
+  }};
+  left: ${props => {
+    if (props.theme.windowDimensions().width < 1280) {
+      return '100px';
+    } else {
+      return '51%';
+    }
+  }};
   position: absolute;
   z-index: 10;
-  top: 380px;
-  left: 51%;
   .know-more {
     color: ${theme.textColor};
     font-family: Montserrat;
