@@ -1,31 +1,17 @@
-import React/*, { useState, useEffect }*/ from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-
-const MarkdownIt = require('markdown-it');
-const md = new MarkdownIt();
+import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout';
+import ProjectDetail from '../components/project/projectDetail';
 
 export default ({ data }) => {
   const project = data.allStrapiProject.edges[0].node;
-
-  // Similar to componentDidMount and componentDidUpdate:
-  // useEffect(() => {
-  //   console.log('useEffect');
-  //   console.log(project);
-  // });
-
   return (
     <Layout>
-      <SEO title={project.title} description={project.meta_description} />
-      <div>
-        <h1>{project.title}</h1>
-        <div
-          dangerouslySetInnerHTML={{ __html: md.render(project.content) }} />
-      </div>
+      <ProjectDetail project={project} />
     </Layout>
-  )
+  );
 }
+
 export const query = graphql`
   query($id: String!) {
     allStrapiProject (
@@ -39,6 +25,23 @@ export const query = graphql`
           title
           meta_description
           content
+          tags {
+            name
+          }
+          color {
+            hex_code
+          }
+          blocks {
+            content
+            title
+            image {
+              childImageSharp {
+                fluid(maxWidth: 1200, quality: 90) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
         }
       }
     }

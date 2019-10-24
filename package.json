@@ -24,8 +24,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-animated-css": "1.2.1",
+    "react-custom-scrollbars": "4.2.1",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
+    "react-scrollbars-custom": "4.0.21",
     "smoothscroll-polyfill": "0.4.4",
     "styled-components": "4.4.0",
     "styled-theming": "2.2.0"
