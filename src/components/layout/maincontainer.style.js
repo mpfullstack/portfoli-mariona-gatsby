@@ -3,9 +3,10 @@ import theme from '../../theme';
 
 export default styled.div`
   background-color: ${theme.backgroundColor};
-  width: 100%;
+  width: ${theme.mainContainerWidth};
+  margin: ${theme.mainContainerMargin};
+  padding: ${theme.mainContainerPadding};
   height: 100%;
   min-height: 100vh;
-  padding-top: 40px;
   color: ${theme.textColor};
 `;

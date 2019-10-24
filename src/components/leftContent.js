@@ -5,19 +5,26 @@ import SocialLinks from './layout/socialLinks';
 import Button from './button';
 import ContactForm from './form/contact';
 import { Animated } from "react-animated-css";
+import theme from '../theme';
 
 const LeftContent = styled.section`
-  min-width: 340px;
-  height: 650px;
-  position: fixed;
+  width: ${theme.leftContentWidth};
+  height: ${theme.leftContentHeight};
+  position: ${theme.leftContentPosition};
+  margin: 0 auto;
   .left-inner-content {
     width: 100%;
     max-width: 240px;
-    position: ${props => {
-      if (props.theme.windowDimensions().height < 720) {
-        return 'fixed'
+    position: ${theme.leftInnerContentPosition};
+    bottom: ${props => {
+      if ([theme.SIZES.L, theme.SIZES.XL].find(s => String(s) === String(props.theme.screenSize))) {
+        if (props.theme.windowDimensions().height < 720) {
+          return '40px'
+        } else {
+          return '0';
+        }
       } else {
-        return 'absolute';
+        return '40px';
       }
     }};
     h1 {
@@ -34,7 +41,6 @@ const LeftContent = styled.section`
     .contact-form-button {
       margin-top: 50px;
     }
-    &,
     & .intro {
       bottom: ${props => {
         if (props.theme.windowDimensions().height < 720) {

@@ -50,7 +50,7 @@ const Layout = ({ location, children }) => {
 
   return (
     <ThemeProvider theme={{ mode: mode, windowDimensions: () => size, screenSize: theme.getScreenSize(size.width) }}>
-      <MainContainer className='main'>
+      <MainContainer className={`main ${theme.getScreenSize(size.width)}`}>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
         <main>

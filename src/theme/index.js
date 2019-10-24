@@ -17,17 +17,26 @@ const colors = {
 // ------------------------------------------------------
 // Function that returns the current screen size string value (xs, s, m, l, xl) based on width
 // Ref. https://mediag.com/blog/popular-screen-resolutions-designing-for-all/
+const SIZES = {
+  XS: 'XS',
+  S: 'S',
+  M: 'M',
+  L: 'L',
+  XL: 'XL'
+};
+// const { XS, S, M, L XL } = ...SIZES;
+
 const getScreenSize = width => {
   if (width < 479) {
-    return 'xs';
+    return SIZES.XS;
   } else if (width < 767) {
-    return 's';
+    return SIZES.S;
   } else if (width < 991) {
-    return 'm';
+    return SIZES.M;
   } else if (width < 1280) {
-    return 'l';
+    return SIZES.L;
   } else {
-    return 'xl';
+    return SIZES.XL;
   }
 }
 
@@ -36,14 +45,58 @@ const sizes = {
   maxInnerContentWidth: '1280px'
 }
 
-// Variants
-const rightContentMaxWidth = theme('screenSize', {
-  xs: '100%',
-  x: '100%',
-  m: '100%',
-  l: '65%',
-  xl: '870px'
-});
+const screenSizeThemeFactory = (sizes, defaultValue) => {
+  const defaults = {};
+  for (let size in SIZES) {
+    if (!(size in sizes)) {
+      defaults[size] = defaultValue
+    }
+  }
+  return theme('screenSize', {...sizes, ...defaults});
+}
+
+const screenMode = {
+  rightContentMaxWidth: screenSizeThemeFactory(
+    { L: '65%', XL: '870px' },
+    '100%'
+  ),
+  mainContainerWidth: screenSizeThemeFactory(
+    { L: '100%', XL: '100%' },
+    '98%'
+  ),
+  mainContainerMargin: screenSizeThemeFactory(
+    { L: '0', XL: '0' },
+    '0 1%'
+  ),
+  mainContainerPadding: screenSizeThemeFactory(
+    { L: '40px 0 0 0', XL: '40px 0 0 0' },
+    '0'
+  ),
+  innerContainerPadding: screenSizeThemeFactory(
+    { L: '20px 20px 0', XL: '20px 20px 0' },
+    '0'
+  ),
+  leftContentHeight: screenSizeThemeFactory(
+    { L: '650px', XL: '650px' },
+    '100vh'
+  ),
+  leftContentWidth: screenSizeThemeFactory(
+    { L: '340px', XL: '340px' },
+    '90%'
+  ),
+  leftContentPosition: screenSizeThemeFactory(
+    { L: 'fixed', XL: 'fixed' },
+    'static'
+  ),
+  leftInnerContentPosition: screenSizeThemeFactory(
+    { L: 'absolute', XL: 'absolute' },
+    'fixed'
+  ),
+  siteMenuPadding: screenSizeThemeFactory(
+    { L: '0 20px 0 0', XL: '0 20px 0 0' },
+    '0'
+  )
+};
 
 // Theme definitions
 // ------------------------------------------------------
@@ -116,10 +169,11 @@ export default {
   borderInputColor,
   borderInputColorHover,
   labelColor,
-  rightContentMaxWidth,
+  ...screenMode,
   // Constants
   colors,
   sizes,
+  SIZES,
   transitions,
   // Helpers methods
   getScreenSize

@@ -6,7 +6,7 @@ import theme from '../../theme';
 const SiteMenu = styled.div`
   .menu {
     text-align: right;
-    padding: 0 20px 0 0;
+    padding: ${theme.siteMenuPadding};
     margin: 0;
     .item {
       list-style-type: none;
