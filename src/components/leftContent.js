@@ -11,6 +11,7 @@ const LeftContent = styled.section`
   height: 650px;
   position: fixed;
   .left-inner-content {
+    width: 100%;
     max-width: 240px;
     position: ${props => {
       if (props.theme.windowDimensions().height < 720) {
@@ -55,6 +56,7 @@ const LeftContent = styled.section`
 
 export default ({ location }) => {
   const [section, setSection] = useState('intro');
+  const [isFirstTime, setFirstTime] = useState(true);
 
   return (
     <LeftContent>
@@ -63,6 +65,10 @@ export default ({ location }) => {
 
       <div className='left-inner-content'>
 
+      {/* TODO: Refactor this code to not repeat the intro block twice */}
+      {
+        !isFirstTime
+        ?
         <Animated className='intro' isVisible={section === 'intro'}
           animationIn={'fadeIn'} animationOut='fadeOut'
           animationInDelay={250}
@@ -71,15 +77,35 @@ export default ({ location }) => {
             <h1>Research.<br /> Think.<br /> Create.</h1>
             <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
             <SocialLinks />
-            <Button className='contact-form-button' onClick={(e) => setSection('contact-form')}>{`Let's talk`}</Button>
+            <Button className='contact-form-button' onClick={(e) => {
+              setFirstTime(false);
+              setSection('contact-form');
+            }}>{`Let's talk`}</Button>
         </Animated>
+        :
+        <div className='intro'>
+          <h1>Research.<br /> Think.<br /> Create.</h1>
+          <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
+          <SocialLinks />
+          <Button className='contact-form-button' onClick={(e) => {
+            setFirstTime(false);
+            setSection('contact-form');
+          }}>{`Let's talk`}</Button>
+        </div>
+      }
 
-        <Animated isVisible={section === 'contact-form'}
-          animationInDelay={250}
-          animationIn={'fadeInRight'}
-          animationOut='fadeOutRight'>
-            <ContactForm onClickBack={() => setSection('intro')}/>
-        </Animated>
+        {
+          !isFirstTime
+          ?
+          <Animated isVisible={section === 'contact-form'}
+            animationInDelay={250}
+            animationIn={'fadeInRight'}
+            animationOut='fadeOutRight'>
+              <ContactForm onClickBack={() => setSection('intro')}/>
+          </Animated>
+          :
+          null
+        }
 
       </div>
 
