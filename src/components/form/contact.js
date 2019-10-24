@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Scrollbar from 'react-scrollbars-custom';
 import every from 'lodash.every';
 import trim from 'lodash.trim';
 import Field from './field';
 import Button from '../button';
 import InputWrapper from './inputWrapper';
 import leftArrow from '../../images/leftArrow.png';
+import theme from '../../theme';
 
 const ContactFormWrapper = styled.div`
   width: 100%;
@@ -64,7 +66,57 @@ function handleDataChange(e, setData) {
   });
 }
 
-const ContactForm = ({ onClickBack }) => {
+const FormElement = ({ handleFormChange, focusOut, data }) => {
+  const textAreaClassNames = ['explainMe-field'];
+  if (data.fields.explainMe.value || data.fields.explainMe.focus) {
+    textAreaClassNames.push('focus');
+  }
+  return (
+    <div>
+      <h1>{`Let's talk`}</h1>
+      <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+      <Form>
+        <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
+          <label>Name</label>
+          <InputWrapper>
+            <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+          </InputWrapper>
+        </Field>
+        <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
+          <label>Email</label>
+          <InputWrapper>
+            <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+          </InputWrapper>
+        </Field>
+        <Field className={textAreaClassNames.join(' ')}>
+          <label>Explain me!</label>
+          <InputWrapper>
+            <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+          </InputWrapper>
+        </Field>
+        <Field>
+          <Button className='submit-form-button'>{`Send`}</Button>
+        </Field>
+      </Form>
+    </div>
+  );
+}
+
+const FormContent = props => {
+  if ([theme.SIZES.L, theme.SIZES.XL].find(s => String(s) === String(theme.getScreenSize()))) {
+    return (
+      <FormElement {...props} />
+    );
+  } else {
+    return (
+      <Scrollbar style={{ height: '80vh' }}>
+        <FormElement {...props} />
+      </Scrollbar>
+    );
+  }
+}
+
+const ContactForm = ({ onClickBack, ...rest }) => {
   const [data, setData] = useState({
     fields: {
       firstname: {value: '', focus: false},
@@ -96,41 +148,10 @@ const ContactForm = ({ onClickBack }) => {
     })
   }
 
-  const textAreaClassNames = ['explainMe-field'];
-  if (data.fields.explainMe.value || data.fields.explainMe.focus) {
-    textAreaClassNames.push('focus');
-  }
-
   return (
     <ContactFormWrapper>
       <button className='back' onClick={() => onClickBack()}></button>
-      <h1>{`Let's talk`}</h1>
-      <p>Interested in working together?<br />
-      Or just to say hello, please do not<br />
-      hesitate to contacte me.</p>
-      <Form>
-        <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
-          <label>Name</label>
-          <InputWrapper>
-            <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
-          <label>Email</label>
-          <InputWrapper>
-            <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field className={textAreaClassNames.join(' ')}>
-          <label>Explain me!</label>
-          <InputWrapper>
-            <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field>
-          <Button className='submit-form-button'>{`Send`}</Button>
-        </Field>
-      </Form>
+      <FormContent handleFormChange={handleFormChange} data={data} focusOut={focusOut} />
     </ContactFormWrapper>
   );
 }

@@ -14,7 +14,8 @@ const LeftContent = styled.section`
   margin: 0 auto;
   .left-inner-content {
     width: 100%;
-    max-width: 240px;
+    height: ${theme.leftInnerContentHeight};
+    max-width: ${theme.leftInnerContentMaxWidth};
     position: ${theme.leftInnerContentPosition};
     bottom: ${props => {
       if ([theme.SIZES.L, theme.SIZES.XL].find(s => String(s) === String(props.theme.screenSize))) {

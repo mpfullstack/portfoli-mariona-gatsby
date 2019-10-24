@@ -26,18 +26,23 @@ const SIZES = {
 };
 // const { XS, S, M, L XL } = ...SIZES;
 
+let _screenSize;
+
 const getScreenSize = width => {
+  if (!width)
+    return _screenSize;
   if (width < 479) {
-    return SIZES.XS;
+    _screenSize =  SIZES.XS;
   } else if (width < 767) {
-    return SIZES.S;
+    _screenSize = SIZES.S;
   } else if (width < 991) {
-    return SIZES.M;
+    _screenSize = SIZES.M;
   } else if (width < 1280) {
-    return SIZES.L;
+    _screenSize = SIZES.L;
   } else {
-    return SIZES.XL;
+    _screenSize = SIZES.XL;
   }
+  return _screenSize;
 }
 
 const sizes = {
@@ -84,6 +89,10 @@ const screenMode = {
     { L: '340px', XL: '340px' },
     '90%'
   ),
+  leftInnerContentMaxWidth: screenSizeThemeFactory(
+    { L: '240px', XL: '240px' },
+    '88%'
+  ),
   leftContentPosition: screenSizeThemeFactory(
     { L: 'fixed', XL: 'fixed' },
     'static'
@@ -91,6 +100,10 @@ const screenMode = {
   leftInnerContentPosition: screenSizeThemeFactory(
     { L: 'absolute', XL: 'absolute' },
     'fixed'
+  ),
+  leftInnerContentHeight: screenSizeThemeFactory(
+    { L: 'auto', XL: 'auto' },
+    '82vh'
   ),
   siteMenuPadding: screenSizeThemeFactory(
     { L: '0 20px 0 0', XL: '0 20px 0 0' },
