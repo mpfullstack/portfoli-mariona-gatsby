@@ -74,6 +74,18 @@ const selectedNavigatorItemColor = theme('mode', {
   light: colors.primary,
   dark: colors.mediumGrey
 });
+const borderInputColor = theme('mode', {
+  light: colors.lightGrey,
+  dark: colors.darkGrey
+});
+const borderInputColorHover = theme('mode', {
+  light: colors.primary,
+  dark: colors.darkGrey
+});
+const labelColor = theme('mode', {
+  light: colors.lightGrey,
+  dark: colors.darkGrey
+});
 
 // Variants
 // const innerContainerWidth = theme.variants('mode', 'variant', {
@@ -101,6 +113,9 @@ export default {
   buttonBackgroundColor,
   navigatorItemColor,
   selectedNavigatorItemColor,
+  borderInputColor,
+  borderInputColorHover,
+  labelColor,
   // Constants
   colors,
   sizes,
