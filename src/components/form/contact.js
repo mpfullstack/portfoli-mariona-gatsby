@@ -16,6 +16,11 @@ const ContactFormWrapper = styled.div`
   h1 {
     margin-top: 0 !important;
   }
+  p {
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      margin-bottom: 0 !important;
+    }
+  }
   .back {
     background: url(${leftArrow}) no-repeat 0 0;
     border: none;
@@ -27,7 +32,7 @@ const ContactFormWrapper = styled.div`
     z-index: 100;
     top: -550px;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      top: -40px;
+      top: -30px;
     }
     @media only screen and (max-height: 719px) and (min-width: ${theme.SIZES.M}) {
       top: -580px;
@@ -36,7 +41,7 @@ const ContactFormWrapper = styled.div`
   .scrollbar {
     height: auto;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      height: 80vh !important;
+      height: 78vh !important;
     }
     .inner-content {
       height: auto;

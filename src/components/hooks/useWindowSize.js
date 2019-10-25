@@ -19,7 +19,9 @@ export default () => {
     }
 
     function handleResize() {
-      // setWindowSize(getSize());
+      // TODO: Review what to do here
+      if (0)
+        setWindowSize(getSize());
     }
 
     window.addEventListener('resize', handleResize);
