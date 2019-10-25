@@ -46,11 +46,9 @@ const Layout = ({ location, children }) => {
   // Custom hook to get window dimensions
   const size = useWindowSize();
 
-  // console.log('size', size, 'theme.getScreenSize(size.width)', theme.getScreenSize(size.width));
-
   return (
-    <ThemeProvider theme={{ mode: mode, windowDimensions: () => size, screenSize: theme.getScreenSize(size.width) }}>
-      <MainContainer className={`main ${theme.getScreenSize(size.width)}`}>
+    <ThemeProvider theme={{ mode: mode, windowDimensions: () => size }}>
+      <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
         <main>

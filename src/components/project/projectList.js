@@ -22,27 +22,24 @@ const ProjectListWrapper = styled.div`
     padding: 0;
     margin: 0;
     .project-item {
-      height: ${props => {
-        if (props.theme.windowDimensions().height > 720) {
-          return '900px';
-        } else {
-          return '720px';
-        }
-      }};
+      height: 720px;
       position: relative;
       margin: 0;
+      @media only screen and (min-height: 720px) {
+        height: 900px;
+      }
       &:first-child > .project-item-image {
         padding-top: 0;
-        margin-top: ${props => props.theme.windowDimensions().height < 720 && '-60px'};
+        margin-top: 0;
+        @media only screen and (max-height: 719px) {
+          margin-top: -70px;
+        }
       }
       & > .project-item-image {
-        padding-top: ${props => {
-          if (props.theme.windowDimensions().height >= 720) {
-            return '60px';
-          } else {
-            return '0';
-          }
-        }};
+        padding-top: 0;
+        @media only screen and (min-height: 719px) {
+          padding-top: 60px;
+        }
       }
     }
   }
@@ -77,29 +74,16 @@ const ImageContainer = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  width: ${props => {
-    if (props.theme.windowDimensions().width < 1280) {
-      return '100%';
-    } else {
-      return '48%';
-    }
-  }};
-  top: ${props => {
-    if (props.theme.windowDimensions().width < 1280) {
-      return '470px';
-    } else {
-      return '380px';
-    }
-  }};
-  left: ${props => {
-    if (props.theme.windowDimensions().width < 1280) {
-      return '100px';
-    } else {
-      return '51%';
-    }
-  }};
+  width: '48%';
+  top: 380px;
+  left: 51%;
   position: absolute;
   z-index: 10;
+  @media only screen and (max-width: ${theme.SIZES.L}) {
+    width: 100%;
+    top: 470px;
+    left: 100px;
+  }
   .know-more {
     color: ${theme.textColor};
     font-family: Montserrat;

@@ -2,7 +2,7 @@ import theme from 'styled-theming';
 
 // Colors
 // ------------------------------------------------------
-const colors = {
+const COLORS = {
   primary: '#6cc3bf',
   superDarkGrey: '#222222',
   darkGrey: '#444444',
@@ -14,161 +14,69 @@ const colors = {
 }
 
 // Sizes
-// ------------------------------------------------------
-// Function that returns the current screen size string value (xs, s, m, l, xl) based on width
 // Ref. https://mediag.com/blog/popular-screen-resolutions-designing-for-all/
+// ------------------------------------------------------
 const SIZES = {
-  XS: 'XS',
-  S: 'S',
-  M: 'M',
-  L: 'L',
-  XL: 'XL'
-};
-// const { XS, S, M, L XL } = ...SIZES;
-
-let _screenSize;
-
-const getScreenSize = width => {
-  if (!width)
-    return _screenSize;
-  if (width < 479) {
-    _screenSize =  SIZES.XS;
-  } else if (width < 767) {
-    _screenSize = SIZES.S;
-  } else if (width < 991) {
-    _screenSize = SIZES.M;
-  } else if (width < 1280) {
-    _screenSize = SIZES.L;
-  } else {
-    _screenSize = SIZES.XL;
-  }
-  return _screenSize;
-}
-
-const sizes = {
-  small: '768px',
-  maxInnerContentWidth: '1280px'
-}
-
-const screenSizeThemeFactory = (sizes, defaultValue) => {
-  const defaults = {};
-  for (let size in SIZES) {
-    if (!(size in sizes)) {
-      defaults[size] = defaultValue
-    }
-  }
-  return theme('screenSize', {...sizes, ...defaults});
-}
-
-const screenMode = {
-  rightContentMaxWidth: screenSizeThemeFactory(
-    { L: '65%', XL: '870px' },
-    '100%'
-  ),
-  mainContainerWidth: screenSizeThemeFactory(
-    { L: '100%', XL: '100%' },
-    '100%'
-  ),
-  mainContainerMargin: screenSizeThemeFactory(
-    { L: '0', XL: '0' },
-    '0'
-  ),
-  mainContainerPadding: screenSizeThemeFactory(
-    { L: '40px 0 0 0', XL: '40px 0 0 0' },
-    '0'
-  ),
-  innerContainerPadding: screenSizeThemeFactory(
-    { L: '20px 20px 0', XL: '20px 20px 0' },
-    '0'
-  ),
-  leftContentHeight: screenSizeThemeFactory(
-    { L: '650px', XL: '650px' },
-    '100vh'
-  ),
-  leftContentWidth: screenSizeThemeFactory(
-    { L: '340px', XL: '340px' },
-    '90%'
-  ),
-  leftInnerContentMaxWidth: screenSizeThemeFactory(
-    { L: '240px', XL: '240px' },
-    '88%'
-  ),
-  leftContentPosition: screenSizeThemeFactory(
-    { L: 'fixed', XL: 'fixed' },
-    'static'
-  ),
-  leftInnerContentPosition: screenSizeThemeFactory(
-    { L: 'absolute', XL: 'absolute' },
-    'fixed'
-  ),
-  leftInnerContentHeight: screenSizeThemeFactory(
-    { L: 'auto', XL: 'auto' },
-    '82vh'
-  ),
-  siteMenuPadding: screenSizeThemeFactory(
-    { L: '0 20px 0 0', XL: '0 20px 0 0' },
-    '0'
-  ),
-  introTop: screenSizeThemeFactory(
-    { L: 'inherit', XL: 'inherit' },
-    '60px'
-  )
+  XS: '478px',
+  S: '766px',
+  M: '990px',
+  L: '1279px'
 };
 
 // Theme definitions
 // ------------------------------------------------------
 const backgroundColor = theme('mode', {
-  light: colors.superLightGrey,
-  dark: colors.superDarkGrey
+  light: COLORS.superLightGrey,
+  dark: COLORS.superDarkGrey
 });
 const textColor = theme('mode', {
-  light: colors.mediumGrey,
-  dark: colors.lightGrey
+  light: COLORS.mediumGrey,
+  dark: COLORS.lightGrey
 });
 const titleColor = theme('mode', {
-  light: colors.darkGrey,
-  dark: colors.lightGrey
+  light: COLORS.darkGrey,
+  dark: COLORS.lightGrey
 });
 const tagColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.mediumGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.mediumGrey
 });
 const menuBackgroundColor = theme('mode', {
   light: 'rgba(108, 195, 191, 0.6)',
   dark: 'rgba(108, 195, 191, 0.6)'
 });
 const buttonBackgroundColor = theme('mode', {
-  light: colors.primary,
-  dark: colors.primary
+  light: COLORS.primary,
+  dark: COLORS.primary
 });
 const buttonTextColor = theme('mode', {
   light: '#ffffff',
-  dark: colors.darkGrey
+  dark: COLORS.darkGrey
 });
 const navigatorItemColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.mediumGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.mediumGrey
 });
 const selectedNavigatorItemColor = theme('mode', {
-  light: colors.primary,
-  dark: colors.mediumGrey
+  light: COLORS.primary,
+  dark: COLORS.mediumGrey
 });
 const borderInputColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.darkGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.darkGrey
 });
 const borderInputColorHover = theme('mode', {
-  light: colors.primary,
-  dark: colors.darkGrey
+  light: COLORS.primary,
+  dark: COLORS.darkGrey
 });
 const labelColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.darkGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.darkGrey
 });
 
 // Transitions
 // -------------------------------------------------------
-const transitions = {
+const TRANSITIONS = {
   ease: 'width 0.5s ease, box-shadow 0.5s ease !important'
 };
 
@@ -186,12 +94,8 @@ export default {
   borderInputColor,
   borderInputColorHover,
   labelColor,
-  ...screenMode,
   // Constants
-  colors,
-  sizes,
+  COLORS,
   SIZES,
-  transitions,
-  // Helpers methods
-  getScreenSize
+  TRANSITIONS
 };

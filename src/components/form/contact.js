@@ -11,6 +11,8 @@ import theme from '../../theme';
 
 const ContactFormWrapper = styled.div`
   width: 100%;
+  height: 100%;
+  position: relative;
   h1 {
     margin-top: 0 !important;
   }
@@ -21,6 +23,34 @@ const ContactFormWrapper = styled.div`
     height: 20px;
     margin-bottom: 20px;
     cursor: pointer;
+    position: fixed;
+    z-index: 100;
+    top: -550px;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      top: -40px;
+    }
+    @media only screen and (max-height: 719px) and (min-width: ${theme.SIZES.M}) {
+      top: -580px;
+    }
+  }
+  .scrollbar {
+    height: auto;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      height: 80vh !important;
+    }
+    .inner-content {
+      height: auto;
+      padding-right: 10px;
+      position: fixed;
+      bottom: 0;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        position: inherit;
+        bottom: inherit;
+      }
+      @media only screen and (max-height: 719px) {
+        bottom: 40px;
+      }
+    }
   }
 `;
 
@@ -72,48 +102,36 @@ const FormElement = ({ handleFormChange, focusOut, data }) => {
     textAreaClassNames.push('focus');
   }
   return (
-    <div>
-      <h1>{`Let's talk`}</h1>
-      <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
-      <Form>
-        <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
-          <label>Name</label>
-          <InputWrapper>
-            <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
-          <label>Email</label>
-          <InputWrapper>
-            <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field className={textAreaClassNames.join(' ')}>
-          <label>Explain me!</label>
-          <InputWrapper>
-            <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field>
-          <Button className='submit-form-button'>{`Send`}</Button>
-        </Field>
-      </Form>
-    </div>
+    <Scrollbar className='scrollbar'>
+      <div className='inner-content'>
+        <h1>{`Let's talk`}</h1>
+        <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+        <Form>
+          <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
+            <label>Name</label>
+            <InputWrapper>
+              <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+            </InputWrapper>
+          </Field>
+          <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
+            <label>Email</label>
+            <InputWrapper>
+              <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+            </InputWrapper>
+          </Field>
+          <Field className={textAreaClassNames.join(' ')}>
+            <label>Explain me!</label>
+            <InputWrapper>
+              <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+            </InputWrapper>
+          </Field>
+          <Field>
+            <Button className='submit-form-button'>{`Send`}</Button>
+          </Field>
+        </Form>
+      </div>
+    </Scrollbar>
   );
-}
-
-const FormContent = props => {
-  if ([theme.SIZES.L, theme.SIZES.XL].find(s => String(s) === String(theme.getScreenSize()))) {
-    return (
-      <FormElement {...props} />
-    );
-  } else {
-    return (
-      <Scrollbar style={{ height: '80vh' }}>
-        <FormElement {...props} />
-      </Scrollbar>
-    );
-  }
 }
 
 const ContactForm = ({ onClickBack, ...rest }) => {
@@ -151,7 +169,7 @@ const ContactForm = ({ onClickBack, ...rest }) => {
   return (
     <ContactFormWrapper>
       <button className='back' onClick={() => onClickBack()}></button>
-      <FormContent handleFormChange={handleFormChange} data={data} focusOut={focusOut} />
+      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} />
     </ContactFormWrapper>
   );
 }

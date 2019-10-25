@@ -6,8 +6,11 @@ import theme from '../../theme';
 const SiteMenu = styled.div`
   .menu {
     text-align: right;
-    padding: ${theme.siteMenuPadding};
+    padding: 0 20px 0 0;
     margin: 0;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      padding: 0;
+    }
     .item {
       list-style-type: none;
       padding: 0;
@@ -37,11 +40,11 @@ const SiteMenu = styled.div`
       & a:hover {
         &::after {
           width: calc(100% + 8px);
-          -webkit-transition: ${theme.transitions.ease};
-          -moz-transition: ${theme.transitions.ease};
-          -ms-transition: ${theme.transitions.ease};
-          -o-transition: ${theme.transitions.ease};
-          transition: ${theme.transitions.ease};
+          -webkit-transition: ${theme.TRANSITIONS.ease};
+          -moz-transition: ${theme.TRANSITIONS.ease};
+          -ms-transition: ${theme.TRANSITIONS.ease};
+          -o-transition: ${theme.TRANSITIONS.ease};
+          transition: ${theme.TRANSITIONS.ease};
         }
       }
     }

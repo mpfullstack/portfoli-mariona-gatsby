@@ -19,10 +19,7 @@ export default () => {
     }
 
     function handleResize() {
-      // NOTE: setWindowSize only when we are not in a screen device
-      if (getSize().width > 767) {
-        setWindowSize(getSize());
-      }
+      // setWindowSize(getSize());
     }
 
     window.addEventListener('resize', handleResize);

@@ -8,31 +8,40 @@ import { Animated } from "react-animated-css";
 import theme from '../theme';
 
 const LeftContent = styled.section`
-  width: ${theme.leftContentWidth};
-  height: ${theme.leftContentHeight};
-  position: ${theme.leftContentPosition};
+  width: 340px;
+  height: 650px;
+  position: fixed;
   margin: 0 auto;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    width: 90%;
+    height: 100vh;
+    position: static;
+  }
   .left-inner-content {
     width: 100%;
-    height: ${theme.leftInnerContentHeight};
-    max-width: ${theme.leftInnerContentMaxWidth};
-    position: ${theme.leftInnerContentPosition};
-    bottom: ${props => {
-      if ([theme.SIZES.L, theme.SIZES.XL].find(s => String(s) === String(props.theme.screenSize))) {
-        if (props.theme.windowDimensions().height < 720) {
-          return '40px'
-        } else {
-          return '0';
-        }
-      } else {
-        return '40px';
-      }
-    }};
+    height: auto;
+    max-width: 240px;
+    position: absolute;
+    bottom: 0;
+    @media only screen and (max-height: 719px) {
+      bottom: 30px;
+    }
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      height: 82vh;
+      position: fixed;
+      max-width: 300px;
+    }
     h1 {
       font-size: 36px;
       line-height: 49px;
       font-weight: normal;
-      margin-top: ${props => props.theme.windowDimensions().height >= 720 && '169px'};
+      margin-top: 0;
+      @media only screen and (min-height: 720px) {
+        margin-top: 169px;
+      }
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        margin-top: 0;
+      }
     }
     p {
       font-size: 16px;
@@ -43,21 +52,21 @@ const LeftContent = styled.section`
       margin-top: 50px;
     }
     & .intro {
-      bottom: ${props => {
-        if (props.theme.windowDimensions().height < 720) {
-          return '40px'
-        } else {
-          return 0;
-        }
-      }};
-      top: ${theme.introTop};
-      position: ${props => {
-        if (props.theme.windowDimensions().height < 720) {
-          return 'fixed'
-        } else {
-          return 'absolute';
-        }
-      }};
+      bottom: 0;
+      top: inherit;
+      position: absolute;
+      @media only screen and (max-height: 719px) {
+        bottom: 40px;
+      }
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        top: 120px;
+        position: fixed;
+      }
+    }
+    & .contact {
+      bottom: 0;
+      position: absolute;
+      width: 100%;
     }
   }
 `;
@@ -103,7 +112,7 @@ export default ({ location }) => {
   const Contact = () => {
     if (!isFirstTime) {
       return (
-        <Animated isVisible={section === 'contact-form'}
+        <Animated className='contact' isVisible={section === 'contact-form'}
         animationInDelay={250}
         animationIn={'fadeInRight'}
         animationOut='fadeOutRight'>
