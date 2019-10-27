@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SiteMenu from './layout/siteMenu';
+import SiteMenu from './layout/menu';
 import SocialLinks from './layout/socialLinks';
 import Button from './button';
 import ContactForm from './form/contact';

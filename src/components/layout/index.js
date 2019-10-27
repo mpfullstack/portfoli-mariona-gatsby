@@ -44,10 +44,10 @@ const Layout = ({ location, children }) => {
   });
 
   // Custom hook to get window dimensions
-  const size = useWindowSize();
+  // const size = useWindowSize();
 
   return (
-    <ThemeProvider theme={{ mode: mode, windowDimensions: () => size }}>
+    <ThemeProvider theme={{ mode: mode/*, windowDimensions: () => size*/ }}>
       <MainContainer className='main'>
         <Header siteTitle={data.site.siteMetadata.title} />
         <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
