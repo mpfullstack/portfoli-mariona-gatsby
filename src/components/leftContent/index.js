@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SiteMenu from './layout/menu';
-import SocialLinks from './layout/socialLinks';
-import Button from './button';
-import ContactForm from './form/contact';
 import { Animated } from "react-animated-css";
-import theme from '../theme';
-import worksArrow from '../images/worksArrow.png';
+import SiteMenu from '../layout/menu';
+import SocialLinks from '../layout/socialLinks';
+import Button from '../button';
+import ContactForm from '../form/contact';
+import MobileWorksButton from './mobileWorksButton';
+import theme from '../../theme';
 
 const LeftContent = styled.section`
   width: 340px;
@@ -84,42 +84,9 @@ const LeftContent = styled.section`
   }
 `;
 
-const WorksButtonWrapper = styled.div`
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  @media only screen and (min-width: ${theme.SIZES.M}) {
-    display: none;
-  }
-  .background {
-    width: 160px;
-    height: 128px;
-    background-color: ${theme.backgroundWorksButtonColor};
-    opacity: .5;
-  }
-  .text {
-    position: fixed;
-    bottom: 54px;
-    right: 96px;
-    z-index: 10000;
-    color: ${theme.textWorksButtonColor};
-    font-family: Nunito;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: 22px;
-    &:after {
-      content: url(${worksArrow});
-      margin-left: 10px;
-      top: 2px;
-      position: relative;
-    }
-  }
-`;
-
-const handleWorksClick = e => {
+const handleMobileWorksClick = e => {
   e.persist();
-  console.log('Clicked on works button!');
+  console.log(e);
 }
 
 export default ({ location }) => {
@@ -177,19 +144,6 @@ export default ({ location }) => {
     }
   }
 
-  // Works button (only mobile)
-  const WorksButton = () => {
-    return (
-      <div onClick={e => handleWorksClick(e)}>
-        <WorksButtonWrapper>
-          <div className='background' />
-          <div className='text'>Works</div>
-        </WorksButtonWrapper>
-      </div>
-    )
-
-  }
-
   return (
     <LeftContent>
 
@@ -206,7 +160,7 @@ export default ({ location }) => {
       {
         section === 'intro'
         ?
-        <WorksButton />
+        <MobileWorksButton onClick={handleMobileWorksClick} />
         :
         null
       }

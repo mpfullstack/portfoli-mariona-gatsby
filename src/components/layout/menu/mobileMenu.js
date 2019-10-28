@@ -14,6 +14,7 @@ const MobileMenu = styled.div`
     color: ${theme.textColor};
     display: inline-block;
     margin-right: 4px;
+    letter-spacing: 0.15em;
   }
   .icon {
     display: inline-block;

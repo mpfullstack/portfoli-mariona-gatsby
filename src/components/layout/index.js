@@ -17,7 +17,7 @@ import LeftContent from '../leftContent';
 import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
-import useWindowSize from '../hooks/useWindowSize';
+// import useWindowSize from '../hooks/useWindowSize';
 
 // Main layout css
 import './layout.css';

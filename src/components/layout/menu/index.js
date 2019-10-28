@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { Animated } from "react-animated-css";
 import styled from 'styled-components';
