@@ -129,8 +129,6 @@ export default ({ location }) => {
     openMobileMenu(!isMobileMenuOpened);
   }
 
-  console.log('isMobileMenuOpened', isMobileMenuOpened);
-
   if (isMobileMenuOpened) {
 
   }
@@ -157,7 +155,7 @@ export default ({ location }) => {
     <SiteMenu>
       {
         size.width < 990 ?
-        <div className='mobile-menu-wrapper' onClick={e => handleOnClickMenu(e)}>
+        <div className='mobile-menu-wrapper disable-tap-highlight' onClick={e => handleOnClickMenu(e)}>
           <MobileMenu text={isMobileMenuOpened ? 'Close' : 'Menu'} opened={isMobileMenuOpened}/>
         </div>
         : null
@@ -165,7 +163,7 @@ export default ({ location }) => {
       {
         size.width < 990
         ?
-        <div className='mobile' style={{display: isFirstTime ? 'none' : 'block'}}>
+        <div className='mobile disable-tap-highlight' style={{display: isFirstTime ? 'none' : 'block'}}>
           <Animated animationIn={'slideInUp'} animationOut={'slideOutDown'} isVisible={isMobileMenuOpened}>
             <Menu />
           </Animated>

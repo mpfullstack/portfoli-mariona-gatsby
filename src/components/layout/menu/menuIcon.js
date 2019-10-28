@@ -4,14 +4,31 @@ import theme from '../../../theme';
 
 const MenuIconWrapper = styled.div`
   width: 14px;
-  height: 10px;
+  height: 12px;
   position: relative;
   & span {
-    transition: width .3s ease;
+    transition: .3s ease;
   }
   &:hover span {
     width: 100%;
-    transition: width .3s ease;
+    transition: .3s ease;
+  }
+  &.opened {
+    height: 9px;
+    span {
+      display: none;
+      width: 100%;
+    }
+    span:first-child {
+      display: block;
+      transition: .3s ease;
+      transform: translate(0px, 3px) rotate(45deg) !important;
+    }
+    span:last-child {
+      display: block;
+      transition: .3s ease;
+      transform: translate(0px, -5px) rotate(-45deg) !important;
+    }
   }
 `;
 
@@ -20,15 +37,15 @@ const Line = styled.span`
   height: 2px;
   background-color: ${theme.textColor};
   position: absolute;
-  top: 44%;
+  top: 46%;
   left: 0;
   border-radius: 2px;
   &:first-child {
-    top: 0;
+    top: 5%;
     width: 78%;
   }
   &:last-child {
-    top: 84%;
+    top: 88%;
     width: 78%;
   }
 `;
@@ -36,9 +53,9 @@ const Line = styled.span`
 // To close
 // translate(1px, 3px) rotate(45deg)
 
-export default () => {
+export default ({ state }) => {
   return (
-    <MenuIconWrapper>
+    <MenuIconWrapper className={state || 'closed'}>
       <Line />
       <Line />
       <Line />

@@ -34,6 +34,9 @@ const ProjectListWrapper = styled.div`
         @media only screen and (max-height: 719px) {
           margin-top: -70px;
         }
+        @media only screen and (max-width: ${theme.SIZES.M}) {
+          margin-top: 0;
+        }
       }
       & > .project-item-image {
         padding-top: 0;

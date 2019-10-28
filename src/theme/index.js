@@ -73,6 +73,14 @@ const labelColor = theme('mode', {
   light: COLORS.lightGrey,
   dark: COLORS.darkGrey
 });
+const backgroundWorksButtonColor = theme('mode', {
+  light: 'rgba(111, 207, 184, 0.2)',
+  dark: 'rgba(111, 207, 184, 0.2)'
+});
+const textWorksButtonColor = theme('mode', {
+  light: COLORS.primary,
+  dark: COLORS.primary
+});
 
 // Transitions
 // -------------------------------------------------------
@@ -94,6 +102,8 @@ export default {
   borderInputColor,
   borderInputColorHover,
   labelColor,
+  backgroundWorksButtonColor,
+  textWorksButtonColor,
   // Constants
   COLORS,
   SIZES,

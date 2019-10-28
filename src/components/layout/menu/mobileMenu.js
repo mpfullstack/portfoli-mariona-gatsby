@@ -24,7 +24,7 @@ export default ({ text, opened }) => {
   return (
     <MobileMenu>
       <div className='text'>{text}</div>
-      <div className='icon'><MenuIcon /></div>
+      <div className='icon'><MenuIcon state={opened ? 'opened' : null} /></div>
     </MobileMenu>
   );
 }

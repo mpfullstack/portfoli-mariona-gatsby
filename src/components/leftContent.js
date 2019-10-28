@@ -6,6 +6,7 @@ import Button from './button';
 import ContactForm from './form/contact';
 import { Animated } from "react-animated-css";
 import theme from '../theme';
+import worksArrow from '../images/worksArrow.png';
 
 const LeftContent = styled.section`
   width: 340px;
@@ -41,15 +42,24 @@ const LeftContent = styled.section`
       }
       @media only screen and (max-width: ${theme.SIZES.M}) {
         margin-top: 0;
+        font-size: 52px;
+        line-height: 64px;
       }
     }
     p {
       font-size: 16px;
       line-height: 22px;
       margin-bottom: 10px;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        font-size: 22px;
+        line-height: 30px;
+      }
     }
     .contact-form-button {
       margin-top: 50px;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        display: none;
+      }
     }
     & .intro {
       bottom: 0;
@@ -59,9 +69,12 @@ const LeftContent = styled.section`
         bottom: 40px;
       }
       @media only screen and (max-width: ${theme.SIZES.M}) {
-        top: 120px;
+        top: 100px;
         position: fixed;
       }
+    }
+    & .social-links-wrapper {
+      margin-top: 30px;
     }
     & .contact {
       bottom: 0;
@@ -70,6 +83,44 @@ const LeftContent = styled.section`
     }
   }
 `;
+
+const WorksButtonWrapper = styled.div`
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  @media only screen and (min-width: ${theme.SIZES.M}) {
+    display: none;
+  }
+  .background {
+    width: 160px;
+    height: 128px;
+    background-color: ${theme.backgroundWorksButtonColor};
+    opacity: .5;
+  }
+  .text {
+    position: fixed;
+    bottom: 54px;
+    right: 96px;
+    z-index: 10000;
+    color: ${theme.textWorksButtonColor};
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 22px;
+    &:after {
+      content: url(${worksArrow});
+      margin-left: 10px;
+      top: 2px;
+      position: relative;
+    }
+  }
+`;
+
+const handleWorksClick = e => {
+  e.persist();
+  console.log('Clicked on works button!');
+}
 
 export default ({ location }) => {
   const [section, setSection] = useState('intro');
@@ -81,7 +132,9 @@ export default ({ location }) => {
       <div>
         <h1>Research.<br /> Think.<br /> Create.</h1>
         <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
-        <SocialLinks />
+        <div className='social-links-wrapper'>
+          <SocialLinks />
+        </div>
         <Button className='contact-form-button' onClick={e => {
           setFirstTime(false);
           setSection('contact-form');
@@ -124,6 +177,19 @@ export default ({ location }) => {
     }
   }
 
+  // Works button (only mobile)
+  const WorksButton = () => {
+    return (
+      <div onClick={e => handleWorksClick(e)}>
+        <WorksButtonWrapper>
+          <div className='background' />
+          <div className='text'>Works</div>
+        </WorksButtonWrapper>
+      </div>
+    )
+
+  }
+
   return (
     <LeftContent>
 
@@ -136,6 +202,14 @@ export default ({ location }) => {
         <Contact />
 
       </div>
+
+      {
+        section === 'intro'
+        ?
+        <WorksButton />
+        :
+        null
+      }
 
     </LeftContent>
   );
