@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Animated } from "react-animated-css";
 import SiteMenu from '../layout/menu';
@@ -7,6 +7,8 @@ import Button from '../button';
 import ContactForm from '../form/contact';
 import MobileWorksButton from './mobileWorksButton';
 import theme from '../../theme';
+import SectionContext from '../layout/context';
+import { isDesktop } from '../../helpers';
 
 const LeftContent = styled.section`
   width: 340px;
@@ -84,14 +86,11 @@ const LeftContent = styled.section`
   }
 `;
 
-const handleMobileWorksClick = e => {
-  e.persist();
-  console.log(e);
-}
-
 export default ({ location }) => {
-  const [section, setSection] = useState('intro');
   const [isFirstTime, setFirstTime] = useState(true);
+
+  // Use section context
+  const { section, setSection } = useContext(SectionContext);
 
   // Intro content component
   const Intro = () => {
@@ -145,13 +144,24 @@ export default ({ location }) => {
   }
 
   return (
-    <LeftContent>
+    <LeftContent className={section}>
 
-      <SiteMenu location={location} />
+      <SiteMenu location={location} onClickMenuCallBack={(e, isMobileMenuOpened) => {
+        if (e.target.innerText === 'HOME') {
+          setSection('intro');
+        }
+      }}/>
 
       <div className='left-inner-content'>
 
-        <Intro />
+        {
+          // We always render Intro when we're in intro section or in desktop view
+          section === 'intro' || isDesktop()
+          ?
+          <Intro />
+          :
+          null
+        }
 
         <Contact />
 
@@ -160,7 +170,7 @@ export default ({ location }) => {
       {
         section === 'intro'
         ?
-        <MobileWorksButton onClick={handleMobileWorksClick} />
+        <MobileWorksButton onClick={() => setSection('mobile_works')} />
         :
         null
       }

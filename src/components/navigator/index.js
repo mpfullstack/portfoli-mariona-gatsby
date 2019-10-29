@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import throttle from 'lodash.throttle';
 import theme from '../../theme';
+import { isDevice } from '../../helpers';
+import SectionContext from '../layout/context';
 
 const NavigatorWrapper = styled.div`
   width: 15px;
@@ -13,6 +15,11 @@ const NavigatorWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    &.navigator-mobile_works {
+      top: 0;
+    }
+  }
 `;
 
 const NavigatorItemWrapper = styled.div`
@@ -76,16 +83,30 @@ const addMouseWheelEventListener = scrollHandler => {
   }
 }
 
-const scrollToSelectedProject = selectedItem => {
+const scrollToSelectedProject = (selectedItem, section) => {
   // Scroll to selected project
-  if (selectedItem === 0) {
-    window.scroll({ top: 0, behavior: 'smooth' });
+  if (isDevice()) {
+    if (section === 'mobile_works') {
+      let projectItem = document.getElementById(`project-item-${selectedItem}`);
+      if (projectItem) {
+        projectItem.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      window.scroll({ top: 0, behavior: 'smooth' });
+    }
+  // Is desktop
   } else {
-    let projectItem = document.getElementById(`project-item-${selectedItem}`);
-    if (projectItem) {
-      projectItem.scrollIntoView({
-        behavior: 'smooth'
-      });
+    if (selectedItem === 0) {
+      window.scroll({ top: 0, behavior: 'smooth' });
+    } else {
+      let projectItem = document.getElementById(`project-item-${selectedItem}`);
+      if (projectItem) {
+        projectItem.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
     }
   }
 }
@@ -189,11 +210,15 @@ const mouseWheelEffect = (setSelectedItem, items) => {
 const Navigator = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState(0); // Item index or item hash from URL
 
+  // Use section context
+  const { section } = useContext(SectionContext);
+
   // useEffect scroll to selected item
   useEffect(() => {
     if (document.getElementById('span_navigator')) {
+      console.log('scroll to selected project', selectedItem);
       // Scroll to selected project
-      scrollToSelectedProject(selectedItem);
+      scrollToSelectedProject(selectedItem, section);
     }
   });
 
@@ -216,7 +241,7 @@ const Navigator = ({ items }) => {
 
   let permamentClassNames;
   return (
-    <NavigatorWrapper>
+    <NavigatorWrapper className={`navigator-${section}`}>
       {
         items.map(({ node }, i) => {
           const itemClassNames = [];

@@ -17,7 +17,7 @@ import LeftContent from '../leftContent';
 import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
-// import useWindowSize from '../hooks/useWindowSize';
+import SectionContext from './context';
 
 // Main layout css
 import './layout.css';
@@ -38,40 +38,42 @@ const Layout = ({ location, children }) => {
   // useState hook to set theme mode
   const [mode, setThemeMode] = useState('light');
 
+  // useState hook to handle section
+  const [section, setSection] = useState('intro');
+
   // useEffect hook to set theme mode background-color style to body element
   useEffect(() => {
     document.body.style.backgroundColor = theme.backgroundColor({theme: {mode}});
   });
 
-  // Custom hook to get window dimensions
-  // const size = useWindowSize();
-
   return (
-    <ThemeProvider theme={{ mode: mode/*, windowDimensions: () => size*/ }}>
-      <MainContainer className='main'>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
-        <main>
-          <ContainerWrapper>
-            <InnerContainerWrapper>
-              {/*
-                Left content including Menu, Title and introduction with a contact form button
-                ------------------------------------------------------------------------------ */}
-              <LeftContent location={location} />
+    <SectionContext.Provider value={{section, setSection}}>
+      <ThemeProvider theme={{ mode: mode }}>
+        <MainContainer className='main'>
+          <Header siteTitle={data.site.siteMetadata.title} />
+          <ThemeToggleButton setThemeMode={setThemeMode} mode={mode} />
+          <main>
+            <ContainerWrapper>
+              <InnerContainerWrapper>
+                {/*
+                  Left content including Menu, Title and introduction with a contact form button
+                  ------------------------------------------------------------------------------ */}
+                <LeftContent location={location} />
 
-              {/*
-                Right content
-                ------------------------------------------------------------------------------ */}
-              <RightContent>
-                {children}
-              </RightContent>
+                {/*
+                  Right content
+                  ------------------------------------------------------------------------------ */}
+                <RightContent>
+                  {children}
+                </RightContent>
 
-            </InnerContainerWrapper>
-          </ContainerWrapper>
-        </main>
-        <footer></footer>
-      </MainContainer>
-    </ThemeProvider>
+              </InnerContainerWrapper>
+            </ContainerWrapper>
+          </main>
+          <footer></footer>
+        </MainContainer>
+      </ThemeProvider>
+    </SectionContext.Provider>
   )
 }
 

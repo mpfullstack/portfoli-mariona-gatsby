@@ -4,7 +4,7 @@ import { Animated } from "react-animated-css";
 import styled from 'styled-components';
 import theme from '../../../theme';
 import MobileMenu from './mobileMenu';
-import useWindowSize from '../../hooks/useWindowSize';
+import { isDevice, isDesktop } from '../../../helpers';
 
 const SiteMenu = styled.div`
   .mobile {
@@ -84,8 +84,7 @@ const SiteMenu = styled.div`
   }
 `;
 
-export default ({ location }) => {
-  const size = useWindowSize();
+export default ({ location, onClickMenuCallBack }) => {
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
 
@@ -96,7 +95,7 @@ export default ({ location }) => {
   }
 
   const menuItems = [];
-  if (size.width >= 990) {
+  if (isDesktop()) {
     menuItems.push({
       linkTo: '/',
       name: 'Works'
@@ -111,7 +110,7 @@ export default ({ location }) => {
       name: 'Home'
     });
     menuItems.push({
-      linkTo: '#works',
+      linkTo: '/#works',
       name: 'Works'
     });
     menuItems.push({
@@ -119,18 +118,20 @@ export default ({ location }) => {
       name: 'About'
     });
     menuItems.push({
-      linkTo: '#contact',
+      linkTo: '/#contact',
       name: 'Contact'
     });
   }
 
   function handleOnClickMenu(e) {
-    setFirstTime(false);
+    if (!isMobileMenuOpened) {
+      setFirstTime(false);
+    } else {
+      setTimeout(() => {
+        setFirstTime(true);
+      }, 900);
+    }
     openMobileMenu(!isMobileMenuOpened);
-  }
-
-  if (isMobileMenuOpened) {
-
   }
 
   const Menu = () => (
@@ -143,7 +144,12 @@ export default ({ location }) => {
         }
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
-            {<AniLink fade to={menuItem.linkTo}>{menuItem.name}</AniLink>}
+            <AniLink onClick={e => {
+              if (e.target.innerText === 'HOME') {
+                handleOnClickMenu();
+              }
+              onClickMenuCallBack(e, isMobileMenuOpened);
+            }} fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
           </li>
         );
       })
@@ -154,16 +160,18 @@ export default ({ location }) => {
   return (
     <SiteMenu>
       {
-        size.width < 990 ?
+        isDevice()
+        ?
         <div className='mobile-menu-wrapper disable-tap-highlight' onClick={e => handleOnClickMenu(e)}>
           <MobileMenu text={isMobileMenuOpened ? 'Close' : 'Menu'} opened={isMobileMenuOpened}/>
         </div>
         : null
       }
       {
-        size.width < 990
+        isDevice()
         ?
-        <div className='mobile disable-tap-highlight' style={{display: isFirstTime ? 'none' : 'block'}}>
+        <div className={`mobile disable-tap-highlight`}
+          style={{display: isFirstTime ? 'none' : 'block'}}>
           <Animated animationIn={'slideInUp'} animationOut={'slideOutDown'} isVisible={isMobileMenuOpened}>
             <Menu />
           </Animated>
