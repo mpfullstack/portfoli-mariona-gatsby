@@ -216,7 +216,6 @@ const Navigator = ({ items }) => {
   // useEffect scroll to selected item
   useEffect(() => {
     if (document.getElementById('span_navigator')) {
-      console.log('scroll to selected project', selectedItem);
       // Scroll to selected project
       scrollToSelectedProject(selectedItem, section);
     }

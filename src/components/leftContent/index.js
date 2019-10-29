@@ -146,11 +146,7 @@ export default ({ location }) => {
   return (
     <LeftContent className={section}>
 
-      <SiteMenu location={location} onClickMenuCallBack={(e, isMobileMenuOpened) => {
-        if (e.target.innerText === 'HOME') {
-          setSection('intro');
-        }
-      }}/>
+      <SiteMenu location={location} />
 
       <div className='left-inner-content'>
 

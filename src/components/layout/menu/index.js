@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { Animated } from "react-animated-css";
 import styled from 'styled-components';
 import theme from '../../../theme';
 import MobileMenu from './mobileMenu';
 import { isDevice, isDesktop } from '../../../helpers';
+import SectionContext from '../context';
 
 const SiteMenu = styled.div`
   .mobile {
@@ -88,6 +89,9 @@ export default ({ location, onClickMenuCallBack }) => {
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
 
+  // Use section context
+  const { section, setSection } = useContext(SectionContext);
+
   if (!location) {
     location = {
       pathname: '/'
@@ -144,12 +148,22 @@ export default ({ location, onClickMenuCallBack }) => {
         }
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
-            <AniLink onClick={e => {
-              if (e.target.innerText === 'HOME') {
+            {
+              //TODO: Make navigation in device menu more elegant
+              menuItem.name === 'Home' || menuItem.name === 'Works'
+              ?
+              <a href={menuItem.linkTo} onClick={e => {
+                e.preventDefault();
+                if (menuItem.name === 'Home')
+                  setSection('intro');
+                else
+                  setSection('mobile_works');
                 handleOnClickMenu();
-              }
-              onClickMenuCallBack(e, isMobileMenuOpened);
-            }} fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
+              }}>
+                {menuItem.name}</a>
+              :
+              <AniLink fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
+            }
           </li>
         );
       })
