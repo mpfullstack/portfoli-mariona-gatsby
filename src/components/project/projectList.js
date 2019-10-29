@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -9,10 +9,17 @@ import Navigator from '../navigator';
 import arrow from './arrow.png';
 import AnimatedInView from '../animatedInView';
 import ProjectTitle from './projectTitle.style';
+import SectionContext from '../layout/context';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    display: none;
+    &.mobile_works {
+      display: flex;
+    }
+  }
 `;
 
 const ProjectListWrapper = styled.div`
@@ -105,8 +112,11 @@ const ContentWrapper = styled.div`
 const animationInDuration = 1700;
 
 const ProjectList = ({ projects }) => {
+  // Use section context
+  const { section } = useContext(SectionContext);
+
   return (
-    <Wrapper>
+    <Wrapper className={section}>
       <ProjectListWrapper>
         <ul className='project-list'>
           {
