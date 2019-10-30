@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { Animated } from "react-animated-css";
 import styled from 'styled-components';
@@ -86,11 +86,50 @@ const SiteMenu = styled.div`
 `;
 
 export default ({ location, onClickMenuCallBack }) => {
+  const [menuItems, setMenuItems] = useState([]);
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
 
   // Use section context
-  const { section, setSection } = useContext(SectionContext);
+  const { setSection } = useContext(SectionContext);
+
+  // Set menu items when component is mount and we know which screen size we are (device or desktop)
+  useEffect(() => {
+    // Desktop
+    if (isDesktop()) {
+      menuItems.push({
+        linkTo: '/',
+        name: 'Works'
+      });
+      menuItems.push({
+        linkTo: '/about',
+        name: 'About'
+      });
+    }
+    // Mobile
+    else {
+      menuItems.push({
+        linkTo: '/#home',
+        name: 'Home',
+        id: 'intro'
+      });
+      menuItems.push({
+        linkTo: '/#works',
+        name: 'Works',
+        id: 'mobile-works'
+      });
+      menuItems.push({
+        linkTo: '/about',
+        name: 'About'
+      });
+      menuItems.push({
+        linkTo: '/#contact',
+        name: 'Contact',
+        id: 'contact-form'
+      });
+    }
+    setMenuItems(menuItems);
+  }, [menuItems]);
 
   if (!location) {
     location = {
@@ -98,36 +137,7 @@ export default ({ location, onClickMenuCallBack }) => {
     };
   }
 
-  const menuItems = [];
-  if (isDesktop()) {
-    menuItems.push({
-      linkTo: '/',
-      name: 'Works'
-    });
-    menuItems.push({
-      linkTo: '/about',
-      name: 'About'
-    });
-  } else {
-    menuItems.push({
-      linkTo: '/',
-      name: 'Home'
-    });
-    menuItems.push({
-      linkTo: '/#works',
-      name: 'Works'
-    });
-    menuItems.push({
-      linkTo: '/about',
-      name: 'About'
-    });
-    menuItems.push({
-      linkTo: '/#contact',
-      name: 'Contact'
-    });
-  }
-
-  function handleOnClickMenu(e) {
+  const handleOnClickMenu = () => {
     if (!isMobileMenuOpened) {
       setFirstTime(false);
     } else {
@@ -149,15 +159,11 @@ export default ({ location, onClickMenuCallBack }) => {
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
             {
-              //TODO: Make navigation in device menu more elegant
-              menuItem.name === 'Home' || menuItem.name === 'Works'
+              menuItem.id
               ?
               <a href={menuItem.linkTo} onClick={e => {
                 e.preventDefault();
-                if (menuItem.name === 'Home')
-                  setSection('intro');
-                else
-                  setSection('mobile_works');
+                setSection(menuItem.id);
                 handleOnClickMenu();
               }}>
                 {menuItem.name}</a>

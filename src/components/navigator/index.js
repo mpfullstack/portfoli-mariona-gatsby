@@ -16,7 +16,7 @@ const NavigatorWrapper = styled.div`
   justify-content: center;
   position: fixed;
   @media only screen and (max-width: ${theme.SIZES.M}) {
-    &.navigator-mobile_works {
+    &.navigator-mobile-works {
       top: 0;
     }
   }
@@ -86,7 +86,7 @@ const addMouseWheelEventListener = scrollHandler => {
 const scrollToSelectedProject = (selectedItem, section) => {
   // Scroll to selected project
   if (isDevice()) {
-    if (section === 'mobile_works') {
+    if (section === 'mobile-works') {
       let projectItem = document.getElementById(`project-item-${selectedItem}`);
       if (projectItem) {
         projectItem.scrollIntoView({

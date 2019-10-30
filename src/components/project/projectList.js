@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   @media only screen and (max-width: ${theme.SIZES.M}) {
     display: none;
-    &.mobile_works {
+    &.mobile-works {
       display: flex;
     }
   }

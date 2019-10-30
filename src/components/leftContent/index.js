@@ -166,7 +166,7 @@ export default ({ location }) => {
       {
         section === 'intro'
         ?
-        <MobileWorksButton onClick={() => setSection('mobile_works')} />
+        <MobileWorksButton onClick={() => setSection('mobile-works')} />
         :
         null
       }
