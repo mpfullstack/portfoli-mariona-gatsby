@@ -85,52 +85,62 @@ const SiteMenu = styled.div`
   }
 `;
 
-export default ({ location, onClickMenuCallBack }) => {
+export default ({ onClickMenuCallBack }) => {
   const [menuItems, setMenuItems] = useState([]);
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
 
   // Use section context
-  const { setSection } = useContext(SectionContext);
+  const { section, setSection } = useContext(SectionContext);
 
   // Set menu items when component is mount and we know which screen size we are (device or desktop)
   useEffect(() => {
+    let currentMenuItems = [];
     // Desktop
     if (isDesktop()) {
-      menuItems.push({
+      currentMenuItems.push({
         linkTo: '/',
         name: 'Works'
       });
-      menuItems.push({
+      currentMenuItems.push({
         linkTo: '/about',
         name: 'About'
       });
     }
     // Mobile
     else {
-      menuItems.push({
-        linkTo: '/#home',
+      currentMenuItems.push({
+        samePage: true,
+        linkTo: '#intro',
         name: 'Home',
         id: 'intro'
       });
-      menuItems.push({
-        linkTo: '/#works',
+      currentMenuItems.push({
+        samePage: true,
+        linkTo: '#mobile-works',
         name: 'Works',
         id: 'mobile-works'
       });
-      menuItems.push({
+      currentMenuItems.push({
+        samePage: false,
         linkTo: '/about',
-        name: 'About'
+        name: 'About',
+        id: 'about'
       });
-      menuItems.push({
-        linkTo: '/#contact',
+      currentMenuItems.push({
+        samePage: true,
+        linkTo: '#contact-form',
         name: 'Contact',
         id: 'contact-form'
       });
     }
-    setMenuItems(menuItems);
-  }, [menuItems]);
+    setMenuItems(currentMenuItems);
+  }, []);
 
+  let location;
+  if (typeof window === 'object') {
+    location = window.location;
+  }
   if (!location) {
     location = {
       pathname: '/'
@@ -153,16 +163,15 @@ export default ({ location, onClickMenuCallBack }) => {
     {
       menuItems.map(menuItem => {
         const itemCssClasses = ['item'];
-        if (menuItem.linkTo === location.pathname) {
+        if (menuItem.linkTo === location.pathname || menuItem.linkTo === location.hash || section === menuItem.id) {
           itemCssClasses.push('selected');
         }
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
             {
-              menuItem.id
+              menuItem.samePage
               ?
-              <a href={menuItem.linkTo} onClick={e => {
-                e.preventDefault();
+              <a href={`/${menuItem.linkTo}`} onClick={e => {
                 setSection(menuItem.id);
                 handleOnClickMenu();
               }}>

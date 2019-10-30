@@ -41,6 +41,10 @@ const tagColor = theme('mode', {
   light: COLORS.lightGrey,
   dark: COLORS.mediumGrey
 });
+const linkColor = theme('mode', {
+  light: COLORS.primary,
+  dark: COLORS.mediumGrey
+});
 const menuBackgroundColor = theme('mode', {
   light: 'rgba(108, 195, 191, 0.6)',
   dark: 'rgba(108, 195, 191, 0.6)'
@@ -104,6 +108,7 @@ export default {
   labelColor,
   backgroundWorksButtonColor,
   textWorksButtonColor,
+  linkColor,
   // Constants
   COLORS,
   SIZES,

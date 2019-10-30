@@ -18,11 +18,30 @@ import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
 import SectionContext from './context';
+import { isDevice } from '../../helpers';
 
 // Main layout css
 import './layout.css';
 // Animate CSS
 import 'animate.css';
+
+const getDefaultSection = () => {
+  let defaultSection = 'intro';
+  if (isDevice()) {
+    if (typeof window === 'object') {
+      const pathname = String(window.location.pathname).replace('/','');
+      if (pathname) {
+        defaultSection = pathname;
+      } else {
+        const hash = String(window.location.hash).replace('#','');
+        if (hash) {
+          defaultSection = hash;
+        }
+      }
+    }
+  }
+  return defaultSection;
+}
 
 const Layout = ({ location, children }) => {
   const data = useStaticQuery(graphql`
@@ -39,7 +58,7 @@ const Layout = ({ location, children }) => {
   const [mode, setThemeMode] = useState('light');
 
   // useState hook to handle section
-  const [section, setSection] = useState('intro');
+  const [section, setSection] = useState(getDefaultSection());
 
   // useEffect hook to set theme mode background-color style to body element
   useEffect(() => {

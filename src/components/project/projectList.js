@@ -24,6 +24,9 @@ const Wrapper = styled.div`
 
 const ProjectListWrapper = styled.div`
   flex-grow: 1;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    padding-right: 20px;
+  }
   .project-list {
     list-style-type: none;
     padding: 0;
@@ -35,6 +38,9 @@ const ProjectListWrapper = styled.div`
       @media only screen and (min-height: 720px) {
         height: 900px;
       }
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        height: 100vh;
+      }
       &:first-child > .project-item-image {
         padding-top: 0;
         margin-top: 0;
@@ -42,7 +48,7 @@ const ProjectListWrapper = styled.div`
           margin-top: -70px;
         }
         @media only screen and (max-width: ${theme.SIZES.M}) {
-          margin-top: 0;
+          margin-top: 50px;
         }
       }
       & > .project-item-image {
@@ -57,6 +63,9 @@ const ProjectListWrapper = styled.div`
 
 const NavigatorWrapper = styled.div`
   flex-basis: 20px;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    flex-basis: 30px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -80,6 +89,9 @@ const ImageContainer = styled.div`
     height: 500px;
     z-index: 0;
     opacity: .5;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      height: 200px;
+    }
   }
 `;
 
@@ -94,8 +106,13 @@ const ContentWrapper = styled.div`
     top: 470px;
     left: 100px;
   }
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    width: 100%;
+    top: 450px;
+    left: 30px;
+  }
   .know-more {
-    color: ${theme.textColor};
+    color: ${theme.linkColor};
     font-family: Montserrat;
     font-weight: bold;
     font-size: 16px;
@@ -105,6 +122,8 @@ const ContentWrapper = styled.div`
     &::after {
       content: url(${arrow});
       padding-left: 4px;
+      top: 2px;
+      position: relative;
     }
   }
 `;

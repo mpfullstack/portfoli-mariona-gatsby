@@ -16,6 +16,7 @@ const NavigatorWrapper = styled.div`
   justify-content: center;
   position: fixed;
   @media only screen and (max-width: ${theme.SIZES.M}) {
+    height: 80vh;
     &.navigator-mobile-works {
       top: 0;
     }
