@@ -38,9 +38,6 @@ const ProjectListWrapper = styled.div`
       @media only screen and (min-height: 720px) {
         height: 900px;
       }
-      @media only screen and (max-width: ${theme.SIZES.M}) {
-        height: 100vh;
-      }
       &:first-child > .project-item-image {
         padding-top: 0;
         margin-top: 0;
@@ -107,9 +104,12 @@ const ContentWrapper = styled.div`
     left: 100px;
   }
   @media only screen and (max-width: ${theme.SIZES.M}) {
-    width: 100%;
+    width: 90%;
     top: 450px;
     left: 30px;
+  }
+  @media only screen and (max-height: 600px) {
+    top: 375px;
   }
   .know-more {
     color: ${theme.linkColor};

@@ -45,7 +45,8 @@ const SiteMenu = styled.div`
         height: 16%;
         text-align: center;
       }
-      a {
+      .link {
+        cursor: pointer;
         font-family: Montserrat;
         font-size: 16px;
         font-weight: 800;
@@ -70,8 +71,8 @@ const SiteMenu = styled.div`
           font-size: 24px;
         }
       }
-      &.selected a,
-      & a:hover {
+      &.selected .link,
+      & .link:hover {
         &::after {
           width: calc(100% + 8px);
           -webkit-transition: ${theme.TRANSITIONS.ease};
@@ -85,7 +86,7 @@ const SiteMenu = styled.div`
   }
 `;
 
-export default ({ onClickMenuCallBack }) => {
+export default () => {
   const [menuItems, setMenuItems] = useState([]);
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
@@ -169,15 +170,16 @@ export default ({ onClickMenuCallBack }) => {
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
             {
-              menuItem.samePage
+              menuItem.samePage && window.location.pathname === '/'
               ?
-              <a href={`/${menuItem.linkTo}`} onClick={e => {
+              <span className='link' onClick={e => {
+                window.location.hash = menuItem.linkTo;
                 setSection(menuItem.id);
                 handleOnClickMenu();
               }}>
-                {menuItem.name}</a>
+                {menuItem.name}</span>
               :
-              <AniLink fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
+              <AniLink className='link' fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
             }
           </li>
         );

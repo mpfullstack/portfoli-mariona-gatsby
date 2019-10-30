@@ -17,7 +17,7 @@ const LeftContent = styled.section`
   margin: 0 auto;
   @media only screen and (max-width: ${theme.SIZES.M}) {
     width: 90%;
-    height: 100vh;
+    height: auto;
     position: static;
   }
   .left-inner-content {
@@ -166,7 +166,10 @@ export default ({ location }) => {
       {
         section === 'intro'
         ?
-        <MobileWorksButton onClick={() => setSection('mobile-works')} />
+        <MobileWorksButton onClick={() => {
+          window.location.hash = '#mobile-works';
+          setSection('mobile-works');
+        }} />
         :
         null
       }
