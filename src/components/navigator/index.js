@@ -44,10 +44,15 @@ const NavigatorItem = styled.div`
   height: 15px;
   margin: 5px;
   cursor: pointer;
-  &.selected,
-  &:hover {
+  &.selected {
     border: 3px solid ${theme.selectedNavigatorItemColor};
     background-color: ${theme.selectedNavigatorItemColor};
+  }
+  @media only screen and (min-width: ${theme.SIZES.M}) {
+    &:hover {
+      border: 3px solid ${theme.selectedNavigatorItemColor};
+      background-color: ${theme.selectedNavigatorItemColor};
+    }
   }
   display: inline-block;
 `;
@@ -208,8 +213,13 @@ const mouseWheelEffect = (setSelectedItem, items) => {
   };
 }
 
-const Navigator = ({ items }) => {
+const Navigator = ({ items, navigatorRef }) => {
   const [selectedItem, setSelectedItem] = useState(0); // Item index or item hash from URL
+
+  // useEffect to assign state values to navigatorRef
+  useEffect(() => {
+    navigatorRef.current = { selectedItem, setSelectedItem }
+  }, [selectedItem, setSelectedItem, navigatorRef]);
 
   // Use section context
   const { section } = useContext(SectionContext);
