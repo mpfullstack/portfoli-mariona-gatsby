@@ -19,6 +19,7 @@ export default () => {
     }
 
     function handleResize() {
+      // TODO: Review what to do here
       setWindowSize(getSize());
     }
 

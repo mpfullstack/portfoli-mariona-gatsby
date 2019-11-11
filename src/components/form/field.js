@@ -8,6 +8,9 @@ const FieldWrapper = styled.div`
   overflow: hidden;
   margin: 0;
   height: 70px;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    height: 65px;
+  }
   &:last-child {
     margin-bottom: 0;
     height: auto;
@@ -35,6 +38,9 @@ const FieldWrapper = styled.div`
   }
   &.explainMe-field {
     height: 100px;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      height: 90px;
+    }
     &.focus label {
       bottom: 55px;
     }

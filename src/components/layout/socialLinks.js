@@ -17,13 +17,13 @@ const SocialLinks = styled.div`
 export default () => (
   <SocialLinks>
     <a href='https://www.dribbble.com'>
-      <Icon type='dribbble' size={24} color={[theme.colors.mediumGrey, theme.colors.primary]} />
+      <Icon type='dribbble' size={24} color={[theme.COLORS.mediumGrey, theme.COLORS.primary]} />
     </a>
     <a href='https://www.dribbble.com'>
-      <Icon type='linkedin' size={24} color={[theme.colors.mediumGrey, theme.colors.primary]} />
+      <Icon type='linkedin' size={24} color={[theme.COLORS.mediumGrey, theme.COLORS.primary]} />
     </a>
     <a href='https://www.dribbble.com'>
-      <Icon type='behance' size={28} color={[theme.colors.mediumGrey, theme.colors.primary]} />
+      <Icon type='behance' size={28} color={[theme.COLORS.mediumGrey, theme.COLORS.primary]} />
     </a>
   </SocialLinks>
 );

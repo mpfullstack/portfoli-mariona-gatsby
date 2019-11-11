@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -9,40 +9,51 @@ import Navigator from '../navigator';
 import arrow from './arrow.png';
 import AnimatedInView from '../animatedInView';
 import ProjectTitle from './projectTitle.style';
+import SectionContext from '../layout/context';
+import { useSwipeable } from 'react-swipeable'
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    display: none;
+    &.mobile-works {
+      display: flex;
+    }
+  }
 `;
 
 const ProjectListWrapper = styled.div`
   flex-grow: 1;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    padding-right: 20px;
+  }
   .project-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
     .project-item {
-      height: ${props => {
-        if (props.theme.windowDimensions().height > 720) {
-          return '900px';
-        } else {
-          return '720px';
-        }
-      }};
+      height: 720px;
       position: relative;
       margin: 0;
+      @media only screen and (min-height: 720px) {
+        height: 900px;
+      }
       &:first-child > .project-item-image {
         padding-top: 0;
-        margin-top: ${props => props.theme.windowDimensions().height < 720 && '-60px'};
+        margin-top: 0;
+        @media only screen and (max-height: 719px) {
+          margin-top: -70px;
+        }
+        @media only screen and (max-width: ${theme.SIZES.M}) {
+          margin-top: 50px;
+        }
       }
       & > .project-item-image {
-        padding-top: ${props => {
-          if (props.theme.windowDimensions().height >= 720) {
-            return '60px';
-          } else {
-            return '0';
-          }
-        }};
+        padding-top: 0;
+        @media only screen and (min-height: 719px) {
+          padding-top: 60px;
+        }
       }
     }
   }
@@ -50,6 +61,9 @@ const ProjectListWrapper = styled.div`
 
 const NavigatorWrapper = styled.div`
   flex-basis: 20px;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    flex-basis: 30px;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -73,17 +87,33 @@ const ImageContainer = styled.div`
     height: 500px;
     z-index: 0;
     opacity: .5;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      height: 200px;
+    }
   }
 `;
 
 const ContentWrapper = styled.div`
-  width: 48%;
-  position: absolute;
-  z-index: 10;
+  width: '48%';
   top: 380px;
   left: 51%;
+  position: absolute;
+  z-index: 10;
+  @media only screen and (max-width: ${theme.SIZES.L}) {
+    width: 100%;
+    top: 470px;
+    left: 100px;
+  }
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    width: 90%;
+    top: 450px;
+    left: 30px;
+  }
+  @media only screen and (max-height: 600px) {
+    top: 375px;
+  }
   .know-more {
-    color: ${theme.textColor};
+    color: ${theme.linkColor};
     font-family: Montserrat;
     font-weight: bold;
     font-size: 16px;
@@ -93,6 +123,8 @@ const ContentWrapper = styled.div`
     &::after {
       content: url(${arrow});
       padding-left: 4px;
+      top: 2px;
+      position: relative;
     }
   }
 `;
@@ -100,10 +132,34 @@ const ContentWrapper = styled.div`
 const animationInDuration = 1700;
 
 const ProjectList = ({ projects }) => {
+  // Use section context
+  const { section } = useContext(SectionContext);
+
+  const navigatorRef = useRef({});
+
+  const handlers = useSwipeable({
+    onSwipedDown: () => {
+      let selItem = 0;
+      if (navigatorRef.current.selectedItem > 0) {
+        selItem = navigatorRef.current.selectedItem - 1;
+      }
+      // Here we are updating state in Navigator component
+      navigatorRef.current.setSelectedItem(selItem);
+    },
+    onSwipedUp: () => {
+      let selItem = 0;
+      if (navigatorRef.current.selectedItem < projects.length-1) {
+        selItem = navigatorRef.current.selectedItem + 1;
+      }
+      // Here we are updating state in Navigator component
+      navigatorRef.current.setSelectedItem(selItem);
+    }
+  });
+
   return (
-    <Wrapper>
+    <Wrapper className={section}>
       <ProjectListWrapper>
-        <ul className='project-list'>
+        <ul className='project-list' {...handlers}>
           {
             projects.map( ({ node }, i) => {
               return (
@@ -134,7 +190,7 @@ const ProjectList = ({ projects }) => {
         </ul>
       </ProjectListWrapper>
       <NavigatorWrapper>
-        <Navigator items={projects} />
+        <Navigator items={projects} navigatorRef={navigatorRef} />
       </NavigatorWrapper>
     </Wrapper>
   );

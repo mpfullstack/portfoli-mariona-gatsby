@@ -2,7 +2,7 @@ import theme from 'styled-theming';
 
 // Colors
 // ------------------------------------------------------
-const colors = {
+const COLORS = {
   primary: '#6cc3bf',
   superDarkGrey: '#222222',
   darkGrey: '#444444',
@@ -14,91 +14,81 @@ const colors = {
 }
 
 // Sizes
-// ------------------------------------------------------
-// Function that returns the current screen size string value (xs, s, m, l, xl) based on width
 // Ref. https://mediag.com/blog/popular-screen-resolutions-designing-for-all/
-const getScreenSize = width => {
-  if (width < 479) {
-    return 'xs';
-  } else if (width < 767) {
-    return 's';
-  } else if (width < 991) {
-    return 'm';
-  } else if (width < 1280) {
-    return 'l';
-  } else {
-    return 'xl';
-  }
-}
-
-const sizes = {
-  small: '768px',
-  maxInnerContentWidth: '1280px'
-}
+// ------------------------------------------------------
+const SIZES = {
+  XS: '478px',
+  S: '766px',
+  M: '990px',
+  L: '1279px'
+};
 
 // Theme definitions
 // ------------------------------------------------------
 const backgroundColor = theme('mode', {
-  light: colors.superLightGrey,
-  dark: colors.superDarkGrey
+  light: COLORS.superLightGrey,
+  dark: COLORS.superDarkGrey
 });
 const textColor = theme('mode', {
-  light: colors.mediumGrey,
-  dark: colors.lightGrey
+  light: COLORS.mediumGrey,
+  dark: COLORS.lightGrey
 });
 const titleColor = theme('mode', {
-  light: colors.darkGrey,
-  dark: colors.lightGrey
+  light: COLORS.darkGrey,
+  dark: COLORS.lightGrey
 });
 const tagColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.mediumGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.mediumGrey
+});
+const linkColor = theme('mode', {
+  light: COLORS.primary,
+  dark: COLORS.mediumGrey
 });
 const menuBackgroundColor = theme('mode', {
   light: 'rgba(108, 195, 191, 0.6)',
   dark: 'rgba(108, 195, 191, 0.6)'
 });
 const buttonBackgroundColor = theme('mode', {
-  light: colors.primary,
-  dark: colors.primary
+  light: COLORS.primary,
+  dark: COLORS.primary
 });
 const buttonTextColor = theme('mode', {
   light: '#ffffff',
-  dark: colors.darkGrey
+  dark: COLORS.darkGrey
 });
 const navigatorItemColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.mediumGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.mediumGrey
 });
 const selectedNavigatorItemColor = theme('mode', {
-  light: colors.primary,
-  dark: colors.mediumGrey
+  light: COLORS.primary,
+  dark: COLORS.mediumGrey
 });
 const borderInputColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.darkGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.darkGrey
 });
 const borderInputColorHover = theme('mode', {
-  light: colors.primary,
-  dark: colors.darkGrey
+  light: COLORS.primary,
+  dark: COLORS.darkGrey
 });
 const labelColor = theme('mode', {
-  light: colors.lightGrey,
-  dark: colors.darkGrey
+  light: COLORS.lightGrey,
+  dark: COLORS.darkGrey
 });
-
-// Variants
-// const innerContainerWidth = theme.variants('mode', 'variant', {
-//   xs: { light: 'gray', dark: 'darkgray' },
-//   x: { light: 'blue', dark: 'darkblue' },
-//   m: { light: 'green', dark: 'darkgreen' },
-//   l: { light: 'orange', dark: 'darkorange' },
-//   xl: { light: 'orange', dark: 'darkorange' }
-// });
+const backgroundWorksButtonColor = theme('mode', {
+  light: 'rgba(111, 207, 184, 0.2)',
+  dark: 'rgba(111, 207, 184, 0.2)'
+});
+const textWorksButtonColor = theme('mode', {
+  light: COLORS.primary,
+  dark: COLORS.primary
+});
 
 // Transitions
 // -------------------------------------------------------
-const transitions = {
+const TRANSITIONS = {
   ease: 'width 0.5s ease, box-shadow 0.5s ease !important'
 };
 
@@ -116,10 +106,11 @@ export default {
   borderInputColor,
   borderInputColorHover,
   labelColor,
+  backgroundWorksButtonColor,
+  textWorksButtonColor,
+  linkColor,
   // Constants
-  colors,
-  sizes,
-  transitions,
-  // Helpers methods
-  getScreenSize
+  COLORS,
+  SIZES,
+  TRANSITIONS
 };

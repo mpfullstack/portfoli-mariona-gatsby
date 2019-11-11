@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Scrollbar from 'react-scrollbars-custom';
 import every from 'lodash.every';
 import trim from 'lodash.trim';
 import Field from './field';
 import Button from '../button';
 import InputWrapper from './inputWrapper';
 import leftArrow from '../../images/leftArrow.png';
+import theme from '../../theme';
 
 const ContactFormWrapper = styled.div`
   width: 100%;
+  height: 100%;
+  position: relative;
   h1 {
     margin-top: 0 !important;
+  }
+  p {
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      margin-bottom: 0 !important;
+    }
   }
   .back {
     background: url(${leftArrow}) no-repeat 0 0;
@@ -19,6 +28,34 @@ const ContactFormWrapper = styled.div`
     height: 20px;
     margin-bottom: 20px;
     cursor: pointer;
+    position: fixed;
+    z-index: 100;
+    top: -550px;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      top: -30px;
+    }
+    @media only screen and (max-height: 719px) and (min-width: ${theme.SIZES.M}) {
+      top: -580px;
+    }
+  }
+  .scrollbar {
+    height: auto;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      height: 78vh !important;
+    }
+    .inner-content {
+      height: auto;
+      padding-right: 10px;
+      position: fixed;
+      bottom: 0;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        position: inherit;
+        bottom: inherit;
+      }
+      @media only screen and (max-height: 719px) {
+        bottom: 40px;
+      }
+    }
   }
 `;
 
@@ -64,7 +101,45 @@ function handleDataChange(e, setData) {
   });
 }
 
-const ContactForm = ({ onClickBack }) => {
+const FormElement = ({ handleFormChange, focusOut, data }) => {
+  const textAreaClassNames = ['explainMe-field'];
+  if (data.fields.explainMe.value || data.fields.explainMe.focus) {
+    textAreaClassNames.push('focus');
+  }
+  return (
+    <Scrollbar className='scrollbar'>
+      <div className='inner-content'>
+        <h1>{`Let's talk`}</h1>
+        <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+        <Form>
+          <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
+            <label>Name</label>
+            <InputWrapper>
+              <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+            </InputWrapper>
+          </Field>
+          <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
+            <label>Email</label>
+            <InputWrapper>
+              <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+            </InputWrapper>
+          </Field>
+          <Field className={textAreaClassNames.join(' ')}>
+            <label>Explain me!</label>
+            <InputWrapper>
+              <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+            </InputWrapper>
+          </Field>
+          <Field>
+            <Button className='submit-form-button'>{`Send`}</Button>
+          </Field>
+        </Form>
+      </div>
+    </Scrollbar>
+  );
+}
+
+const ContactForm = ({ onClickBack, ...rest }) => {
   const [data, setData] = useState({
     fields: {
       firstname: {value: '', focus: false},
@@ -96,41 +171,10 @@ const ContactForm = ({ onClickBack }) => {
     })
   }
 
-  const textAreaClassNames = ['explainMe-field'];
-  if (data.fields.explainMe.value || data.fields.explainMe.focus) {
-    textAreaClassNames.push('focus');
-  }
-
   return (
     <ContactFormWrapper>
       <button className='back' onClick={() => onClickBack()}></button>
-      <h1>{`Let's talk`}</h1>
-      <p>Interested in working together?<br />
-      Or just to say hello, please do not<br />
-      hesitate to contacte me.</p>
-      <Form>
-        <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
-          <label>Name</label>
-          <InputWrapper>
-            <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
-          <label>Email</label>
-          <InputWrapper>
-            <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field className={textAreaClassNames.join(' ')}>
-          <label>Explain me!</label>
-          <InputWrapper>
-            <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-          </InputWrapper>
-        </Field>
-        <Field>
-          <Button className='submit-form-button'>{`Send`}</Button>
-        </Field>
-      </Form>
+      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} />
     </ContactFormWrapper>
   );
 }
