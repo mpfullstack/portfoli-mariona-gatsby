@@ -23,6 +23,7 @@
     "lodash.throttle": "4.1.1",
     "lodash.trim": "^4.5.1",
     "markdown-it": "10.0.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-animated-css": "1.2.1",
