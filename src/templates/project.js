@@ -24,12 +24,21 @@ export const query = graphql`
           id
           title
           meta_description
+          creation_date
+          credits
           content
           tags {
             name
           }
           color {
             hex_code
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 960) {
+                ...GatsbyImageSharpFluid
+              }
+            }
           }
           blocks {
             content

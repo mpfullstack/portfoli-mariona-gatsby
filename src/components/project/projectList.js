@@ -1,15 +1,17 @@
 import React, { useContext, useRef } from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import { Link } from "gatsby";
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import theme from '../../theme';
 import TagContainer from '../layout/tagContainer.style';
 import Tag from '../tag';
 import Navigator from '../navigator';
-import arrow from './arrow.png';
 import AnimatedInView from '../animatedInView';
 import ProjectTitle from './projectTitle.style';
 import SectionContext from '../layout/context';
+import ImageContainer from './imageContainer.style';
+import ContentWrapper from './contentWrapper.style';
 import { useSwipeable } from 'react-swipeable'
 
 const Wrapper = styled.div`
@@ -63,69 +65,6 @@ const NavigatorWrapper = styled.div`
   flex-basis: 20px;
   @media only screen and (max-width: ${theme.SIZES.M}) {
     flex-basis: 30px;
-  }
-`;
-
-const ImageContainer = styled.div`
-  width: 100%;
-  max-width: 500px;
-  height: 100%;
-  max-height: 650px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  vertical-align: bottom;
-  .gatsby-image-wrapper {
-    z-index: 1;
-    width: 90%;
-  }
-  .background {
-    position: absolute;
-    width: 100%;
-    top: 150px;
-    left: 0;
-    height: 500px;
-    z-index: 0;
-    opacity: .5;
-    @media only screen and (max-width: ${theme.SIZES.M}) {
-      height: 200px;
-    }
-  }
-`;
-
-const ContentWrapper = styled.div`
-  width: '48%';
-  top: 380px;
-  left: 51%;
-  position: absolute;
-  z-index: 10;
-  @media only screen and (max-width: ${theme.SIZES.L}) {
-    width: 100%;
-    top: 470px;
-    left: 100px;
-  }
-  @media only screen and (max-width: ${theme.SIZES.M}) {
-    width: 90%;
-    top: 450px;
-    left: 30px;
-  }
-  @media only screen and (max-height: 600px) {
-    top: 375px;
-  }
-  .know-more {
-    color: ${theme.linkColor};
-    font-family: Montserrat;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    &::after {
-      content: url(${arrow});
-      padding-left: 4px;
-      top: 2px;
-      position: relative;
-    }
   }
 `;
 
