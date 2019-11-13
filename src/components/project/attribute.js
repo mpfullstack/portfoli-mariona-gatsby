@@ -8,16 +8,17 @@ const Attribute = styled.p`
     display: block;
     &.property-name {
       font-size: 14px;
+      font-weight: 600;
+      font-family: Montserrat;
       line-height: 17px;
       letter-spacing: .15em;
       color: ${theme.tagColor};
       text-transform: uppercase;
-      font-weight: 600;
-      font-family: Montserrat;
       margin-bottom: 10px;
     }
-    .property-value {
+    &.property-value {
       font-size: 16px;
+      font-weight: 300;
       line-height: 22px;
       color: ${theme.textColor};
     }

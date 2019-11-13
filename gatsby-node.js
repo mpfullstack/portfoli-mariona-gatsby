@@ -10,8 +10,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       allStrapiProject {
         edges {
           node {
-            title
-            id
+            strapiId
             seo_url
           }
         }
@@ -34,7 +33,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       component: projectTemplate,
       // In your project template's graphql query, you can use id
       // as a GraphQL variable to query for data from the strapi project.
-      context: { id: node.id }
+      context: { id: node.strapiId }
     });
   });
 }

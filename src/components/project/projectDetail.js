@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 // import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import styled from 'styled-components';
-import theme from '../../theme';
 import Img from 'gatsby-image';
 import Scrollbar from 'react-scrollbars-custom';
 import SEO from '../seo';
@@ -21,6 +20,9 @@ const md = new MarkdownIt();
 const ProjectDetailWrapper = styled.div`
   .ScrollbarsCustom-Track {
     display: none;
+  }
+  p {
+    font-size: 16px;
   }
   @media only screen and (min-width: 991px) {
     .project-item-image {
@@ -51,14 +53,24 @@ const ProjectDetailWrapper = styled.div`
         vertical-align: top;
       }
     }
+    .project-blocks {
+      width: 100%;
+      left: 0;
+      top: 75vh;
+      @media only screen and (max-height: 875px) {
+        top: 85vh;
+      }
+      @media only screen and (max-height: 800px) {
+        top: 90vh;
+      }
+    }
   }
 `;
 
-const ProjectDetail = ({ project }) => {
+const ProjectDetail = ({ project, blocks }) => {
   // const [visible, setVisible] = useState(false);
-
   useEffect(() => {
-    // TODO: Start project detail animation transormations
+    // Start project detail css animations
     const background = document.getElementById('background');
     background.classList.add('animate');
     const img = document.getElementById('img');
@@ -79,6 +91,7 @@ const ProjectDetail = ({ project }) => {
             <div id='background' className='background' style={{backgroundColor: project.color.hex_code}} />
             <div id='img' className='img'><Img fluid={project.image.childImageSharp.fluid} /></div>
           </ImageContainer>
+
           <ContentWrapper id='project-content' className='project-content'>
             <TagContainer>
               {project.tags.map((tag, j) => <Tag key={`project-item-${project.id}-tag-${j}`}>{tag.name}</Tag>)}
@@ -87,35 +100,35 @@ const ProjectDetail = ({ project }) => {
           </ContentWrapper>
 
           <ContentWrapper className='extra-content'>
-            <AnimatedInView animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000}>
+            <AnimatedInView animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000} offset={0}>
               <Attribute name='Date' value={moment(project.creation_date).format('MMMM YYYY')} />
               <Attribute name='Credits' value={project.credits} />
               <div dangerouslySetInnerHTML={{ __html: md.render(project.content) }}/>
             </AnimatedInView>
           </ContentWrapper>
-          {/*
 
-            project.blocks.map((block,i) => {
-              return (
-                <Animated
-                  animationIn={'fadeInLeft'}
-                  animationInDuration={1500}
-                  isVisible={true} style={{visibility: true ? 'inherit': 'hidden'}}>
-                  <div>
-                    <p>{block.title}</p>
-                    <p>{block.content}</p>
-                    {
-                      block.image
-                      ?
-                      <Img fluid={block.image.childImageSharp.fluid} />
-                      :
-                      null
-                    }
-                  </div>
-                </Animated>
-              );
-            })
-          */}
+          <ContentWrapper className='project-blocks'>
+            <Animated animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000}>
+            {
+              blocks.map(({ node }) => {
+                // TODO: Layout block based on node.blocktype.qname
+                console.log('block', node.blocktype.qname);
+                return (
+                    <div key={`${project.id}-block-${node.id}`}>
+                      {
+                        node.image
+                        ?
+                        <Img fluid={node.image.childImageSharp.fluid} />
+                        :
+                        null
+                      }
+                      <Attribute name={node.title} value={node.content} />
+                    </div>
+                );
+              })
+            }
+            </Animated>
+          </ContentWrapper>
         </div>
       </Scrollbar>
     </ProjectDetailWrapper>

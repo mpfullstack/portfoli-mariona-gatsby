@@ -5,9 +5,10 @@ import ProjectDetail from '../components/project/projectDetail';
 
 export default ({ data }) => {
   const project = data.allStrapiProject.edges[0].node;
+  const blocks = data.allStrapiBlocks.edges;
   return (
     <Layout>
-      <ProjectDetail project={project} />
+      <ProjectDetail project={project} blocks={blocks} />
     </Layout>
   );
 }
@@ -16,7 +17,7 @@ export const query = graphql`
   query($id: String!) {
     allStrapiProject (
       filter: {
-      	id: { eq: $id }
+      	strapiId: { eq: $id }
       }
     ) {
       edges {
@@ -40,14 +41,33 @@ export const query = graphql`
               }
             }
           }
-          blocks {
-            content
-            title
-            image {
-              childImageSharp {
-                fluid(maxWidth: 1200, quality: 90) {
-                  ...GatsbyImageSharpFluid
-                }
+        }
+      }
+    }
+    allStrapiBlocks (
+      filter: {
+        project: {
+          id: { eq: $id }
+        }
+      },
+      sort: {
+        fields: order,
+        order: ASC
+      }
+    ) {
+      edges {
+        node {
+          id
+          content
+          title
+          blocktype {
+            qname
+          }
+          order
+          image {
+            childImageSharp {
+              fluid(maxWidth: 1200, quality: 90) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

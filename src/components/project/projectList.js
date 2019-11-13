@@ -1,6 +1,5 @@
 import React, { useContext, useRef } from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
-import { Link } from "gatsby";
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import theme from '../../theme';
