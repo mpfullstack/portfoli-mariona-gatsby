@@ -12,6 +12,7 @@ import AnimatedInView from '../animatedInView';
 import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
+import ProjectBlock from './projectBlock';
 
 const moment = require('moment');
 const MarkdownIt = require('markdown-it');
@@ -109,24 +110,14 @@ const ProjectDetail = ({ project, blocks }) => {
 
           <ContentWrapper className='project-blocks'>
             <Animated animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000}>
-            {
-              blocks.map(({ node }) => {
-                // TODO: Layout block based on node.blocktype.qname
-                console.log('block', node.blocktype.qname);
-                return (
-                    <div key={`${project.id}-block-${node.id}`}>
-                      {
-                        node.image
-                        ?
-                        <Img fluid={node.image.childImageSharp.fluid} />
-                        :
-                        null
-                      }
-                      <Attribute name={node.title} value={node.content} />
-                    </div>
-                );
-              })
-            }
+              {
+                blocks.map(({ node }) => (
+                  <ProjectBlock
+                    node={node}
+                    project={project}
+                    blockType={node.blocktype.qname} />
+                ))
+              }
             </Animated>
           </ContentWrapper>
         </div>

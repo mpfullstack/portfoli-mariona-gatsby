@@ -22,14 +22,24 @@ const Attribute = styled.p`
       line-height: 22px;
       color: ${theme.textColor};
     }
+    &.quoted {
+      font-size: 30px;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 41px;
+      &:after,
+      &:before {
+        content: '"';
+      }
+    }
   }
 `;
 
-export default ({ name, value }) => {
+export default ({ name, value, quoted = false }) => {
   return (
     <Attribute className='attribute'>
       <span className='property property-name'>{name}</span>
-      <span className='property property-value'>{value}</span>
+      <span className={`property property-value${quoted ? ' quoted' : ''}`}>{value}</span>
     </Attribute>
   );
 };
