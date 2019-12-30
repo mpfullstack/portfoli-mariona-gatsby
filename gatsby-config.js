@@ -1,10 +1,12 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `UI & UX Designer`,
+    description: `Portfolio Mariona Mercadal`,
+    author: `@mpfullstack`,
   },
   plugins: [
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-transition-link`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -27,6 +29,34 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: process.env.GATSBY_STRAPI_URL_API,
+        contentTypes: [ // List of the Content Types you want to be able to request from Gatsby.
+          `project`,
+          `page`,
+          `blocks`
+        ]
+      }
+    },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Nunito`,
+            subsets: [`latin`],
+            variants: [`300`, `400`, `300i`]
+          },
+          {
+            family: `Montserrat`,
+            subsets: [`latin`],
+            variants: [`400`, `800`]
+          }
+        ]
+      }
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
