@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+        "GATSBY_STRAPI_URL_API": "@gatsby-strapi-url-api"
+      }
+    }
+}
