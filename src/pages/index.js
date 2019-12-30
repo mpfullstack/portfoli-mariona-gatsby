@@ -24,7 +24,6 @@ export const query = graphql`
           id
           title
           seo_url
-          background
           tags {
             name
           }
