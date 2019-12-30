@@ -35,7 +35,8 @@ module.exports = {
         apiURL: `http://localhost:1337`, //process.env.GATSBY_STRAPI_URL_API,
         contentTypes: [ // List of the Content Types you want to be able to request from Gatsby.
           `project`,
-          `page`
+          `page`,
+          `blocks`
         ]
       }
     },
@@ -45,7 +46,8 @@ module.exports = {
         fonts: [
           {
             family: `Nunito`,
-            subsets: [`latin`]
+            subsets: [`latin`],
+            variants: [`300`, `400`, `300i`]
           },
           {
             family: `Montserrat`,
