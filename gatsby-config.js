@@ -32,7 +32,7 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: `http://localhost:1337`, //process.env.GATSBY_STRAPI_URL_API,
+        apiURL: process.env.GATSBY_STRAPI_URL_API,
         contentTypes: [ // List of the Content Types you want to be able to request from Gatsby.
           `project`,
           `page`,
