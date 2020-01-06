@@ -12,7 +12,8 @@ import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
 import ProjectBlock from './projectBlock';
-import ProjectDetailWrapper from './projectDetailWrapper.style';
+import { isDevice } from '../../helpers';
+import {ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
 
 const moment = require('moment');
 const MarkdownIt = require('markdown-it');
@@ -33,11 +34,11 @@ const ProjectDetail = ({ project, blocks }) => {
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
-      <Scrollbar style={{ height: '90vh' }} onScroll={scrollValues => {
+      <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} onScroll={scrollValues => {
         // if (scrollValues.scrollTop > 500)
         //   setVisible(true);
       }}>
-        <div style={{width: '100%'}}>
+        <ProjectDetailInnerWrapper>
           <ImageContainer className='project-item-image'>
             <div id='background' className='background' style={{backgroundColor: project.color.hex_code}} />
             <div id='img' className='img'><Img fluid={project.image.childImageSharp.fluid} /></div>
@@ -70,7 +71,7 @@ const ProjectDetail = ({ project, blocks }) => {
               }
             </Animated>
           </ContentWrapper>
-        </div>
+        </ProjectDetailInnerWrapper>
       </Scrollbar>
     </ProjectDetailWrapper>
   );

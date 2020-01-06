@@ -2,11 +2,15 @@ import React from "react";
 import styled from 'styled-components';
 import Img from 'gatsby-image';
 import Attribute from './attribute.js';
+import theme from '../../theme';
 
 const Block = styled.div`
   width: 100%;
   overflow: hidden;
   margin: 0 0 80px 0;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    margin: 0;
+  }
   .attribute {
     margin-top: 50px;
   }
@@ -15,11 +19,17 @@ const Block = styled.div`
       float: left;
       width: 46%;
       margin: 0 0 10px 0;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
     }
     .attribute {
       float: right;
       width: 39%;
       margin-top: 0;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
     }
   }
   &.img_right_title_text {
@@ -27,12 +37,24 @@ const Block = styled.div`
       float: right;
       width: 46%;
       margin: 0 0 10px 0;
-
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
     }
     .attribute {
       float: left;
       width: 39%;
       margin-top: 0;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
+    }
+  }
+  &.title_quoted_text {
+    .attribute {
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
     }
   }
 `;

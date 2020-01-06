@@ -3,7 +3,7 @@ import theme from '../../theme';
 import arrow from './arrow.png';
 
 export default styled.div`
-  width: '48%';
+  width: 48%;
   top: 380px;
   left: 440px;
   position: absolute;

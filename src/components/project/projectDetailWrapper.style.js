@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../theme';
 
 const ProjectDetailWrapper = styled.div`
   .ScrollbarsCustom-Track {
@@ -7,6 +8,7 @@ const ProjectDetailWrapper = styled.div`
   p {
     font-size: 16px;
   }
+  /* Apply project detail animations only for desktop */
   @media only screen and (min-width: 991px) {
     .project-item-image {
       .background {
@@ -48,6 +50,39 @@ const ProjectDetailWrapper = styled.div`
       }
     }
   }
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    padding-top: 60px;
+    .project-item-image {
+      display: none;
+    }
+    .project-content {
+      position: inherit;
+      width: 100%;
+    }
+    .ScrollbarsCustom-Wrapper {
+      right: 0 !important;
+    }
+    .attribute {
+      width: 50%;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
 `;
 
-export default ProjectDetailWrapper;
+const ProjectDetailInnerWrapper = styled.div`
+  width: 100%;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    width: 90%;
+    margin: 20px auto 0;
+    & > div {
+      position: inherit;
+      width: 100%;
+    }
+  }
+`;
+
+export {
+  ProjectDetailWrapper,
+  ProjectDetailInnerWrapper
+};
