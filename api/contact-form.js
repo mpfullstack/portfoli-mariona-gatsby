@@ -5,18 +5,18 @@ const nodemailer = require("nodemailer");
 async function sendEmail(data) {
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: "smtp-relay.sendinblue.com",
+    host: process.env.SENDINBLUE_SMTP_SERVER,
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: 'info@marcperez.cat', // generated ethereal user
-      pass: 'P84Uhyw6Vxamvk9T' // generated ethereal password
+      user: process.env.SENDINBLUE_SMTP_USER, // generated ethereal user
+      pass: process.env.SENDINBLUE_SMTP_SERVER // generated ethereal password
     }
   });
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: 'info@marcperez.cat', // sender address
+    from: process.env.SENDINBLUE_SMTP_USER, // sender address
     to: "markkus.80@gmail.com", // list of receivers
     subject: "Mariona Portfoli - Contact", // Subject line
     html: data.join('<br />') // html body
@@ -66,5 +66,5 @@ const handler = (req, res) => {
 
 module.exports = cors({
   allowMethods: ['POST'],
-  origin: 'http://mariona.h.marcperez.cat'
+  origin: process.env.CORS_ORIGIN
 })(handler);
