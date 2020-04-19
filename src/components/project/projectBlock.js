@@ -13,6 +13,9 @@ const Block = styled.div`
   }
   .attribute {
     margin-top: 50px;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      width: 100% !important;
+    }
   }
   &.img_left_title_text {
     .gatsby-image-wrapper {
@@ -27,9 +30,6 @@ const Block = styled.div`
       float: right;
       width: 39%;
       margin-top: 0;
-      @media only screen and (max-width: ${theme.SIZES.M}) {
-        width: 100%;
-      }
     }
   }
   &.img_right_title_text {
@@ -45,16 +45,6 @@ const Block = styled.div`
       float: left;
       width: 39%;
       margin-top: 0;
-      @media only screen and (max-width: ${theme.SIZES.M}) {
-        width: 100%;
-      }
-    }
-  }
-  &.title_quoted_text {
-    .attribute {
-      @media only screen and (max-width: ${theme.SIZES.M}) {
-        width: 100%;
-      }
     }
   }
 `;
