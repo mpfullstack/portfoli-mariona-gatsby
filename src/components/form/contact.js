@@ -8,6 +8,7 @@ import Button from '../button';
 import InputWrapper from './inputWrapper';
 import leftArrow from '../../images/leftArrow.png';
 import theme from '../../theme';
+import SuperFetch from '../../helpers/superFetch';
 
 const ContactFormWrapper = styled.div`
   width: 100%;
@@ -74,9 +75,9 @@ function validateEmail(email) {
 
 function validateForm(fieldsData) {
   return every(Object.keys(fieldsData), key => {
-    let isValid = trim(String(fieldsData[key])) !== '';
+    let isValid = trim(String(fieldsData[key].value)) !== '';
     if (key === 'email') {
-      isValid = validateEmail(trim(String(fieldsData[key])));
+      isValid = validateEmail(trim(String(fieldsData[key].value)));
     }
     return isValid;
   });
@@ -101,7 +102,7 @@ function handleDataChange(e, setData) {
   });
 }
 
-const FormElement = ({ handleFormChange, focusOut, data }) => {
+const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
   const textAreaClassNames = ['explainMe-field'];
   if (data.fields.explainMe.value || data.fields.explainMe.focus) {
     textAreaClassNames.push('focus');
@@ -131,7 +132,7 @@ const FormElement = ({ handleFormChange, focusOut, data }) => {
             </InputWrapper>
           </Field>
           <Field>
-            <Button className='submit-form-button'>{`Send`}</Button>
+            <Button className='submit-form-button' onClick={onSubmit}>{`Send`}</Button>
           </Field>
         </Form>
       </div>
@@ -150,7 +151,21 @@ const ContactForm = ({ onClickBack, ...rest }) => {
   });
 
   function handleFormChange() {
+    console.log(data);
     return e => handleDataChange(e, setData);
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    if (data.valid) {
+      SuperFetch.post(`/api/contact-form`, {
+        firstname: data.fields.firstname.value,
+        email: data.fields.email.value,
+        explainMe: data.fields.explainMe.value
+      }).then(res => {
+        console.log(res);
+      });
+    }
   }
 
   function focusOut(e) {
@@ -174,7 +189,7 @@ const ContactForm = ({ onClickBack, ...rest }) => {
   return (
     <ContactFormWrapper>
       <button className='back' onClick={() => onClickBack()}></button>
-      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} />
+      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} onSubmit={onSubmit} />
     </ContactFormWrapper>
   );
 }
