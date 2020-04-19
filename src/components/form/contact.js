@@ -166,7 +166,6 @@ const ContactForm = ({ onClickBack, ...rest }) => {
         email: data.fields.email.value,
         explainMe: data.fields.explainMe.value
       }).then(res => {
-        //TODO: Handle response
         if (res.status === 'sent') {
           setData(data => ({
             ...data,
