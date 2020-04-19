@@ -52,7 +52,7 @@ const handler = (req, res) => {
     `${req.body.explainMe}`
   ])
     .then(result => {
-      console.log(result);
+      // console.log(result);
       // handle incoming request as usual
       if (result.messageId) {
         success(res);
