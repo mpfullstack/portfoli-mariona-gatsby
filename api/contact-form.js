@@ -10,7 +10,7 @@ async function sendEmail(data) {
     secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.SENDINBLUE_SMTP_USER, // generated ethereal user
-      pass: process.env.SENDINBLUE_SMTP_SERVER // generated ethereal password
+      pass: process.env.SENDINBLUE_SMTP_PASSWORD // generated ethereal password
     }
   });
 
