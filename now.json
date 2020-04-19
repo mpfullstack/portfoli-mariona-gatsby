@@ -6,7 +6,7 @@
   },
   "env": {
     "SENDINBLUE_SMTP_SERVER": "@sendinblue-smtp-server",
-    "SENDINBLUE_STMP_USER": "@sendinblue-smtp-user",
-    "SENDINBLUE_STMP_PASSWORD": "@sendinblue-smtp-password"
+    "SENDINBLUE_SMTP_USER": "@sendinblue-smtp-user",
+    "SENDINBLUE_SMTP_PASSWORD": "@sendinblue-smtp-password"
   }
 }

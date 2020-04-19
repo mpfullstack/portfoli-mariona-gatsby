@@ -112,6 +112,9 @@ const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
       <div className='inner-content'>
         <h1>{`Let's talk`}</h1>
         <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+        {data.status === 'sent' ?
+        <p>Your request was sent successfully</p>
+        :
         <Form>
           <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
             <label>Name</label>
@@ -134,7 +137,7 @@ const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
           <Field>
             <Button className='submit-form-button' onClick={onSubmit}>{`Send`}</Button>
           </Field>
-        </Form>
+        </Form>}
       </div>
     </Scrollbar>
   );
@@ -147,11 +150,11 @@ const ContactForm = ({ onClickBack, ...rest }) => {
       email: {value: '', focus: false},
       explainMe: {value: '', focus: false},
     },
-    valid: false
+    valid: false,
+    status: 'pending'
   });
 
   function handleFormChange() {
-    console.log(data);
     return e => handleDataChange(e, setData);
   }
 
@@ -165,9 +168,15 @@ const ContactForm = ({ onClickBack, ...rest }) => {
       }).then(res => {
         //TODO: Handle response
         if (res.status === 'sent') {
-
+          setData(data => ({
+            ...data,
+            status: 'sent'
+          }));
         } else {
-
+          setData(data => ({
+            ...data,
+            status: 'error'
+          }));
         }
       });
     }

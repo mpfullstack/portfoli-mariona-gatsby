@@ -52,6 +52,7 @@ const handler = (req, res) => {
     `${req.body.explainMe}`
   ])
     .then(result => {
+      console.log(result);
       // handle incoming request as usual
       if (result.messageId) {
         success(res);
@@ -59,7 +60,8 @@ const handler = (req, res) => {
         failed(res);
       }
     })
-    .catch(() => {
+    .catch(err => {
+      console.log(err);
       failed(res);
     });
 }
