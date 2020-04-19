@@ -163,7 +163,12 @@ const ContactForm = ({ onClickBack, ...rest }) => {
         email: data.fields.email.value,
         explainMe: data.fields.explainMe.value
       }).then(res => {
-        console.log(res);
+        //TODO: Handle response
+        if (res.status === 'sent') {
+
+        } else {
+
+        }
       });
     }
   }
