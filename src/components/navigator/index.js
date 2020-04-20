@@ -95,9 +95,7 @@ const scrollToSelectedProject = (selectedItem, section) => {
     if (section === 'mobile-works') {
       let projectItem = document.getElementById(`project-item-${selectedItem}`);
       if (projectItem) {
-        projectItem.scrollIntoView({
-          behavior: 'smooth'
-        });
+        projectItem.scrollIntoView();
       }
     } else {
       window.scroll({ top: 0, behavior: 'smooth' });
@@ -109,9 +107,7 @@ const scrollToSelectedProject = (selectedItem, section) => {
     } else {
       let projectItem = document.getElementById(`project-item-${selectedItem}`);
       if (projectItem) {
-        projectItem.scrollIntoView({
-          behavior: 'smooth'
-        });
+        projectItem.scrollIntoView();
       }
     }
   }
@@ -228,6 +224,7 @@ const Navigator = ({ items, navigatorRef }) => {
   useEffect(() => {
     if (document.getElementById('span_navigator')) {
       // Scroll to selected project
+      console.log('Scroll to selected project', selectedItem)
       scrollToSelectedProject(selectedItem, section);
     }
   });

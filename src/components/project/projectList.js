@@ -88,9 +88,9 @@ const ProjectList = ({ projects }) => {
       let selItem = 0;
       if (navigatorRef.current.selectedItem < projects.length-1) {
         selItem = navigatorRef.current.selectedItem + 1;
+        // Here we are updating state in Navigator component
+        navigatorRef.current.setSelectedItem(selItem);
       }
-      // Here we are updating state in Navigator component
-      navigatorRef.current.setSelectedItem(selItem);
     }
   });
 
