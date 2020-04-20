@@ -38,10 +38,13 @@ const ProjectDetail = ({ project, blocks }) => {
         // if (scrollValues.scrollTop > 500)
         //   setVisible(true);
       }}>
+        <ImageContainer className='project-item-image'>
+          <div id='mobile-img' className='img mobile-img'><Img fluid={project.mobile.childImageSharp.fluid} /></div>
+        </ImageContainer>
         <ProjectDetailInnerWrapper>
           <ImageContainer className='project-item-image'>
             <div id='background' className='background' style={{backgroundColor: project.color.hex_code}} />
-            <div id='img' className='img'><Img fluid={project.image.childImageSharp.fluid} /></div>
+            <div id='img' className='img desktop-img'><Img fluid={project.image.childImageSharp.fluid} /></div>
           </ImageContainer>
 
           <ContentWrapper id='project-content' className='project-content'>

@@ -24,6 +24,9 @@ const ProjectDetailWrapper = styled.div`
           margin-top: 70px;
         }
       }
+      .mobile-img {
+        display: none;
+      }
     }
     .project-content {
       transition: top 1s ease-in .2s;
@@ -52,8 +55,19 @@ const ProjectDetailWrapper = styled.div`
   }
   @media only screen and (max-width: ${theme.SIZES.M}) {
     padding-top: 60px;
+    .gatsby-image-wrapper {
+      width: 100%;
+    }
     .project-item-image {
-      display: none;
+      position: inherit;
+      .background,
+      .desktop-img {
+        display: none;
+      }
+      .mobile-img {
+        width: 100%;
+        overflow: hidden;
+      }
     }
     .project-content {
       position: inherit;

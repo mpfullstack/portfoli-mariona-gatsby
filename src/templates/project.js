@@ -41,6 +41,13 @@ export const query = graphql`
               }
             }
           }
+          mobile {
+            childImageSharp {
+              fluid(maxWidth: 960) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
       }
     }
