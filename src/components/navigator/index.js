@@ -24,15 +24,17 @@ const NavigatorWrapper = styled.div`
 `;
 
 const NavigatorItemWrapper = styled.div`
-  width: 130px;
-  transform: rotate(-90deg);
-  transition: transform .6s ease;
-  &.selected,
-  &.others {
-    transform: rotate(-90deg) translate(-100px, 0);
-  }
-  &:first-child {
-    transform: rotate(-90deg) translate(0, 0);
+  @media only screen and (min-width: ${theme.SIZES.M}) {
+    width: 130px;
+    transform: rotate(-90deg);
+    transition: transform .6s ease;
+    &.selected,
+    &.others {
+      transform: rotate(-90deg) translate(-100px, 0);
+    }
+    &:first-child {
+      transform: rotate(-90deg) translate(0, 0);
+    }
   }
 `;
 
@@ -71,6 +73,9 @@ const NavigatorItemTitle = styled.span`
   animation-delay: .6s;
   animation-durcation: 2s;
   width: 100px;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    width: 0;
+  }
 `;
 
 const addMouseWheelEventListener = scrollHandler => {
@@ -224,7 +229,6 @@ const Navigator = ({ items, navigatorRef }) => {
   useEffect(() => {
     if (document.getElementById('span_navigator')) {
       // Scroll to selected project
-      console.log('Scroll to selected project', selectedItem)
       scrollToSelectedProject(selectedItem, section);
     }
   });
