@@ -2,12 +2,13 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import ProjectDetail from '../components/project/projectDetail';
+import { isDevice } from '../helpers';
 
 export default ({ data }) => {
   const project = data.allStrapiProject.edges[0].node;
   const blocks = data.allStrapiBlocks.edges;
   return (
-    <Layout>
+    <Layout hideMenu={isDevice()}>
       <ProjectDetail project={project} blocks={blocks} />
     </Layout>
   );

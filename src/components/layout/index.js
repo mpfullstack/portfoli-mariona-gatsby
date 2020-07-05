@@ -43,7 +43,7 @@ const getDefaultSection = () => {
   return defaultSection;
 }
 
-const Layout = ({ location, children }) => {
+const Layout = ({ location, children, hideMenu }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -77,7 +77,7 @@ const Layout = ({ location, children }) => {
                 {/*
                   Left content including Menu, Title and introduction with a contact form button
                   ------------------------------------------------------------------------------ */}
-                <LeftContent location={location} />
+                <LeftContent location={location} hideMenu={hideMenu} />
 
                 {/*
                   Right content

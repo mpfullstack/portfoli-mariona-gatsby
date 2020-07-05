@@ -54,7 +54,6 @@ const ProjectDetailWrapper = styled.div`
     }
   }
   @media only screen and (max-width: ${theme.SIZES.M}) {
-    padding-top: 60px;
     .gatsby-image-wrapper {
       width: 100%;
     }

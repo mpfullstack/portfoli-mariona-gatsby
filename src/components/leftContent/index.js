@@ -86,7 +86,7 @@ const LeftContent = styled.section`
   }
 `;
 
-export default ({ location }) => {
+export default ({ location, hideMenu = false }) => {
   const [isFirstTime, setFirstTime] = useState(true);
 
   // Use section context
@@ -146,7 +146,7 @@ export default ({ location }) => {
   return (
     <LeftContent className={section}>
 
-      <SiteMenu location={location} />
+      {hideMenu ? null : <SiteMenu location={location} />}
 
       <div className='left-inner-content'>
 
