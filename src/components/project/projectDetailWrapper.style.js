@@ -8,6 +8,30 @@ const ProjectDetailWrapper = styled.div`
   p {
     font-size: 16px;
   }
+  .arrow-up-container {
+    position: fixed;
+    bottom: 15%;
+    right: 10px;
+    z-index: 1000;
+    @media only screen and (min-width: 1500px) {
+      right: 3%;
+    }
+    @media only screen and (min-width: 1600px) {
+      right: 6%;
+    }
+    @media only screen and (min-width: 1700px) {
+      right: 9%;
+    }
+    @media only screen and (min-width: 1900px) {
+      right: 10%;
+    }
+    @media only screen and (min-width: 2100px) {
+      right: 15%;
+    }
+    @media only screen and (min-width: 2300px) {
+      right: 20%;
+    }
+  }
   /* Apply project detail animations only for desktop */
   @media only screen and (min-width: 991px) {
     .project-item-image {
