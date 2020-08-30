@@ -35,12 +35,20 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
     projectContent.classList.add('animate');
   });
 
+  function handleScrollUpdate({ scrollTop, clientHeight, scrollHeight, contentScrollHeight }) {
+    const scrolled = Math.max(contentScrollHeight, scrollHeight) - clientHeight;
+    if (scrollTop >= scrolled) {
+      setProjectNavigatorVisible(true);
+    } else {
+      setProjectNavigatorVisible(false);
+    }
+  }
+
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
       <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
-          console.log(JSON.stringify(scrollValues));
           setScrollTop(scrollValues.scrollTop);
           if (scrollValues.scrollTop > 250) {
             setArrowUpVisible(true);
@@ -48,14 +56,8 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
             setArrowUpVisible(false);
           }
         }}
-        onScrollStop={({ scrollTop, clientHeight, scrollHeight, contentScrollHeight }) => {
-          const scrolled = Math.max(contentScrollHeight, scrollHeight) - clientHeight;
-          if (scrollTop >= scrolled) {
-            setProjectNavigatorVisible(true);
-          } else {
-            setProjectNavigatorVisible(false);
-          }
-        }}
+        onScrollStop={handleScrollUpdate}
+        onUpdate={handleScrollUpdate}
       >
         <ImageContainer className='project-item-image'>
           <div id='mobile-img' className='img mobile-img'><Img fluid={project.mobile.childImageSharp.fluid} /></div>
@@ -101,11 +103,23 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
       </Animated>
       {projectNavigatorVisible ?
         <div className='project-navigator'>
-          <div className='previous'>
-            <AniLink fade to={`/${previous.seo_url}`}>Previous</AniLink>
-          </div>
-          <div className='next'>
-            <AniLink fade to={`/${next.seo_url}`}>Next</AniLink>
+          <div className='project-inner-navigator'>
+            <div className='previous'>
+              <AniLink fade to={`/${previous.seo_url}`}>
+                <ImageContainer className='project-item-image'>
+                  <div id='background' className='background' style={{backgroundColor: previous.color.hex_code}} />
+                  <div id='img' className='img desktop-img'><Img fluid={previous.image.childImageSharp.fluid} /></div>
+                </ImageContainer>
+              </AniLink>
+            </div>
+            <div className='next'>
+              <AniLink fade to={`/${next.seo_url}`}>
+                <ImageContainer className='project-item-image'>
+                  <div id='background' className='background' style={{backgroundColor: next.color.hex_code}} />
+                  <div id='img' className='img desktop-img'><Img fluid={next.image.childImageSharp.fluid} /></div>
+                </ImageContainer>
+              </AniLink>
+            </div>
           </div>
         </div> : null}
     </ProjectDetailWrapper>

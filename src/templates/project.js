@@ -25,7 +25,18 @@ export const query = graphql`
     ) {
       edges {
         node {
+          title
           seo_url
+          color {
+            hex_code
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 220) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
       }
     }
@@ -36,7 +47,18 @@ export const query = graphql`
     ) {
       edges {
         node {
+          title
           seo_url
+          color {
+            hex_code
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 220) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
       }
     }
