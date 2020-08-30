@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Img from 'gatsby-image';
 import Scrollbar from 'react-scrollbars-custom';
 import SEO from '../seo';
@@ -20,9 +21,10 @@ const moment = require('moment');
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
 
-const ProjectDetail = ({ project, blocks }) => {
+const ProjectDetail = ({ project, blocks, next, previous }) => {
   const [scrollTop, setScrollTop] = useState(0);
   const [arrowUpVisible, setArrowUpVisible] = useState(false);
+  const [projectNavigatorVisible, setProjectNavigatorVisible] = useState(false);
   useEffect(() => {
     // Start project detail css animations
     const background = document.getElementById('background');
@@ -36,14 +38,25 @@ const ProjectDetail = ({ project, blocks }) => {
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
-      <Scrollbar style={{ height: isDevice() ? '100vh' : '90vh' }} scrollTop={scrollTop} onScroll={scrollValues => {
-        setScrollTop(scrollValues.scrollTop);
-        if (scrollValues.scrollTop > 250) {
-          setArrowUpVisible(true);
-        } else {
-          setArrowUpVisible(false);
-        }
-      }}>
+      <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
+        onScroll={scrollValues => {
+          console.log(JSON.stringify(scrollValues));
+          setScrollTop(scrollValues.scrollTop);
+          if (scrollValues.scrollTop > 250) {
+            setArrowUpVisible(true);
+          } else {
+            setArrowUpVisible(false);
+          }
+        }}
+        onScrollStop={({ scrollTop, clientHeight, scrollHeight, contentScrollHeight }) => {
+          const scrolled = Math.max(contentScrollHeight, scrollHeight) - clientHeight;
+          if (scrollTop >= scrolled) {
+            setProjectNavigatorVisible(true);
+          } else {
+            setProjectNavigatorVisible(false);
+          }
+        }}
+      >
         <ImageContainer className='project-item-image'>
           <div id='mobile-img' className='img mobile-img'><Img fluid={project.mobile.childImageSharp.fluid} /></div>
         </ImageContainer>
@@ -86,6 +99,15 @@ const ProjectDetail = ({ project, blocks }) => {
         animateOnMount={false} animationInDuration={300} animationOutDuration={300}>
         <CleanButton onClick={e => setScrollTop(0)}><ArrowUp /></CleanButton>
       </Animated>
+      {projectNavigatorVisible ?
+        <div className='project-navigator'>
+          <div className='previous'>
+            <AniLink fade to={`/${previous.seo_url}`}>Previous</AniLink>
+          </div>
+          <div className='next'>
+            <AniLink fade to={`/${next.seo_url}`}>Next</AniLink>
+          </div>
+        </div> : null}
     </ProjectDetailWrapper>
   );
 }

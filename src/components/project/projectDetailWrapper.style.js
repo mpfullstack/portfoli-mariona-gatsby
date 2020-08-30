@@ -105,6 +105,16 @@ const ProjectDetailWrapper = styled.div`
       vertical-align: top;
     }
   }
+  .project-navigator {
+    display: flex;
+    justify-content: flex-start;
+    .previous {
+
+    }
+    .next {
+      margin-left: auto;
+    }
+  }
 `;
 
 const ProjectDetailInnerWrapper = styled.div`

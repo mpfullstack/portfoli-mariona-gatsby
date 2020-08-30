@@ -5,18 +5,42 @@ import ProjectDetail from '../components/project/projectDetail';
 import { isDevice } from '../helpers';
 
 export default ({ data }) => {
-  const project = data.allStrapiProject.edges[0].node;
+  const project = data.currentProject.edges[0].node;
+  const previous = data.previousProject.edges[0].node;
+  const next = data.nextProject.edges[0].node;
   const blocks = data.allStrapiBlocks.edges;
   return (
     <Layout hideMenu={isDevice()}>
-      <ProjectDetail project={project} blocks={blocks} />
+      <ProjectDetail project={project} blocks={blocks} next={next} previous={previous} />
     </Layout>
   );
 }
 
 export const query = graphql`
-  query($id: String!) {
-    allStrapiProject (
+  query($id: String!, $prevId: String!, $nextId: String!) {
+    previousProject: allStrapiProject (
+      filter: {
+        strapiId: { eq: $prevId }
+      }
+    ) {
+      edges {
+        node {
+          seo_url
+        }
+      }
+    }
+    nextProject: allStrapiProject (
+      filter: {
+        strapiId: { eq: $nextId }
+      }
+    ) {
+      edges {
+        node {
+          seo_url
+        }
+      }
+    }
+    currentProject: allStrapiProject (
       filter: {
       	strapiId: { eq: $id }
       }
