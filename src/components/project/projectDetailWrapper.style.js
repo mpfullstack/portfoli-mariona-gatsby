@@ -54,7 +54,7 @@ const ProjectDetailWrapper = styled.div`
     position: fixed;
     bottom: 15%;
     right: 10px;
-    z-index: 1000;
+    z-index: 2000;
     @media only screen and (min-width: 1500px) {
       right: 3%;
     }
