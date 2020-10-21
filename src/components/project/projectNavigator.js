@@ -14,6 +14,9 @@ const ProjectNavigatorWrapper = styled.div`
     bottom: 125px;
     width: 100%;
     z-index: 1000;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      bottom: 0;
+    }
     .project-navigator-title {
       font-size: 14px;
       font-weight: 600;
@@ -50,7 +53,7 @@ const ProjectNavigatorWrapper = styled.div`
       }
       .previous {
         position: relative;
-        width: 35%;
+        width: 45%;
         .project-title {
           margin-left: 10px;
           padding-left: 10px;
@@ -67,7 +70,9 @@ const ProjectNavigatorWrapper = styled.div`
       .next {
         position: relative;
         margin-left: auto;
-        width: 35%;
+        display: flex;
+        justify-content: flex-end;
+        width: 45%;
         .project-title {
           margin-right: 10px;
           padding-right: 10px;

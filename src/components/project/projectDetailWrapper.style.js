@@ -10,7 +10,11 @@ const ProjectDetailWrapper = styled.div`
     justify-content: flex-end;
     align-items: center;
     font-size: 13px;
-    margin-top: 5px;
+    margin: 5px 0;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      margin: 0;
+      padding: 13px;
+    }
     .link {
       color: ${theme.linkColor};
       text-transform: uppercase;
@@ -151,6 +155,7 @@ const ProjectDetailInnerWrapper = styled.div`
   @media only screen and (max-width: ${theme.SIZES.M}) {
     width: 90%;
     margin: 20px auto 0;
+    padding-bottom: 200px;
     & > div {
       position: inherit;
       width: 100%;
