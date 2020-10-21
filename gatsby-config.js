@@ -52,7 +52,7 @@ module.exports = {
           {
             family: `Montserrat`,
             subsets: [`latin`],
-            variants: [`400`, `800`]
+            variants: [`400`, `600`, `800`]
           }
         ]
       }
