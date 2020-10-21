@@ -109,37 +109,6 @@ const ProjectDetailWrapper = styled.div`
       vertical-align: top;
     }
   }
-  .project-navigator {
-    position: absolute;
-    left: 0;
-    bottom: 50px;
-    width: 100%;
-    .project-inner-navigator {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      .project-item-image {
-        height: 80px;
-        .background {
-          top: 0;
-          height: 80px;
-        }
-        .desktop-img {
-          max-width: 110px;
-        }
-      }
-      .previous {
-        position: relative;
-        width: 35%;
-      }
-      .next {
-        position: relative;
-        margin-left: auto;
-        width: 35%;
-      }
-    }
-  }
 `;
 
 const ProjectDetailInnerWrapper = styled.div`

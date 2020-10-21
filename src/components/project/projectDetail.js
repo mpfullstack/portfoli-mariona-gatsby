@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Img from 'gatsby-image';
 import Scrollbar from 'react-scrollbars-custom';
 import SEO from '../seo';
@@ -15,7 +14,8 @@ import ProjectBlock from './projectBlock';
 import { isDevice } from '../../helpers';
 import ArrowUp from './arrowUp';
 import { CleanButton } from '../../components/button';
-import {ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
+import ProjectNavigator from './projectNavigator';
+import { ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
 
 const moment = require('moment');
 const MarkdownIt = require('markdown-it');
@@ -102,26 +102,7 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
         <CleanButton onClick={e => setScrollTop(0)}><ArrowUp /></CleanButton>
       </Animated>
       {projectNavigatorVisible ?
-        <div className='project-navigator'>
-          <div className='project-inner-navigator'>
-            <div className='previous'>
-              <AniLink fade to={`/${previous.seo_url}`}>
-                <ImageContainer className='project-item-image'>
-                  <div id='background' className='background' style={{backgroundColor: previous.color.hex_code}} />
-                  <div id='img' className='img desktop-img'><Img fluid={previous.image.childImageSharp.fluid} /></div>
-                </ImageContainer>
-              </AniLink>
-            </div>
-            <div className='next'>
-              <AniLink fade to={`/${next.seo_url}`}>
-                <ImageContainer className='project-item-image'>
-                  <div id='background' className='background' style={{backgroundColor: next.color.hex_code}} />
-                  <div id='img' className='img desktop-img'><Img fluid={next.image.childImageSharp.fluid} /></div>
-                </ImageContainer>
-              </AniLink>
-            </div>
-          </div>
-        </div> : null}
+        <ProjectNavigator next={next} previous={previous} /> : null}
     </ProjectDetailWrapper>
   );
 }
