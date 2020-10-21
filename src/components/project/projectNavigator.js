@@ -11,7 +11,7 @@ const ProjectNavigatorWrapper = styled.div`
   .project-navigator {
     position: absolute;
     left: 0;
-    bottom: 75px;
+    bottom: 125px;
     width: 100%;
     z-index: 1000;
     .project-navigator-title {

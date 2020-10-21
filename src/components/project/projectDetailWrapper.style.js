@@ -1,8 +1,42 @@
 import styled from 'styled-components';
 import theme from '../../theme';
+import backArrow from '../../images/arrowBack.png';
 
 const ProjectDetailWrapper = styled.div`
   position: relative;
+  .back-to-works {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 13px;
+    margin-top: 5px;
+    .link {
+      color: ${theme.linkColor};
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      line-height: 1.5;
+      &::before {
+        content: ' ';
+        background: url(${backArrow}) no-repeat 0 0;
+        width: 28px;
+        height: 16px;
+        display: inline-block;
+        background-size: 18px auto;
+        z-index: 1000;
+      }
+    }
+    .link-poject-title {
+      margin-left: 5px;
+      text-transform: uppercase;
+      color: ${theme.textColor};
+      &::before {
+        content: '/';
+        margin-right: 5px;
+      }
+    }
+  }
   .ScrollbarsCustom {
     padding-bottom: 75px;
   }

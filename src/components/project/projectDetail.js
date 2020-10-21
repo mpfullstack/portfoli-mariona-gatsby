@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Img from 'gatsby-image';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Scrollbar from 'react-scrollbars-custom';
 import SEO from '../seo';
 import TagContainer from '../layout/tagContainer.style';
@@ -47,6 +48,10 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
+      <p className='back-to-works'>
+        <AniLink className='link' fade to={'/'}>Back to works</AniLink>
+        <span className='link-poject-title'>{project.title}</span>
+      </p>
       <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
           setScrollTop(scrollValues.scrollTop);
