@@ -5,14 +5,15 @@ import styled from 'styled-components';
 import ImageContainer from './imageContainer.style';
 import theme from '../../theme';
 import leftArrow from '../../images/leftArrow.png';
-import rightArrow from '../../images/leftArrow.png';
+import rightArrow from '../../images/rightArrow.png';
 
 const ProjectNavigatorWrapper = styled.div`
   .project-navigator {
     position: absolute;
     left: 0;
-    bottom: 50px;
+    bottom: 75px;
     width: 100%;
+    z-index: 1000;
     .project-navigator-title {
       font-size: 14px;
       font-weight: 600;
@@ -69,9 +70,10 @@ const ProjectNavigatorWrapper = styled.div`
         width: 35%;
         .project-title {
           margin-right: 10px;
+          padding-right: 10px;
           &::after {
             content: ' ';
-            background: url(${rightArrow}) no-repeat 0 0;
+            background: url(${rightArrow}) no-repeat right 0;
             width: 28px;
             height: 13px;
             display: inline-block;
@@ -90,7 +92,7 @@ const ProjectNavigator = ({ next, previous }) => {
         <p className='project-navigator-title'>More projects</p>
         <div className='project-inner-navigator'>
           <div className='previous'>
-            <AniLink fade to={`/${previous.seo_url}`}>
+            <AniLink fade to={`/${previous.seo_url}`} className='anylink'>
               <ImageContainer className='project-item-image'>
                 <p className='project-title'>{previous.title}</p>
                 <div id='background' className='background' style={{backgroundColor: previous.color.hex_code}} />
@@ -99,7 +101,7 @@ const ProjectNavigator = ({ next, previous }) => {
             </AniLink>
           </div>
           <div className='next'>
-            <AniLink fade to={`/${next.seo_url}`}>
+            <AniLink fade to={`/${next.seo_url}`} className='anylink'>
               <ImageContainer className='project-item-image'>
                 <div id='background' className='background' style={{backgroundColor: next.color.hex_code}} />
                 <div id='img' className='img desktop-img'><Img fluid={next.image.childImageSharp.fluid} /></div>

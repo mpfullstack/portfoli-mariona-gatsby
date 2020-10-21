@@ -4,7 +4,7 @@ import theme from '../../theme';
 const ProjectDetailWrapper = styled.div`
   position: relative;
   .ScrollbarsCustom {
-    padding-bottom: 100px;
+    padding-bottom: 75px;
   }
   .ScrollbarsCustom-Track {
     display: none;
@@ -73,6 +73,7 @@ const ProjectDetailWrapper = styled.div`
       width: 100%;
       left: 0;
       top: 75vh;
+      padding-bottom: 150px;
       @media only screen and (max-height: 875px) {
         top: 85vh;
       }
