@@ -15,13 +15,17 @@ const ProjectNavigatorWrapper = styled.div`
     width: 100%;
     z-index: 1000;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      bottom: 0;
+      bottom: -10px;
     }
     .project-navigator-title {
       font-size: 14px;
       font-weight: 600;
       text-transform: uppercase;
       font-family: Montserrat;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        padding-left: 20px;
+        padding-bottom: 10px;
+      }
     }
     .project-inner-navigator {
       position: relative;
@@ -41,6 +45,12 @@ const ProjectNavigatorWrapper = styled.div`
           max-width: 125px;
           width: 100%;
           margin-bottom: 25px;
+          @media only screen and (max-width: ${theme.SIZES.M}) {
+            display: block;
+            width: 110px;
+            position: absolute;
+            top: -20px;
+          }
         }
         .project-title {
           margin: 0;
@@ -49,6 +59,18 @@ const ProjectNavigatorWrapper = styled.div`
           color: ${theme.textColor};
           z-index: 100;
           font-weight: 600;
+          @media only screen and (max-width: ${theme.SIZES.M}) {
+            .project-title-text {
+              display: none;
+            }
+          }
+        }
+        @media only screen and (max-width: ${theme.SIZES.M}) {
+          height: 120px;
+          .background {
+            display: inherit;
+            height: 120px;
+          }
         }
       }
       .previous {
@@ -64,6 +86,11 @@ const ProjectNavigatorWrapper = styled.div`
             height: 13px;
             display: inline-block;
             background-size: 18px auto;
+          }
+        }
+        .desktop-img {
+          @media only screen and (max-width: ${theme.SIZES.M}) {
+            right: 20px;
           }
         }
       }
@@ -85,6 +112,11 @@ const ProjectNavigatorWrapper = styled.div`
             background-size: 18px auto;
           }
         }
+        .desktop-img {
+          @media only screen and (max-width: ${theme.SIZES.M}) {
+            left: 20px;
+          }
+        }
       }
     }
   }
@@ -99,7 +131,7 @@ const ProjectNavigator = ({ next, previous }) => {
           <div className='previous'>
             <AniLink fade to={`/${previous.seo_url}`} className='anylink'>
               <ImageContainer className='project-item-image'>
-                <p className='project-title'>{previous.title}</p>
+                <p className='project-title'><span className='project-title-text'>{previous.title}</span></p>
                 <div id='background' className='background' style={{backgroundColor: previous.color.hex_code}} />
                 <div id='img' className='img desktop-img'><Img fluid={previous.image.childImageSharp.fluid} /></div>
               </ImageContainer>
@@ -110,7 +142,7 @@ const ProjectNavigator = ({ next, previous }) => {
               <ImageContainer className='project-item-image'>
                 <div id='background' className='background' style={{backgroundColor: next.color.hex_code}} />
                 <div id='img' className='img desktop-img'><Img fluid={next.image.childImageSharp.fluid} /></div>
-                <p className='project-title'>{next.title}</p>
+                <p className='project-title'><span className='project-title-text'>{next.title}</span></p>
               </ImageContainer>
             </AniLink>
           </div>

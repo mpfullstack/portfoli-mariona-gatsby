@@ -73,6 +73,9 @@ const ProjectDetailWrapper = styled.div`
     @media only screen and (min-width: 2300px) {
       right: 20%;
     }
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      bottom: 20%;
+    }
   }
   /* Apply project detail animations only for desktop */
   @media only screen and (min-width: 991px) {
@@ -155,7 +158,7 @@ const ProjectDetailInnerWrapper = styled.div`
   @media only screen and (max-width: ${theme.SIZES.M}) {
     width: 90%;
     margin: 20px auto 0;
-    padding-bottom: 200px;
+    padding-bottom: 220px;
     & > div {
       position: inherit;
       width: 100%;
