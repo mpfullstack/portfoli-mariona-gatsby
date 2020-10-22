@@ -33,7 +33,7 @@ const ContactFormWrapper = styled.div`
     z-index: 100;
     top: -550px;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      top: -30px;
+      display: none;
     }
     @media only screen and (max-height: 719px) and (min-width: ${theme.SIZES.M}) {
       top: -580px;
@@ -42,7 +42,7 @@ const ContactFormWrapper = styled.div`
   .scrollbar {
     height: auto;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      height: 78vh !important;
+      height: 82vh !important;
     }
     .inner-content {
       height: auto;
