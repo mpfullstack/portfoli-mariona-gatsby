@@ -17,7 +17,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       }
     }
     `
-  )
+  );
 
   // Handle errors
   if (projectsResult.errors) {
