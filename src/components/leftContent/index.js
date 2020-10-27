@@ -8,7 +8,7 @@ import ContactForm from '../form/contact';
 import MobileWorksButton from './mobileWorksButton';
 import theme from '../../theme';
 import SectionContext from '../layout/context';
-import { isDesktop } from '../../helpers';
+import { isDesktop, isDevice } from '../../helpers';
 
 const LeftContent = styled.section`
   width: 340px;
@@ -32,7 +32,8 @@ const LeftContent = styled.section`
     @media only screen and (max-width: ${theme.SIZES.M}) {
       height: 82vh;
       position: fixed;
-      max-width: 300px;
+      width: 85%;
+      max-width: initial;
     }
     h1 {
       font-size: 36px;
@@ -86,7 +87,7 @@ const LeftContent = styled.section`
   }
 `;
 
-export default ({ location }) => {
+export default ({ location, hideMenu = false }) => {
   const [isFirstTime, setFirstTime] = useState(true);
 
   // Use section context
@@ -129,12 +130,13 @@ export default ({ location }) => {
 
   // Contact component
   const Contact = () => {
-    if (!isFirstTime) {
+    if (!isFirstTime || isDevice()) {
       return (
         <Animated className='contact' isVisible={section === 'contact-form'}
         animationInDelay={250}
         animationIn={'fadeInRight'}
-        animationOut='fadeOutRight'>
+        animationOut='fadeOutRight'
+        animateOnMount={!isDevice()}>
           <ContactForm onClickBack={() => setSection('intro')}/>
         </Animated>
       );
@@ -146,21 +148,16 @@ export default ({ location }) => {
   return (
     <LeftContent className={section}>
 
-      <SiteMenu location={location} />
+      {hideMenu ? null : <SiteMenu location={location} />}
 
       <div className='left-inner-content'>
-
-        {
-          // We always render Intro when we're in intro section or in desktop view
+        {// We always render Intro when we're in intro section or in desktop view
           section === 'intro' || isDesktop()
-          ?
-          <Intro />
-          :
-          null
-        }
+            ?
+            <Intro />
+            : null}
 
         <Contact />
-
       </div>
 
       {

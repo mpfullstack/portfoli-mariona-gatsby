@@ -25,6 +25,20 @@ const ButtonWrapper = styled.div`
       transition: box-shadow .5s ease;
     }
   }
+  &.clean-button {
+    button {
+      width: auto;
+      height: auto;
+      background-color: transparent;
+      border: none;
+      color: transparent;
+      border-radius: inherit;
+      box-shadow: none;
+      transition: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
 `;
 
 const Button = ({ children, onClick, ...rest }) => {
@@ -35,8 +49,17 @@ const Button = ({ children, onClick, ...rest }) => {
   );
 }
 
+const CleanButton = ({ children, onClick, ...rest }) => {
+  return (
+    <ButtonWrapper className='clean-button'>
+      <button onClick={e => onClick(e)} {...rest}>{children}</button>
+    </ButtonWrapper>
+  );
+}
+
 Button.propTypes = {
   onClick: PropTypes.func
 }
 
+export { CleanButton };
 export default Button;

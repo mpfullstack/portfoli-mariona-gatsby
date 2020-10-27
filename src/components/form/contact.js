@@ -8,6 +8,7 @@ import Button from '../button';
 import InputWrapper from './inputWrapper';
 import leftArrow from '../../images/leftArrow.png';
 import theme from '../../theme';
+import SuperFetch from '../../helpers/superFetch';
 
 const ContactFormWrapper = styled.div`
   width: 100%;
@@ -32,7 +33,7 @@ const ContactFormWrapper = styled.div`
     z-index: 100;
     top: -550px;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      top: -30px;
+      display: none;
     }
     @media only screen and (max-height: 719px) and (min-width: ${theme.SIZES.M}) {
       top: -580px;
@@ -41,7 +42,7 @@ const ContactFormWrapper = styled.div`
   .scrollbar {
     height: auto;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      height: 78vh !important;
+      height: 82vh !important;
     }
     .inner-content {
       height: auto;
@@ -74,9 +75,9 @@ function validateEmail(email) {
 
 function validateForm(fieldsData) {
   return every(Object.keys(fieldsData), key => {
-    let isValid = trim(String(fieldsData[key])) !== '';
+    let isValid = trim(String(fieldsData[key].value)) !== '';
     if (key === 'email') {
-      isValid = validateEmail(trim(String(fieldsData[key])));
+      isValid = validateEmail(trim(String(fieldsData[key].value)));
     }
     return isValid;
   });
@@ -101,7 +102,7 @@ function handleDataChange(e, setData) {
   });
 }
 
-const FormElement = ({ handleFormChange, focusOut, data }) => {
+const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
   const textAreaClassNames = ['explainMe-field'];
   if (data.fields.explainMe.value || data.fields.explainMe.focus) {
     textAreaClassNames.push('focus');
@@ -111,6 +112,9 @@ const FormElement = ({ handleFormChange, focusOut, data }) => {
       <div className='inner-content'>
         <h1>{`Let's talk`}</h1>
         <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+        {data.status === 'sent' ?
+        <p>Your request was sent successfully</p>
+        :
         <Form>
           <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
             <label>Name</label>
@@ -131,9 +135,9 @@ const FormElement = ({ handleFormChange, focusOut, data }) => {
             </InputWrapper>
           </Field>
           <Field>
-            <Button className='submit-form-button'>{`Send`}</Button>
+            <Button className='submit-form-button' onClick={onSubmit}>{`Send`}</Button>
           </Field>
-        </Form>
+        </Form>}
       </div>
     </Scrollbar>
   );
@@ -146,11 +150,36 @@ const ContactForm = ({ onClickBack, ...rest }) => {
       email: {value: '', focus: false},
       explainMe: {value: '', focus: false},
     },
-    valid: false
+    valid: false,
+    status: 'pending'
   });
 
   function handleFormChange() {
     return e => handleDataChange(e, setData);
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    if (data.valid) {
+      SuperFetch.post(`/api/contact-form`, {
+        firstname: data.fields.firstname.value,
+        email: data.fields.email.value,
+        explainMe: data.fields.explainMe.value
+      }).then(res => {
+        //TODO: Handle response
+        if (res.status === 'sent') {
+          setData(data => ({
+            ...data,
+            status: 'sent'
+          }));
+        } else {
+          setData(data => ({
+            ...data,
+            status: 'error'
+          }));
+        }
+      });
+    }
   }
 
   function focusOut(e) {
@@ -174,7 +203,7 @@ const ContactForm = ({ onClickBack, ...rest }) => {
   return (
     <ContactFormWrapper>
       <button className='back' onClick={() => onClickBack()}></button>
-      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} />
+      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} onSubmit={onSubmit} />
     </ContactFormWrapper>
   );
 }

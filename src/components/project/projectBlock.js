@@ -2,19 +2,29 @@ import React from "react";
 import styled from 'styled-components';
 import Img from 'gatsby-image';
 import Attribute from './attribute.js';
+import theme from '../../theme';
 
 const Block = styled.div`
   width: 100%;
   overflow: hidden;
   margin: 0 0 80px 0;
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    margin: 0;
+  }
   .attribute {
     margin-top: 50px;
+    @media only screen and (max-width: ${theme.SIZES.M}) {
+      width: 100% !important;
+    }
   }
   &.img_left_title_text {
     .gatsby-image-wrapper {
       float: left;
       width: 46%;
       margin: 0 0 10px 0;
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
     }
     .attribute {
       float: right;
@@ -27,7 +37,9 @@ const Block = styled.div`
       float: right;
       width: 46%;
       margin: 0 0 10px 0;
-
+      @media only screen and (max-width: ${theme.SIZES.M}) {
+        width: 100%;
+      }
     }
     .attribute {
       float: left;

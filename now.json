@@ -1,7 +1,12 @@
 {
   "build": {
     "env": {
-        "GATSBY_STRAPI_URL_API": "@gatsby-strapi-url-api"
-      }
+      "GATSBY_STRAPI_URL_API": "@gatsby-strapi-url-api"
     }
+  },
+  "env": {
+    "SENDINBLUE_SMTP_SERVER": "@sendinblue-smtp-server",
+    "SENDINBLUE_SMTP_USER": "@sendinblue-smtp-user",
+    "SENDINBLUE_SMTP_PASSWORD": "@sendinblue-smtp-password"
+  }
 }
