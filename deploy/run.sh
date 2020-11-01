@@ -22,3 +22,5 @@ rsync -ah $GATSBY_SRC_CODE_PATH/public/* $GATSBY_SRC_APP_PATH/$current
 # Make new symlink
 rm $GATSBY_SRC_APP_PATH/current
 ln -s $GATSBY_SRC_APP_PATH/$current $GATSBY_SRC_APP_PATH/current
+
+# TODO: Delete old deployments (older than 20 days) in $GATSBY_SRC_APP_PATH NOTE: DO NOT DELETE THE CURRENT DIRECTORY
