@@ -1,5 +1,6 @@
-import React from "react"
+import React from 'react';
 import { graphql } from 'gatsby';
+import Scrollbar from 'react-scrollbars-custom';
 import styled from 'styled-components';
 import Img from 'gatsby-image';
 import Layout from "../components/layout"
@@ -53,24 +54,55 @@ const AboutPageWrapper = styled.div`
       }
     }
   }
+  @media only screen and (max-width: ${theme.SIZES.M}) {
+    width: 90%;
+    margin: 70px auto 0;
+    display: flex;
+    flex-direction: column;
+    .background-image {
+      top: 8%;
+      height: 340px;
+    }
+    .image-container {
+      width: 70%;
+      position: inherit;
+      margin: 0 0 0 20px;
+    }
+    .text-container {
+      position: inherit;
+      width: 100%;
+      margin: 80px 0 0 0;
+    }
+  }
+  .ScrollbarsCustom-Wrapper {
+    right: 0 !important;
+  }
+  .ScrollbarsCustom-Track {
+    display: none;
+  }
+  .ScrollbarsCustom-Content {
+    padding-bottom: 20px !important;
+  }
 `;
 
 const AboutPage = ({ location, data }) => {
-  const { introduction, content, image, document } = data.allStrapiPage.edges[0].node;
+  const { introduction, content, image, cv } = data.allStrapiPage.edges[0].node;
 
   return (
     <Layout location={location}>
       <SEO title="Portfolio Mariona Mercadal" />
       <AboutPageWrapper>
-        <div className='background-image'></div>
-        <div className='image-container'>
-          <Img fluid={image.childImageSharp.fluid} />
-        </div>
-        <div className='text-container'>
-          <div className='introduction' dangerouslySetInnerHTML={{ __html: md.render(introduction) }}/>
-          <div className='content' dangerouslySetInnerHTML={{ __html: md.render(content) }}/>
-          <p className='cv'><a href={document.publicURL}>Download CV</a></p>
-        </div>
+        <Scrollbar style={{ height: '90vh'}}>
+          <div className='background-image'></div>
+          <div className='image-container'>
+            <Img fluid={image.childImageSharp.fluid} />
+          </div>
+          <div className='text-container'>
+            <div className='introduction' dangerouslySetInnerHTML={{ __html: md.render(introduction) }}/>
+            <div className='content' dangerouslySetInnerHTML={{ __html: md.render(content) }}/>
+            <p className='cv'><a href={cv.publicURL}>Download CV</a></p>
+          </div>
+        </Scrollbar>
       </AboutPageWrapper>
     </Layout>
   );
@@ -95,7 +127,7 @@ export const query = graphql`
               }
             }
           }
-          document {
+          cv: document {
             publicURL
             ext
           }
