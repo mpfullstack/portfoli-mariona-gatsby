@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Img from 'gatsby-image';
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { isDevice } from '../helpers';
 import theme from '../theme';
 
 const MarkdownIt = require('markdown-it');
