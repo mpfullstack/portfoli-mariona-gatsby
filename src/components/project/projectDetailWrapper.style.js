@@ -6,11 +6,16 @@ const ProjectDetailWrapper = styled.div`
   position: relative;
   .back-to-works {
     width: 100%;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    background-color: ${theme.backgroundColor};
     display: flex;
     justify-content: flex-end;
     align-items: center;
     font-size: 13px;
-    margin: 5px 0;
+    margin: 0;
+    padding: 5px 0;
     @media only screen and (max-width: ${theme.SIZES.M}) {
       margin: 0;
       padding: 13px;

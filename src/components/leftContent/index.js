@@ -137,7 +137,10 @@ export default ({ location, hideMenu = false }) => {
         animationIn={'fadeInRight'}
         animationOut='fadeOutRight'
         animateOnMount={!isDevice()}>
-          <ContactForm onClickBack={() => setSection('intro')}/>
+          <ContactForm onClickBack={() => {
+            setSection('intro');
+            setTimeout(() => setFirstTime(true), 750);
+          }}/>
         </Animated>
       );
     } else {
