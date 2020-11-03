@@ -8,7 +8,9 @@ export default ({ data }) => {
   const project = data.currentProject.edges[0].node;
   const previous = data.previousProject.edges[0].node;
   const next = data.nextProject.edges[0].node;
-  const blocks = data.allStrapiBlocks.edges;
+  // TODO: Get new blocks data
+  const blocks = [];//data.allStrapiBlocks.edges;
+  debugger;
   return (
     <Layout hideMenu={isDevice()}>
       <ProjectDetail project={project} blocks={blocks} next={next} previous={previous} />
@@ -95,33 +97,18 @@ export const query = graphql`
               }
             }
           }
-        }
-      }
-    }
-    allStrapiBlocks (
-      filter: {
-        project: {
-          id: { eq: $id }
-        }
-      },
-      sort: {
-        fields: order,
-        order: ASC
-      }
-    ) {
-      edges {
-        node {
-          id
-          content
-          title
-          blocktype {
-            qname
-          }
-          order
-          image {
-            childImageSharp {
-              fluid(maxWidth: 1200, quality: 90) {
-                ...GatsbyImageSharpFluid
+          blocks {
+            id
+            title
+            content
+            blocktype {
+              qname
+            }
+            image {
+              childImageSharp {
+                fluid(maxWidth: 1200, quality: 90) {
+                  ...GatsbyImageSharpFluid
+                }
               }
             }
           }
