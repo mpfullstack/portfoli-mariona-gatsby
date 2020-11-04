@@ -91,11 +91,11 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
           <ContentWrapper className='project-blocks'>
             <Animated animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000}>
               {
-                blocks.map(({ node }) => (
+                blocks.map((block) => (
                   <ProjectBlock
-                    node={node}
+                    block={block}
                     project={project}
-                    blockType={node.blocktype.qname} />
+                    blockType={block.blocktype.qname} />
                 ))
               }
             </Animated>

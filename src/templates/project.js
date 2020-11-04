@@ -8,9 +8,7 @@ export default ({ data }) => {
   const project = data.currentProject.edges[0].node;
   const previous = data.previousProject.edges[0].node;
   const next = data.nextProject.edges[0].node;
-  // TODO: Get new blocks data
-  const blocks = [];//data.allStrapiBlocks.edges;
-  debugger;
+  const blocks = project.blocks || [];
   return (
     <Layout hideMenu={isDevice()}>
       <ProjectDetail project={project} blocks={blocks} next={next} previous={previous} />
