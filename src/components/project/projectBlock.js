@@ -58,25 +58,25 @@ const Image = ({ image }) => {
   );
 }
 
-const ProjectBlock = ({ node, project, blockType }) => {
+const ProjectBlock = ({ block, project, blockType }) => {
   return (
-    <Block key={`${project.id}-block-${node.id}`} className={`${blockType}`}>
+    <Block key={`${project.id}-block-${block.id}`} className={`${blockType}`}>
       {
         blockType === 'full_image_title_text' || blockType === 'img_left_title_text' ?
           <React.Fragment>
-            <Image image={node.image} />
-            <Attribute name={node.title} value={node.content} />
+            <Image image={block.image} />
+            <Attribute name={block.title} value={block.content} />
           </React.Fragment>
         :
         blockType === 'img_right_title_text' ?
           <React.Fragment>
-            <Attribute name={node.title} value={node.content} />
-            <Image image={node.image} />
+            <Attribute name={block.title} value={block.content} />
+            <Image image={block.image} />
           </React.Fragment>
         :
         blockType === 'title_quoted_text' ?
           <React.Fragment>
-            <Attribute name={node.title} value={node.content} quoted={true} />
+            <Attribute name={block.title} value={block.content} quoted={true} />
           </React.Fragment>
         :
           null
