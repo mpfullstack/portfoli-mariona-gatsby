@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "mariona-portfolio",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "1.0.2",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "Online portfolio of Mariona, a visual and interaction designer with a crush in user experience.",
+  "version": "1.0.0-beta2",
+  "author": "Marc Perez <info@marcperez.cat>",
   "dependencies": {
     "animate.css": "3.7.2",
     "gatsby": "^2.15.19",
@@ -56,9 +56,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "git@bitbucket.org:mpfullstack/portfoli-mariona-gatsby.git"
   }
 }

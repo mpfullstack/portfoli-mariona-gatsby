@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-// import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import React, { useEffect, useState } from "react";
 import Img from 'gatsby-image';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Scrollbar from 'react-scrollbars-custom';
 import SEO from '../seo';
 import TagContainer from '../layout/tagContainer.style';
@@ -13,14 +13,19 @@ import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
 import ProjectBlock from './projectBlock';
 import { isDevice } from '../../helpers';
-import {ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
+import ArrowUp from './arrowUp';
+import { CleanButton } from '../../components/button';
+import ProjectNavigator from './projectNavigator';
+import { ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
 
 const moment = require('moment');
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
 
-const ProjectDetail = ({ project, blocks }) => {
-  // const [visible, setVisible] = useState(false);
+const ProjectDetail = ({ project, blocks, next, previous }) => {
+  const [scrollTop, setScrollTop] = useState(0);
+  const [arrowUpVisible, setArrowUpVisible] = useState(false);
+  const [projectNavigatorVisible, setProjectNavigatorVisible] = useState(false);
   useEffect(() => {
     // Start project detail css animations
     const background = document.getElementById('background');
@@ -31,17 +36,41 @@ const ProjectDetail = ({ project, blocks }) => {
     projectContent.classList.add('animate');
   });
 
+  function handleScrollUpdate({ scrollTop, clientHeight, scrollHeight, contentScrollHeight }) {
+    const scrolled = Math.max(contentScrollHeight, scrollHeight) - clientHeight;
+    if (scrollTop >= scrolled) {
+      setProjectNavigatorVisible(true);
+    } else {
+      setProjectNavigatorVisible(false);
+    }
+  }
+
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
-      <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} onScroll={scrollValues => {
-        // if (scrollValues.scrollTop > 500)
-        //   setVisible(true);
-      }}>
+      <p className='back-to-works'>
+        <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
+        <span className='link-poject-title'>{project.title}</span>
+      </p>
+      <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
+        onScroll={scrollValues => {
+          setScrollTop(scrollValues.scrollTop);
+          if (scrollValues.scrollTop > 250) {
+            setArrowUpVisible(true);
+          } else {
+            setArrowUpVisible(false);
+          }
+        }}
+        onScrollStop={handleScrollUpdate}
+        onUpdate={handleScrollUpdate}
+      >
+        <ImageContainer className='project-item-image'>
+          <div id='mobile-img' className='img mobile-img'><Img fluid={project.mobile.childImageSharp.fluid} /></div>
+        </ImageContainer>
         <ProjectDetailInnerWrapper>
           <ImageContainer className='project-item-image'>
             <div id='background' className='background' style={{backgroundColor: project.color.hex_code}} />
-            <div id='img' className='img'><Img fluid={project.image.childImageSharp.fluid} /></div>
+            <div id='img' className='img desktop-img'><Img fluid={project.image.childImageSharp.fluid} /></div>
           </ImageContainer>
 
           <ContentWrapper id='project-content' className='project-content'>
@@ -73,6 +102,12 @@ const ProjectDetail = ({ project, blocks }) => {
           </ContentWrapper>
         </ProjectDetailInnerWrapper>
       </Scrollbar>
+      <Animated className='arrow-up-container' animationIn='fadeIn' animationOut='fadeOut' isVisible={arrowUpVisible}
+        animateOnMount={false} animationInDuration={300} animationOutDuration={300}>
+        <CleanButton onClick={e => setScrollTop(0)}><ArrowUp /></CleanButton>
+      </Animated>
+      {projectNavigatorVisible ?
+        <ProjectNavigator next={next} previous={previous} /> : null}
     </ProjectDetailWrapper>
   );
 }

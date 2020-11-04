@@ -33,7 +33,7 @@ const ContactFormWrapper = styled.div`
     z-index: 100;
     top: -550px;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      top: -30px;
+      display: none;
     }
     @media only screen and (max-height: 719px) and (min-width: ${theme.SIZES.M}) {
       top: -580px;
@@ -42,7 +42,7 @@ const ContactFormWrapper = styled.div`
   .scrollbar {
     height: auto;
     @media only screen and (max-width: ${theme.SIZES.M}) {
-      height: 78vh !important;
+      height: 82vh !important;
     }
     .inner-content {
       height: auto;
@@ -55,6 +55,10 @@ const ContactFormWrapper = styled.div`
       }
       @media only screen and (max-height: 719px) {
         bottom: 40px;
+      }
+      .success {
+        top: 100px;
+        position: relative;
       }
     }
   }
@@ -110,34 +114,35 @@ const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
   return (
     <Scrollbar className='scrollbar'>
       <div className='inner-content'>
-        <h1>{`Let's talk`}</h1>
-        <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
         {data.status === 'sent' ?
-        <p>Your request was sent successfully</p>
-        :
-        <Form>
-          <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
-            <label>Name</label>
-            <InputWrapper>
-              <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-            </InputWrapper>
-          </Field>
-          <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
-            <label>Email</label>
-            <InputWrapper>
-              <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-            </InputWrapper>
-          </Field>
-          <Field className={textAreaClassNames.join(' ')}>
-            <label>Explain me!</label>
-            <InputWrapper>
-              <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
-            </InputWrapper>
-          </Field>
-          <Field>
-            <Button className='submit-form-button' onClick={onSubmit}>{`Send`}</Button>
-          </Field>
-        </Form>}
+          <p className='success'><strong>Thanks!</strong><br />I have received your message. I'll get in touch very soon.</p> : null}
+          <div style={{ visibility: data.status === 'sent' ? 'hidden' : 'visible'}}>
+            <h1>{`Let's talk`}</h1>
+            <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+            <Form>
+              <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
+                <label>Name</label>
+                <InputWrapper>
+                  <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+                </InputWrapper>
+              </Field>
+              <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
+                <label>Email</label>
+                <InputWrapper>
+                  <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+                </InputWrapper>
+              </Field>
+              <Field className={textAreaClassNames.join(' ')}>
+                <label>Explain me!</label>
+                <InputWrapper>
+                  <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
+                </InputWrapper>
+              </Field>
+              <Field>
+                <Button className='submit-form-button' onClick={onSubmit}>{`Send`}</Button>
+              </Field>
+            </Form>
+          </div>
       </div>
     </Scrollbar>
   );
@@ -161,11 +166,12 @@ const ContactForm = ({ onClickBack, ...rest }) => {
   function onSubmit(e) {
     e.preventDefault();
     if (data.valid) {
-      SuperFetch.post(`/api/contact-form`, {
+      SuperFetch.post(`${process.env.GATSBY_STRAPI_URL_API}/contact`, {
         firstname: data.fields.firstname.value,
         email: data.fields.email.value,
         explainMe: data.fields.explainMe.value
       }).then(res => {
+        // Handle response
         if (res.status === 'sent') {
           setData(data => ({
             ...data,

@@ -2,20 +2,67 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import ProjectDetail from '../components/project/projectDetail';
+import { isDevice } from '../helpers';
 
 export default ({ data }) => {
-  const project = data.allStrapiProject.edges[0].node;
+  const project = data.currentProject.edges[0].node;
+  const previous = data.previousProject.edges[0].node;
+  const next = data.nextProject.edges[0].node;
   const blocks = data.allStrapiBlocks.edges;
   return (
-    <Layout>
-      <ProjectDetail project={project} blocks={blocks} />
+    <Layout hideMenu={isDevice()}>
+      <ProjectDetail project={project} blocks={blocks} next={next} previous={previous} />
     </Layout>
   );
 }
 
 export const query = graphql`
-  query($id: String!) {
-    allStrapiProject (
+  query($id: String!, $prevId: String!, $nextId: String!) {
+    previousProject: allStrapiProject (
+      filter: {
+        strapiId: { eq: $prevId }
+      }
+    ) {
+      edges {
+        node {
+          title
+          seo_url
+          color {
+            hex_code
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 220) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+    nextProject: allStrapiProject (
+      filter: {
+        strapiId: { eq: $nextId }
+      }
+    ) {
+      edges {
+        node {
+          title
+          seo_url
+          color {
+            hex_code
+          }
+          image {
+            childImageSharp {
+              fluid(maxWidth: 220) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+    currentProject: allStrapiProject (
       filter: {
       	strapiId: { eq: $id }
       }
@@ -35,6 +82,13 @@ export const query = graphql`
             hex_code
           }
           image {
+            childImageSharp {
+              fluid(maxWidth: 960) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          mobile {
             childImageSharp {
               fluid(maxWidth: 960) {
                 ...GatsbyImageSharpFluid
