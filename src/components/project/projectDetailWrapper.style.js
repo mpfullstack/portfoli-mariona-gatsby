@@ -122,7 +122,7 @@ const ProjectDetailWrapper = styled.div`
     .project-blocks {
       width: 100%;
       left: 0;
-      top: 75vh;
+      top: 70vh;
       padding-bottom: 150px;
       @media only screen and (max-height: 875px) {
         top: 85vh;

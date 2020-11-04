@@ -52,7 +52,7 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
         <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
         <span className='link-poject-title'>{project.title}</span>
       </Animated>
-      <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
+      <Scrollbar style={{ height: isDevice() ? '92vh' : '95vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
           setScrollTop(scrollValues.scrollTop);
           if (scrollValues.scrollTop > 250) {
