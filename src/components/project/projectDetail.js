@@ -48,10 +48,10 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
-      <p className='back-to-works'>
+      <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
         <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
         <span className='link-poject-title'>{project.title}</span>
-      </p>
+      </Animated>
       <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
           setScrollTop(scrollValues.scrollTop);

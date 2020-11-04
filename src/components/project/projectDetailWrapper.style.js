@@ -4,7 +4,7 @@ import backArrow from '../../images/arrowBack.png';
 
 const ProjectDetailWrapper = styled.div`
   position: relative;
-  padding-top: 50px;
+  padding-top: 0;
   .back-to-works {
     width: 100%;
     position: absolute;
@@ -52,6 +52,9 @@ const ProjectDetailWrapper = styled.div`
   }
   .ScrollbarsCustom-Track {
     display: none;
+  }
+  .ScrollbarsCustom-Wrapper {
+    right: 0 !important;
   }
   p {
     font-size: 16px;
