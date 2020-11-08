@@ -4,6 +4,7 @@ import backArrow from '../../images/arrowBack.png';
 
 const ProjectDetailWrapper = styled.div`
   position: relative;
+  padding-top: 0;
   .back-to-works {
     width: 100%;
     position: absolute;
@@ -51,6 +52,9 @@ const ProjectDetailWrapper = styled.div`
   }
   .ScrollbarsCustom-Track {
     display: none;
+  }
+  .ScrollbarsCustom-Wrapper {
+    right: 0 !important;
   }
   p {
     font-size: 16px;
@@ -118,7 +122,7 @@ const ProjectDetailWrapper = styled.div`
     .project-blocks {
       width: 100%;
       left: 0;
-      top: 75vh;
+      top: 70vh;
       padding-bottom: 150px;
       @media only screen and (max-height: 875px) {
         top: 85vh;
@@ -129,6 +133,7 @@ const ProjectDetailWrapper = styled.div`
     }
   }
   @media only screen and (max-width: ${theme.SIZES.M}) {
+    padding-top: 50px;
     .gatsby-image-wrapper {
       width: 100%;
     }

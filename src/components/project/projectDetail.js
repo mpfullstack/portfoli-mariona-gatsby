@@ -48,11 +48,11 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
   return (
     <ProjectDetailWrapper>
       <SEO title={project.title} description={project.meta_description} />
-      <p className='back-to-works'>
+      <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
         <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
         <span className='link-poject-title'>{project.title}</span>
-      </p>
-      <Scrollbar style={{ height: isDevice() ? '92vh' : '90vh' }} scrollTop={scrollTop}
+      </Animated>
+      <Scrollbar style={{ height: isDevice() ? '92vh' : '95vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
           setScrollTop(scrollValues.scrollTop);
           if (scrollValues.scrollTop > 250) {
@@ -91,11 +91,11 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
           <ContentWrapper className='project-blocks'>
             <Animated animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000}>
               {
-                blocks.map(({ node }) => (
+                blocks.map((block) => (
                   <ProjectBlock
-                    node={node}
+                    block={block}
                     project={project}
-                    blockType={node.blocktype.qname} />
+                    blockType={block.blocktype.qname} />
                 ))
               }
             </Animated>
