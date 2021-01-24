@@ -40,19 +40,11 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          {
-            family: `Nunito`,
-            subsets: [`latin`],
-            variants: [`300`, `400`, `300i`]
-          },
-          {
-            family: `Montserrat`,
-            subsets: [`latin`],
-            variants: [`400`, `600`, `800`]
-          }
+          `Nunito\:300,300i,400`,
+          `Montserrat\:400,600,800`
         ]
       }
     }
