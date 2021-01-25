@@ -26,8 +26,18 @@ const isDesktop = () => {
   }
 }
 
+const getField = (data, attr, language) => {
+  debugger;
+  if (language === 'en') {
+    return data[attr];
+  } else {
+    return data[`${attr}_${language}`];
+  }
+}
+
 export {
   getSize,
   isDevice,
-  isDesktop
+  isDesktop,
+  getField
 }

@@ -26,6 +26,7 @@ export const query = graphql`
       edges {
         node {
           title
+          title_es
           seo_url
           color {
             hex_code
@@ -48,6 +49,7 @@ export const query = graphql`
       edges {
         node {
           title
+          title_es
           seo_url
           color {
             hex_code
@@ -71,6 +73,7 @@ export const query = graphql`
         node {
           id
           title
+          title_es
           meta_description
           creation_date
           credits
@@ -98,7 +101,9 @@ export const query = graphql`
           blocks {
             id
             title
+            title_es
             content
+            content_es
             blocktype {
               qname
             }

@@ -25,6 +25,7 @@ export const query = graphql`
         node {
           id
           title
+          title_es
           seo_url
           tags {
             name

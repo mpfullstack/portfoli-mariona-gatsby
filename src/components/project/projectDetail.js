@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useIntl } from "gatsby-plugin-intl";
 import Img from 'gatsby-image';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Scrollbar from 'react-scrollbars-custom';
@@ -12,7 +13,7 @@ import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
 import ProjectBlock from './projectBlock';
-import { isDevice } from '../../helpers';
+import { isDevice, getField } from '../../helpers';
 import ArrowUp from './arrowUp';
 import { CleanButton } from '../../components/button';
 import ProjectNavigator from './projectNavigator';
@@ -26,6 +27,9 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
   const [scrollTop, setScrollTop] = useState(0);
   const [arrowUpVisible, setArrowUpVisible] = useState(false);
   const [projectNavigatorVisible, setProjectNavigatorVisible] = useState(false);
+
+  const intl = useIntl();
+
   useEffect(() => {
     // Start project detail css animations
     const background = document.getElementById('background');
@@ -45,12 +49,14 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
     }
   }
 
+  const projectTitle = getField(project, 'title', intl.locale);
+
   return (
     <ProjectDetailWrapper>
-      <SEO title={project.title} description={project.meta_description} />
+      <SEO title={projectTitle} description={project.meta_description} />
       <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
         <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
-        <span className='link-poject-title'>{project.title}</span>
+        <span className='link-poject-title'>{projectTitle}</span>
       </Animated>
       <Scrollbar style={{ height: isDevice() ? '92vh' : '95vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
@@ -77,7 +83,7 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
             <TagContainer>
               {project.tags.map((tag, j) => <Tag key={`project-item-${project.id}-tag-${j}`}>{tag.name}</Tag>)}
             </TagContainer>
-            <ProjectTitle>{project.title}</ProjectTitle>
+            <ProjectTitle>{projectTitle}</ProjectTitle>
           </ContentWrapper>
 
           <ContentWrapper className='extra-content'>
