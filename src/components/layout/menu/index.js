@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useIntl } from "gatsby-plugin-intl";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { Animated } from "react-animated-css";
 import styled from 'styled-components';
@@ -91,6 +92,8 @@ export default () => {
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
 
+  const intl = useIntl();
+
   // Use section context
   const { section, setSection } = useContext(SectionContext);
 
@@ -100,11 +103,11 @@ export default () => {
     // Desktop
     if (isDesktop()) {
       currentMenuItems.push({
-        linkTo: '/',
+        linkTo: `/${intl.locale}/`,
         name: 'Works'
       });
       currentMenuItems.push({
-        linkTo: '/about',
+        linkTo: `/${intl.locale}/about`,
         name: 'About'
       });
     }
@@ -136,7 +139,7 @@ export default () => {
       });
     }
     setMenuItems(currentMenuItems);
-  }, []);
+  }, [intl]);
 
   let location;
   if (typeof window === 'object') {
@@ -144,7 +147,7 @@ export default () => {
   }
   if (!location) {
     location = {
-      pathname: '/'
+      pathname: `/${intl.locale}`
     };
   }
 

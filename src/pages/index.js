@@ -1,14 +1,16 @@
 import React from "react";
 import { graphql } from "gatsby";
+import { useIntl } from "gatsby-plugin-intl";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import ProjectList from '../components/project/projectList';
 
 const IndexPage = ({ location, data }) => {
+  const intl = useIntl();
   return (
     <Layout location={location}>
-      <SEO title="Portfolio Mariona Mercadal" />
-      <h1 style={{display: 'none'}}>Portfolio Mariona Mercadal</h1>
+      <SEO title={intl.formatMessage({ id: "porfolioTitle" })} />
+      <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "porfolioTitle" })}</h1>
       <ProjectList projects={data.allStrapiProject.edges} />
     </Layout>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from "gatsby-plugin-intl";
 import { graphql } from 'gatsby';
 import Scrollbar from 'react-scrollbars-custom';
 import styled from 'styled-components';
@@ -89,10 +90,12 @@ const AboutPageWrapper = styled.div`
 
 const AboutPage = ({ location, data }) => {
   const { introduction, content, image, cv } = data.allStrapiPage.edges[0].node;
+  const intl = useIntl();
 
   return (
     <Layout location={location}>
-      <SEO title="Portfolio Mariona Mercadal" />
+      <SEO title={intl.formatMessage({ id: "aboutTitle" })} />
+      <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "aboutTitle" })}</h1>
       <AboutPageWrapper>
         <Scrollbar style={{ height: '100vh'}}>
           <div className='about-container'>

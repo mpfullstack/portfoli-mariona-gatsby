@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import { useIntl } from "gatsby-plugin-intl";
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import theme from '../../theme';
@@ -73,6 +74,8 @@ const ProjectList = ({ projects }) => {
   // Use section context
   const { section } = useContext(SectionContext);
 
+  const intl = useIntl();
+
   const navigatorRef = useRef({});
 
   const handlers = useSwipeable({
@@ -116,9 +119,9 @@ const ProjectList = ({ projects }) => {
                         {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                       </TagContainer>
                       <ProjectTitle>
-                        <AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>
+                        <AniLink fade to={`/${intl.locale}/${node.seo_url}`}>{node.title}</AniLink>
                       </ProjectTitle>
-                      <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
+                      <AniLink className='know-more' fade to={`/${intl.locale}/${node.seo_url}`}>Know more</AniLink>
                     </AnimatedInView>
                   </ContentWrapper>
                 </li>
