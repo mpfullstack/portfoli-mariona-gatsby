@@ -115,25 +115,25 @@ export default () => {
     else {
       currentMenuItems.push({
         samePage: true,
-        linkTo: '#intro',
+        linkTo: `#intro`,
         name: 'Home',
         id: 'intro'
       });
       currentMenuItems.push({
         samePage: true,
-        linkTo: '#mobile-works',
+        linkTo: `#mobile-works`,
         name: 'Works',
         id: 'mobile-works'
       });
       currentMenuItems.push({
         samePage: false,
-        linkTo: '/about',
+        linkTo: `/${intl.locale}/about`,
         name: 'About',
         id: 'about'
       });
       currentMenuItems.push({
         samePage: true,
-        linkTo: '#contact-form',
+        linkTo: `#contact-form`,
         name: 'Contact',
         id: 'contact-form'
       });
@@ -173,7 +173,7 @@ export default () => {
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
             {
-              menuItem.samePage && window.location.pathname === '/'
+              menuItem.samePage && window.location.pathname === `/${intl.locale}/`
               ?
               <span className='link' onClick={e => {
                 window.location.hash = menuItem.linkTo;

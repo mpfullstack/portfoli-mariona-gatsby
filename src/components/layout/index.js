@@ -7,7 +7,8 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby';
+import { useIntl } from 'gatsby-plugin-intl';
 import Header from './header';
 import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
@@ -25,11 +26,11 @@ import './layout.css';
 // Animate CSS
 import 'animate.css';
 
-const getDefaultSection = () => {
+const getDefaultSection = locale => {
   let defaultSection = 'intro';
   if (isDevice()) {
     if (typeof window === 'object') {
-      const pathname = String(window.location.pathname).replace('/','');
+      const pathname = String(window.location.pathname).replace(`/${locale}/`,'');
       if (pathname) {
         defaultSection = pathname;
       } else {
@@ -54,11 +55,13 @@ const Layout = ({ location, children, hideMenu }) => {
     }
   `);
 
+  const intl = useIntl();
+
   // useState hook to set theme mode
   const [mode, setThemeMode] = useState('light');
 
   // useState hook to handle section
-  const [section, setSection] = useState(getDefaultSection());
+  const [section, setSection] = useState(getDefaultSection(intl.locale));
 
   // useEffect hook to set theme mode background-color style to body element
   useEffect(() => {
