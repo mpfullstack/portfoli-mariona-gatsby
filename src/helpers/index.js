@@ -27,7 +27,6 @@ const isDesktop = () => {
 }
 
 const getField = (data, attr, language) => {
-  debugger;
   if (language === 'en') {
     return data[attr];
   } else {

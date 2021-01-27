@@ -121,7 +121,7 @@ const ProjectList = ({ projects }) => {
                       <ProjectTitle>
                         <AniLink fade to={`/${intl.locale}/${node.seo_url}`}>{node.title}</AniLink>
                       </ProjectTitle>
-                      <AniLink className='know-more' fade to={`/${intl.locale}/${node.seo_url}`}>Know more</AniLink>
+                      <AniLink className='know-more' fade to={`/${intl.locale}/${node.seo_url}`}>{intl.formatMessage({ id: 'knowMore' })}</AniLink>
                     </AnimatedInView>
                   </ContentWrapper>
                 </li>

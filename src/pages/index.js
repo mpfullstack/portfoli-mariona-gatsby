@@ -9,8 +9,8 @@ const IndexPage = ({ location, data }) => {
   const intl = useIntl();
   return (
     <Layout location={location}>
-      <SEO title={intl.formatMessage({ id: "porfolioTitle" })} />
-      <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "porfolioTitle" })}</h1>
+      <SEO title={intl.formatMessage({ id: "portfolioTitle" })} />
+      <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "portfolioTitle" })}</h1>
       <ProjectList projects={data.allStrapiProject.edges} />
     </Layout>
   );
