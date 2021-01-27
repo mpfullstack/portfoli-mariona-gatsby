@@ -55,7 +55,7 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
     <ProjectDetailWrapper>
       <SEO title={projectTitle} description={project.meta_description} />
       <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
-        <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
+        <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>{intl.formatMessage({ id: 'backToWorks' })}</AniLink>
         <span className='link-poject-title'>{projectTitle}</span>
       </Animated>
       <Scrollbar style={{ height: isDevice() ? '92vh' : '95vh' }} scrollTop={scrollTop}
@@ -81,15 +81,15 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
 
           <ContentWrapper id='project-content' className='project-content'>
             <TagContainer>
-              {project.tags.map((tag, j) => <Tag key={`project-item-${project.id}-tag-${j}`}>{tag.name}</Tag>)}
+              {project.tags.map((tag, j) => <Tag key={`project-item-${project.id}-tag-${j}`}>{getField(tag, 'name', intl.locale)}</Tag>)}
             </TagContainer>
             <ProjectTitle>{projectTitle}</ProjectTitle>
           </ContentWrapper>
 
           <ContentWrapper className='extra-content'>
             <AnimatedInView animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000} offset={0}>
-              <Attribute name='Date' value={moment(project.creation_date).format('MMMM YYYY')} />
-              <Attribute name='Credits' value={project.credits} />
+              <Attribute name={intl.formatMessage({ id: 'date' })} value={moment(project.creation_date).format('MMMM YYYY')} />
+              <Attribute name={intl.formatMessage({ id: 'credits' })} value={project.credits} />
               <div dangerouslySetInnerHTML={{ __html: md.render(project.content) }}/>
             </AnimatedInView>
           </ContentWrapper>

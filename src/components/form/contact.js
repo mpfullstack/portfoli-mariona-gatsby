@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useIntl } from 'gatsby-plugin-intl';
 import Scrollbar from 'react-scrollbars-custom';
 import every from 'lodash.every';
 import trim from 'lodash.trim';
@@ -106,7 +107,7 @@ function handleDataChange(e, setData) {
   });
 }
 
-const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
+const FormElement = ({ handleFormChange, focusOut, data, onSubmit, intl }) => {
   const textAreaClassNames = ['explainMe-field'];
   if (data.fields.explainMe.value || data.fields.explainMe.focus) {
     textAreaClassNames.push('focus');
@@ -115,31 +116,31 @@ const FormElement = ({ handleFormChange, focusOut, data, onSubmit }) => {
     <Scrollbar className='scrollbar'>
       <div className='inner-content'>
         {data.status === 'sent' ?
-          <p className='success'><strong>Thanks!</strong><br />I have received your message. I'll get in touch very soon.</p> : null}
+          <p className='success'><strong>{intl.formatMessage({ id: 'thanks' })}!</strong><br />{intl.formatMessage({ id: 'contactThanksMessage' })}</p> : null}
           <div style={{ visibility: data.status === 'sent' ? 'hidden' : 'visible'}}>
-            <h1>{`Let's talk`}</h1>
-            <p>Interested in working together? Or just to say hello, please do not hesitate to contacte me.</p>
+            <h1>{intl.formatMessage({ id: 'letstalk' })}</h1>
+            <p>{intl.formatMessage({ id: 'contactIntroMessage' })}</p>
             <Form>
               <Field className={(data.fields.firstname.value || data.fields.firstname.focus) && 'focus'}>
-                <label>Name</label>
+                <label>{intl.formatMessage({ id: 'name' })}</label>
                 <InputWrapper>
                   <input type='text' name='firstname' value={data.fields.firstname.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
                 </InputWrapper>
               </Field>
               <Field className={(data.fields.email.value || data.fields.email.focus) && 'focus'}>
-                <label>Email</label>
+                <label>{intl.formatMessage({ id: 'email' })}</label>
                 <InputWrapper>
                   <input type='email' name='email' value={data.fields.email.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
                 </InputWrapper>
               </Field>
               <Field className={textAreaClassNames.join(' ')}>
-                <label>Explain me!</label>
+                <label>{intl.formatMessage({ id: 'explainMe' })}</label>
                 <InputWrapper>
                   <textarea name='explainMe' value={data.fields.explainMe.value} onChange={handleFormChange()} onFocus={handleFormChange()} onBlur={focusOut} />
                 </InputWrapper>
               </Field>
               <Field>
-                <Button className='submit-form-button' onClick={onSubmit}>{`Send`}</Button>
+                <Button className='submit-form-button' onClick={onSubmit}>{intl.formatMessage({ id: 'send' })}</Button>
               </Field>
             </Form>
           </div>
@@ -158,6 +159,8 @@ const ContactForm = ({ onClickBack, ...rest }) => {
     valid: false,
     status: 'pending'
   });
+
+  const intl = useIntl();
 
   function handleFormChange() {
     return e => handleDataChange(e, setData);
@@ -208,7 +211,7 @@ const ContactForm = ({ onClickBack, ...rest }) => {
   return (
     <ContactFormWrapper>
       <button className='back' onClick={() => onClickBack()}></button>
-      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} onSubmit={onSubmit} />
+      <FormElement handleFormChange={handleFormChange} data={data} focusOut={focusOut} onSubmit={onSubmit} intl={intl} />
     </ContactFormWrapper>
   );
 }

@@ -1,5 +1,26 @@
 {
+  "introMessage": "Hola, mi nombre es{br1}{name} y{br2}soy diseñadora UX/UI",
   "portfolioTitle": "Porfolio Mariona Mercadal diseñadora UX y UI",
   "aboutTitle": "Acerca de Mariona Mercadal diseñadora UX y UI",
-  "knowMore": "Saber más"
+  "knowMore": "Saber más",
+  "home": "Incio",
+  "works": "Proyectos",
+  "about": "Sobre mí",
+  "contact": "Contacto",
+  "close": "Cerrar",
+  "menu": "Menú",
+  "research": "Investigar",
+  "think": "Pensar",
+  "create": "Crear",
+  "letstalk": "Hablemos",
+  "contactIntroMessage": "Interesada en trabajar juntas? O sólo saludar, por favor no dudes en contactar conmigo.",
+  "name": "Nombre",
+  "email": "Corre electrónico",
+  "explainMe": "Cuentame!",
+  "thanks": "Gracias",
+  "contactThanksMessage": "He recibido tu mensaje. Pronto contactaré contigo.",
+  "send": "Enviar",
+  "backToWorks": "Volver a proyectos",
+  "date": "Fecha",
+  "credits": "Créditos"
 }

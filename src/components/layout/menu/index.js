@@ -104,11 +104,11 @@ export default () => {
     if (isDesktop()) {
       currentMenuItems.push({
         linkTo: `/${intl.locale}/`,
-        name: 'Works'
+        name: intl.formatMessage({ id: 'works' })
       });
       currentMenuItems.push({
         linkTo: `/${intl.locale}/about`,
-        name: 'About'
+        name: intl.formatMessage({ id: 'about' })
       });
     }
     // Mobile
@@ -116,25 +116,25 @@ export default () => {
       currentMenuItems.push({
         samePage: true,
         linkTo: `#intro`,
-        name: 'Home',
+        name: intl.formatMessage({ id: 'home' }),
         id: 'intro'
       });
       currentMenuItems.push({
         samePage: true,
         linkTo: `#mobile-works`,
-        name: 'Works',
+        name: intl.formatMessage({ id: 'works' }),
         id: 'mobile-works'
       });
       currentMenuItems.push({
         samePage: false,
-        linkTo: `/${intl.locale}/about`,
-        name: 'About',
+        linkTo: `about`,
+        name: intl.formatMessage({ id: 'about' }),
         id: 'about'
       });
       currentMenuItems.push({
         samePage: true,
         linkTo: `#contact-form`,
-        name: 'Contact',
+        name: intl.formatMessage({ id: 'contact' }),
         id: 'contact-form'
       });
     }
@@ -182,7 +182,7 @@ export default () => {
               }}>
                 {menuItem.name}</span>
               :
-              <AniLink className='link' fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
+              <AniLink className='link' fade to={`/${intl.locale}/${menuItem.linkTo}`}>{menuItem.name}</AniLink>
             }
           </li>
         );
@@ -197,7 +197,7 @@ export default () => {
         isDevice()
         ?
         <div className='mobile-menu-wrapper disable-tap-highlight' onClick={e => handleOnClickMenu(e)}>
-          <MobileMenu text={isMobileMenuOpened ? 'Close' : 'Menu'} opened={isMobileMenuOpened}/>
+          <MobileMenu text={isMobileMenuOpened ? intl.formatMessage({ id: 'close' }) : intl.formatMessage({ id: 'menu' })} opened={isMobileMenuOpened}/>
         </div>
         : null
       }
