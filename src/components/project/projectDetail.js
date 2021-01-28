@@ -13,7 +13,7 @@ import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
 import ProjectBlock from './projectBlock';
-import { isDevice, getField } from '../../helpers';
+import { isDevice, getField, buildLink } from '../../helpers';
 import ArrowUp from './arrowUp';
 import { CleanButton } from '../../components/button';
 import ProjectNavigator from './projectNavigator';
@@ -55,7 +55,7 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
     <ProjectDetailWrapper>
       <SEO title={projectTitle} description={project.meta_description} />
       <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
-        <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>{intl.formatMessage({ id: 'backToWorks' })}</AniLink>
+        <AniLink className='link' fade to={isDevice() ? buildLink('#mobile-works', intl.locale) : buildLink('', intl.locale)}>{intl.formatMessage({ id: 'backToWorks' })}</AniLink>
         <span className='link-poject-title'>{projectTitle}</span>
       </Animated>
       <Scrollbar style={{ height: isDevice() ? '92vh' : '95vh' }} scrollTop={scrollTop}

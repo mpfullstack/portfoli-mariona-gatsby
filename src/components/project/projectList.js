@@ -13,6 +13,7 @@ import SectionContext from '../layout/context';
 import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import { useSwipeable } from 'react-swipeable'
+import { buildLink } from "../../helpers";
 
 const Wrapper = styled.div`
   display: flex;
@@ -119,9 +120,9 @@ const ProjectList = ({ projects }) => {
                         {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                       </TagContainer>
                       <ProjectTitle>
-                        <AniLink fade to={`/${intl.locale}/${node.seo_url}`}>{node.title}</AniLink>
+                        <AniLink fade to={buildLink(node.seo_url, intl.locale)}>{node.title}</AniLink>
                       </ProjectTitle>
-                      <AniLink className='know-more' fade to={`/${intl.locale}/${node.seo_url}`}>{intl.formatMessage({ id: 'knowMore' })}</AniLink>
+                      <AniLink className='know-more' fade to={buildLink(node.seo_url, intl.locale)}>{intl.formatMessage({ id: 'knowMore' })}</AniLink>
                     </AnimatedInView>
                   </ContentWrapper>
                 </li>
