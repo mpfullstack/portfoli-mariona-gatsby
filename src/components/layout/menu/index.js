@@ -5,7 +5,7 @@ import { Animated } from "react-animated-css";
 import styled from 'styled-components';
 import theme from '../../../theme';
 import MobileMenu from './mobileMenu';
-import { isDevice, isDesktop } from '../../../helpers';
+import { isDevice, isDesktop, buildLink } from '../../../helpers';
 import SectionContext from '../context';
 
 const SiteMenu = styled.div`
@@ -182,7 +182,7 @@ export default () => {
               }}>
                 {menuItem.name}</span>
               :
-              <AniLink className='link' fade to={`/${intl.locale}/${menuItem.linkTo}`}>{menuItem.name}</AniLink>
+              <AniLink className='link' fade to={buildLink(menuItem.linkTo, intl.locale)}>{menuItem.name}</AniLink>
             }
           </li>
         );

@@ -34,9 +34,17 @@ const getField = (data, attr, language) => {
   }
 }
 
+const buildLink = (link, language) => {
+  if (!link.match(new RegExp(`^/${language}/`, 'gmi'))) {
+    return `/${language}/${link}`;
+  }
+  return link;
+}
+
 export {
   getSize,
   isDevice,
   isDesktop,
-  getField
+  getField,
+  buildLink
 }
