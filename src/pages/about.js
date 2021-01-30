@@ -7,6 +7,7 @@ import Img from 'gatsby-image';
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import theme from '../theme';
+import { getField } from '../helpers';
 
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
@@ -89,7 +90,8 @@ const AboutPageWrapper = styled.div`
 `;
 
 const AboutPage = ({ location, data }) => {
-  const { introduction, content, image, cv } = data.allStrapiPage.edges[0].node;
+  const page = data.allStrapiPage.edges[0].node;
+  const { image, cv } = page;
   const intl = useIntl();
 
   return (
@@ -104,9 +106,9 @@ const AboutPage = ({ location, data }) => {
               <Img fluid={image.childImageSharp.fluid} />
             </div>
             <div className='text-container'>
-              <div className='introduction' dangerouslySetInnerHTML={{ __html: md.render(introduction) }}/>
-              <div className='content' dangerouslySetInnerHTML={{ __html: md.render(content) }}/>
-              <p className='cv'><a href={cv.publicURL}>Download CV</a></p>
+              <div className='introduction' dangerouslySetInnerHTML={{ __html: md.render(getField(page, 'introduction', intl.locale))}}/>
+              <div className='content' dangerouslySetInnerHTML={{ __html: md.render(getField(page, 'content', intl.locale))}}/>
+              <p className='cv'><a href={cv.publicURL}>{intl.formatMessage({ id: 'downloadCV' })}</a></p>
             </div>
           </div>
         </Scrollbar>
@@ -125,8 +127,11 @@ export const query = graphql`
           id
           qname
           title
+          title_es
           content
+          content_es
           introduction
+          introduction_es
           image {
             childImageSharp {
               fluid(maxWidth: 960) {

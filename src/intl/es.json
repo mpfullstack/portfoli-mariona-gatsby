@@ -23,5 +23,8 @@
   "backToWorks": "Volver a proyectos",
   "date": "Fecha",
   "credits": "Créditos",
-  "moreProjects": "Más proyectos"
+  "moreProjects": "Más proyectos",
+  "notFound": "404 - Página no encontrada",
+  "notFoundMessage": "Justo la página que buscabas no existe... Lo siento.",
+  "downloadCV": "Descargar CV"
 }

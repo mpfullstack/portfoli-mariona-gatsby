@@ -23,5 +23,8 @@
   "backToWorks": "Back to works",
   "date": "Date",
   "credits": "Credits",
-  "moreProjects": "More projects"
+  "moreProjects": "More projects",
+  "notFound": "404 - Page not found",
+  "notFoundMessage": "You just hit a route that doesn't exist... the sadness.",
+  "downloadCV": "Download CV"
 }
