@@ -1,14 +1,24 @@
 import React from 'react';
+import { useIntl, navigate } from "gatsby-plugin-intl";
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import ProjectDetail from '../components/project/projectDetail';
-import { isDevice } from '../helpers';
+import { isDevice, buildLink, buildPathUrl } from '../helpers';
 
-export default ({ data }) => {
+export default ({ data, path }) => {
   const project = data.currentProject.edges[0].node;
   const previous = data.previousProject.edges[0].node;
   const next = data.nextProject.edges[0].node;
   const blocks = project.blocks || [];
+
+  const intl = useIntl();
+
+  if (typeof window !== undefined) {
+    if (path !== buildLink(buildPathUrl(project, intl.locale), intl.locale)) {
+      navigate('/404');
+    }
+  }
+
   return (
     <Layout hideMenu={isDevice()}>
       <ProjectDetail project={project} blocks={blocks} next={next} previous={previous} />
@@ -28,6 +38,7 @@ export const query = graphql`
           title
           title_es
           seo_url
+          seo_url_es
           color {
             hex_code
           }
@@ -51,6 +62,7 @@ export const query = graphql`
           title
           title_es
           seo_url
+          seo_url_es
           color {
             hex_code
           }
@@ -74,6 +86,8 @@ export const query = graphql`
           id
           title
           title_es
+          seo_url
+          seo_url_es
           meta_description
           creation_date
           credits

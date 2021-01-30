@@ -1,3 +1,4 @@
+import { getField as commonGetField, buildPathUrl as commonBuildPathUrl } from './common';
 
 // keep function reference
 const getSize = () => {
@@ -26,13 +27,8 @@ const isDesktop = () => {
   }
 }
 
-const getField = (data, attr, language) => {
-  if (language === 'en') {
-    return data[attr];
-  } else {
-    return data[`${attr}_${language}`];
-  }
-}
+const getField = (data, attr, language) => commonGetField(data, attr, language);
+const buildPathUrl = (project, language) => commonBuildPathUrl(project, language);
 
 const buildLink = (link, language) => {
   if (!link.match(new RegExp(`^/${language}/`, 'gmi'))) {
@@ -46,5 +42,6 @@ export {
   isDevice,
   isDesktop,
   getField,
+  buildPathUrl,
   buildLink
 }

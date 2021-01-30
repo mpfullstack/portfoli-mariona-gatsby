@@ -13,7 +13,7 @@ import SectionContext from '../layout/context';
 import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import { useSwipeable } from 'react-swipeable'
-import { buildLink } from "../../helpers";
+import { buildLink, buildPathUrl } from "../../helpers";
 
 const Wrapper = styled.div`
   display: flex;
@@ -104,6 +104,7 @@ const ProjectList = ({ projects }) => {
         <ul className='project-list' {...handlers}>
           {
             projects.map( ({ node }, i) => {
+              const projectPathUrl = buildPathUrl(node, intl.locale);
               return (
                 <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
                   <ImageContainer className='project-item-image'>
@@ -120,9 +121,9 @@ const ProjectList = ({ projects }) => {
                         {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
                       </TagContainer>
                       <ProjectTitle>
-                        <AniLink fade to={buildLink(node.seo_url, intl.locale)}>{node.title}</AniLink>
+                        <AniLink fade to={buildLink(projectPathUrl, intl.locale)}>{node.title}</AniLink>
                       </ProjectTitle>
-                      <AniLink className='know-more' fade to={buildLink(node.seo_url, intl.locale)}>{intl.formatMessage({ id: 'knowMore' })}</AniLink>
+                      <AniLink className='know-more' fade to={buildLink(projectPathUrl, intl.locale)}>{intl.formatMessage({ id: 'knowMore' })}</AniLink>
                     </AnimatedInView>
                   </ContentWrapper>
                 </li>

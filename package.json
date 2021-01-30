@@ -37,6 +37,7 @@
     "react-scrollbars-custom": "4.0.21",
     "react-swipeable": "5.4.0",
     "smoothscroll-polyfill": "0.4.4",
+    "speakingurl": "14.0.1",
     "styled-components": "4.4.0",
     "styled-theming": "2.2.0"
   },
