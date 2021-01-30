@@ -1,3 +1,5 @@
+const languageConfig = require('./language-config');
+
 module.exports = {
   siteMetadata: {
     title: `Mariona Mercadal`,
@@ -54,13 +56,14 @@ module.exports = {
         // language JSON resource path
         path: `${__dirname}/src/intl`,
         // supported language
-        languages: [`en`, `es`],
+        languages: languageConfig.languages,
         // language file path
-        defaultLanguage: `en`,
+        defaultLanguage: languageConfig.defaultLanguage,
         // option to redirect to `/ko` when connecting `/`
-        redirect: true,
+        redirect: true
       },
     },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
