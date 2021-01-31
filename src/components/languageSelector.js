@@ -41,7 +41,7 @@ const LanguageSelector = ({ project }) => {
   return (
     <LanguageSelectorWrapper>
       {languageConfig.languages.map(language => {
-        let linkTo;
+        let linkTo = '';
         if (project) {
           linkTo = buildPathUrl(project, language);
         } else if (typeof window === 'object') {
