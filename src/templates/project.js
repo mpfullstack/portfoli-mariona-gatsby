@@ -1,23 +1,14 @@
 import React from 'react';
-import { useIntl, navigate } from "gatsby-plugin-intl";
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import ProjectDetail from '../components/project/projectDetail';
-import { isDevice, buildLink, buildPathUrl } from '../helpers';
+import { isDevice } from '../helpers';
 
 export default ({ data, path }) => {
   const project = data.currentProject.edges[0].node;
   const previous = data.previousProject.edges[0].node;
   const next = data.nextProject.edges[0].node;
   const blocks = project.blocks || [];
-
-  const intl = useIntl();
-
-  // if (typeof window !== undefined) {
-  //   if (path !== buildLink(buildPathUrl(project, intl.locale), intl.locale)) {
-  //     navigate('/404');
-  //   }
-  // }
 
   return (
     <Layout hideMenu={isDevice()} project={project}>
