@@ -2,7 +2,7 @@
   "name": "mariona-portfolio",
   "private": true,
   "description": "Online portfolio of Mariona, a visual and interaction designer with a crush in user experience.",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1-alpha",
   "author": "Marc Perez <info@marcperez.cat>",
   "dependencies": {
     "animate.css": "3.7.2",
