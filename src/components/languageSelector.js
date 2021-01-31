@@ -44,7 +44,7 @@ const LanguageSelector = ({ project }) => {
         let linkTo;
         if (project) {
           linkTo = buildPathUrl(project, language);
-        } else if (typeof window !== undefined) {
+        } else if (typeof window === 'object') {
           const location = window.location;
           const hash = location.hash;
           linkTo = location.pathname.replace(`/${intl.locale}/`, `/${language}/`);
