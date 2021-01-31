@@ -1,11 +1,13 @@
 import React from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import { useIntl } from 'gatsby-plugin-intl';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import ImageContainer from './imageContainer.style';
 import theme from '../../theme';
 import leftArrow from '../../images/leftArrow.png';
 import rightArrow from '../../images/rightArrow.png';
+import { buildLink, getField, buildPathUrl } from "../../helpers";
 
 const ProjectNavigatorWrapper = styled.div`
   .project-navigator {
@@ -123,26 +125,29 @@ const ProjectNavigatorWrapper = styled.div`
 `;
 
 const ProjectNavigator = ({ next, previous }) => {
+  const intl = useIntl();
+  const nextProjectPathUrl = buildPathUrl(next, intl.locale);
+  const previousProjectPathUrl = buildPathUrl(previous, intl.locale);
   return (
     <ProjectNavigatorWrapper>
       <div className='project-navigator'>
-        <p className='project-navigator-title'>More projects</p>
+        <p className='project-navigator-title'>{intl.formatMessage({ id: 'moreProjects' })}</p>
         <div className='project-inner-navigator'>
           <div className='previous'>
-            <AniLink fade to={`/${previous.seo_url}`} className='anylink'>
+            <AniLink fade to={buildLink(previousProjectPathUrl, intl.locale)} className='anylink'>
               <ImageContainer className='project-item-image'>
-                <p className='project-title'><span className='project-title-text'>{previous.title}</span></p>
-                <div id='background' className='background' style={{backgroundColor: previous.color.hex_code}} />
-                <div id='img' className='img desktop-img'><Img fluid={previous.image.childImageSharp.fluid} /></div>
+                <p className='project-title'><span className='project-title-text'>{getField(previous, 'title', intl.locale)}</span></p>
+                <div className='background' style={{backgroundColor: previous.color.hex_code}} />
+                <div className='img desktop-img'><Img fluid={previous.image.childImageSharp.fluid} /></div>
               </ImageContainer>
             </AniLink>
           </div>
           <div className='next'>
-            <AniLink fade to={`/${next.seo_url}`} className='anylink'>
+            <AniLink fade to={buildLink(nextProjectPathUrl, intl.locale)} className='anylink'>
               <ImageContainer className='project-item-image'>
-                <div id='background' className='background' style={{backgroundColor: next.color.hex_code}} />
-                <div id='img' className='img desktop-img'><Img fluid={next.image.childImageSharp.fluid} /></div>
-                <p className='project-title'><span className='project-title-text'>{next.title}</span></p>
+                <div className='background' style={{backgroundColor: next.color.hex_code}} />
+                <div className='img desktop-img'><Img fluid={next.image.childImageSharp.fluid} /></div>
+                <p className='project-title'><span className='project-title-text'>{getField(next, 'title', intl.locale)}</span></p>
               </ImageContainer>
             </AniLink>
           </div>

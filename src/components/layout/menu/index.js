@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useIntl } from "gatsby-plugin-intl";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import { Animated } from "react-animated-css";
 import styled from 'styled-components';
 import theme from '../../../theme';
 import MobileMenu from './mobileMenu';
-import { isDevice, isDesktop } from '../../../helpers';
+import { isDevice, isDesktop, buildLink } from '../../../helpers';
 import SectionContext from '../context';
 
 const SiteMenu = styled.div`
@@ -91,6 +92,8 @@ export default () => {
   const [isMobileMenuOpened, openMobileMenu] = useState(false);
   const [isFirstTime, setFirstTime] = useState(true);
 
+  const intl = useIntl();
+
   // Use section context
   const { section, setSection } = useContext(SectionContext);
 
@@ -100,43 +103,43 @@ export default () => {
     // Desktop
     if (isDesktop()) {
       currentMenuItems.push({
-        linkTo: '/',
-        name: 'Works'
+        linkTo: `/${intl.locale}/`,
+        name: intl.formatMessage({ id: 'works' })
       });
       currentMenuItems.push({
-        linkTo: '/about',
-        name: 'About'
+        linkTo: `/${intl.locale}/about`,
+        name: intl.formatMessage({ id: 'about' })
       });
     }
     // Mobile
     else {
       currentMenuItems.push({
         samePage: true,
-        linkTo: '#intro',
-        name: 'Home',
+        linkTo: `#intro`,
+        name: intl.formatMessage({ id: 'home' }),
         id: 'intro'
       });
       currentMenuItems.push({
         samePage: true,
-        linkTo: '#mobile-works',
-        name: 'Works',
+        linkTo: `#mobile-works`,
+        name: intl.formatMessage({ id: 'works' }),
         id: 'mobile-works'
       });
       currentMenuItems.push({
         samePage: false,
-        linkTo: '/about',
-        name: 'About',
+        linkTo: `about`,
+        name: intl.formatMessage({ id: 'about' }),
         id: 'about'
       });
       currentMenuItems.push({
         samePage: true,
-        linkTo: '#contact-form',
-        name: 'Contact',
+        linkTo: `#contact-form`,
+        name: intl.formatMessage({ id: 'contact' }),
         id: 'contact-form'
       });
     }
     setMenuItems(currentMenuItems);
-  }, []);
+  }, [intl]);
 
   let location;
   if (typeof window === 'object') {
@@ -144,7 +147,7 @@ export default () => {
   }
   if (!location) {
     location = {
-      pathname: '/'
+      pathname: `/${intl.locale}`
     };
   }
 
@@ -170,7 +173,7 @@ export default () => {
         return (
           <li className={itemCssClasses.join(' ')} key={menuItem.name}>
             {
-              menuItem.samePage && window.location.pathname === '/'
+              menuItem.samePage && window.location.pathname === `/${intl.locale}/`
               ?
               <span className='link' onClick={e => {
                 window.location.hash = menuItem.linkTo;
@@ -179,7 +182,7 @@ export default () => {
               }}>
                 {menuItem.name}</span>
               :
-              <AniLink className='link' fade to={menuItem.linkTo}>{menuItem.name}</AniLink>
+              <AniLink className='link' fade to={buildLink(menuItem.linkTo, intl.locale)}>{menuItem.name}</AniLink>
             }
           </li>
         );
@@ -194,7 +197,7 @@ export default () => {
         isDevice()
         ?
         <div className='mobile-menu-wrapper disable-tap-highlight' onClick={e => handleOnClickMenu(e)}>
-          <MobileMenu text={isMobileMenuOpened ? 'Close' : 'Menu'} opened={isMobileMenuOpened}/>
+          <MobileMenu text={isMobileMenuOpened ? intl.formatMessage({ id: 'close' }) : intl.formatMessage({ id: 'menu' })} opened={isMobileMenuOpened}/>
         </div>
         : null
       }

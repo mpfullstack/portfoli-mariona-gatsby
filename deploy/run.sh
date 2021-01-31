@@ -1,3 +1,7 @@
+# To catch any error in all following commands
+trap 'code+=$?' DEBUG
+code=0
+
 cd $GATSBY_SRC_CODE_PATH
 git pull --all
 npm install
@@ -24,3 +28,5 @@ rm $GATSBY_SRC_APP_PATH/current
 ln -s $GATSBY_SRC_APP_PATH/$current $GATSBY_SRC_APP_PATH/current
 
 # TODO: Delete old deployments (older than 20 days) in $GATSBY_SRC_APP_PATH NOTE: DO NOT DELETE THE CURRENT DIRECTORY
+
+exit $code

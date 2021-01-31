@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useIntl } from "gatsby-plugin-intl";
 import Img from 'gatsby-image';
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
 import Scrollbar from 'react-scrollbars-custom';
@@ -12,13 +13,13 @@ import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
 import ProjectBlock from './projectBlock';
-import { isDevice } from '../../helpers';
+import { isDevice, getField, buildLink, capitalize } from '../../helpers';
 import ArrowUp from './arrowUp';
 import { CleanButton } from '../../components/button';
 import ProjectNavigator from './projectNavigator';
 import { ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
+import moment, { changeLocale } from '../../helpers/moment';
 
-const moment = require('moment');
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
 
@@ -26,6 +27,11 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
   const [scrollTop, setScrollTop] = useState(0);
   const [arrowUpVisible, setArrowUpVisible] = useState(false);
   const [projectNavigatorVisible, setProjectNavigatorVisible] = useState(false);
+
+  const intl = useIntl();
+
+  changeLocale(intl.locale);
+
   useEffect(() => {
     // Start project detail css animations
     const background = document.getElementById('background');
@@ -45,12 +51,14 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
     }
   }
 
+  const projectTitle = getField(project, 'title', intl.locale);
+
   return (
     <ProjectDetailWrapper>
-      <SEO title={project.title} description={project.meta_description} />
+      <SEO title={projectTitle} description={project.meta_description} lang={intl.locale} />
       <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
-        <AniLink className='link' fade to={isDevice() ? '/#mobile-works' : '/'}>Back to works</AniLink>
-        <span className='link-poject-title'>{project.title}</span>
+        <AniLink className='link' fade to={isDevice() ? buildLink('#mobile-works', intl.locale) : buildLink('', intl.locale)}>{intl.formatMessage({ id: 'backToWorks' })}</AniLink>
+        <span className='link-poject-title'>{projectTitle}</span>
       </Animated>
       <Scrollbar style={{ height: isDevice() ? '92vh' : '95vh' }} scrollTop={scrollTop}
         onScroll={scrollValues => {
@@ -75,16 +83,16 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
 
           <ContentWrapper id='project-content' className='project-content'>
             <TagContainer>
-              {project.tags.map((tag, j) => <Tag key={`project-item-${project.id}-tag-${j}`}>{tag.name}</Tag>)}
+              {project.tags.map((tag, j) => <Tag key={`project-item-${project.id}-tag-${j}`}>{getField(tag, 'name', intl.locale)}</Tag>)}
             </TagContainer>
-            <ProjectTitle>{project.title}</ProjectTitle>
+            <ProjectTitle>{projectTitle}</ProjectTitle>
           </ContentWrapper>
 
           <ContentWrapper className='extra-content'>
             <AnimatedInView animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000} offset={0}>
-              <Attribute name='Date' value={moment(project.creation_date).format('MMMM YYYY')} />
-              <Attribute name='Credits' value={project.credits} />
-              <div dangerouslySetInnerHTML={{ __html: md.render(project.content) }}/>
+              <Attribute name={intl.formatMessage({ id: 'date' })} value={capitalize(moment(project.creation_date).format('MMMM YYYY'))} />
+              <Attribute name={intl.formatMessage({ id: 'credits' })} value={getField(project, 'credits', intl.locale)} />
+              <div dangerouslySetInnerHTML={{ __html: md.render(getField(project, 'content', intl.locale)) }}/>
             </AnimatedInView>
           </ContentWrapper>
 

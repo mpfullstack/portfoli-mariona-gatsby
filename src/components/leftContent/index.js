@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useIntl, FormattedMessage } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 import { Animated } from "react-animated-css";
 import SiteMenu from '../layout/menu';
@@ -90,6 +91,8 @@ const LeftContent = styled.section`
 export default ({ location, hideMenu = false }) => {
   const [isFirstTime, setFirstTime] = useState(true);
 
+  const intl = useIntl();
+
   // Use section context
   const { section, setSection } = useContext(SectionContext);
 
@@ -97,15 +100,19 @@ export default ({ location, hideMenu = false }) => {
   const Intro = () => {
     const Content = () => (
       <div>
-        <h1>Research.<br /> Think.<br /> Create.</h1>
-        <p>{`Hi, my name is `}<br /><strong>Mariona Mercadal</strong> and<br />{` I'm a UX & UI designer`}</p>
+        <h1>{intl.formatMessage({ id: 'research' })}.<br /> {intl.formatMessage({ id: 'think' })}.<br /> {intl.formatMessage({ id: 'create' })}.</h1>
+        <p><FormattedMessage id='introMessage' values={{
+          br1: <br />,
+          name: <strong>Mariona Mercadal</strong>,
+          br2: <br />
+        }} /></p>
         <div className='social-links-wrapper'>
           <SocialLinks />
         </div>
         <Button className='contact-form-button' onClick={e => {
           setFirstTime(false);
           setSection('contact-form');
-        }}>{`Let's talk`}</Button>
+        }}>{intl.formatMessage({ id: `letstalk` })}</Button>
       </div>
     );
 

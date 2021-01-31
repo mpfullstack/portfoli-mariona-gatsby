@@ -7,7 +7,8 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
-import { useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby';
+import { useIntl } from 'gatsby-plugin-intl';
 import Header from './header';
 import MainContainer from './maincontainer.style';
 import ContainerWrapper from './container.style';
@@ -18,6 +19,7 @@ import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
 import SectionContext from './context';
+import LanguageSelector from '../languageSelector';
 import { isDevice } from '../../helpers';
 
 // Main layout css
@@ -25,11 +27,11 @@ import './layout.css';
 // Animate CSS
 import 'animate.css';
 
-const getDefaultSection = () => {
+const getDefaultSection = locale => {
   let defaultSection = 'intro';
   if (isDevice()) {
     if (typeof window === 'object') {
-      const pathname = String(window.location.pathname).replace('/','');
+      const pathname = String(window.location.pathname).replace(`/${locale}/`,'');
       if (pathname) {
         defaultSection = pathname;
       } else {
@@ -43,7 +45,7 @@ const getDefaultSection = () => {
   return defaultSection;
 }
 
-const Layout = ({ location, children, hideMenu }) => {
+const Layout = ({ location, children, hideMenu, project = null }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -54,11 +56,13 @@ const Layout = ({ location, children, hideMenu }) => {
     }
   `);
 
+  const intl = useIntl();
+
   // useState hook to set theme mode
   const [mode, setThemeMode] = useState('light');
 
   // useState hook to handle section
-  const [section, setSection] = useState(getDefaultSection());
+  const [section, setSection] = useState(getDefaultSection(intl.locale));
 
   // useEffect hook to set theme mode background-color style to body element
   useEffect(() => {
@@ -74,6 +78,10 @@ const Layout = ({ location, children, hideMenu }) => {
           <main>
             <ContainerWrapper>
               <InnerContainerWrapper>
+                {/*
+                  Language selector
+                  ------------------------------------------------------------------------------ */}
+                <LanguageSelector project={project} />
                 {/*
                   Left content including Menu, Title and introduction with a contact form button
                   ------------------------------------------------------------------------------ */}

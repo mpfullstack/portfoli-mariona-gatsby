@@ -1,7 +1,9 @@
+const languageConfig = require('./language-config');
+
 module.exports = {
   siteMetadata: {
-    title: `UI & UX Designer`,
-    description: `Portfolio Mariona Mercadal`,
+    title: `metaTitle`,
+    description: `metaDescription`,
     author: `@mpfullstack`,
   },
   plugins: [
@@ -23,10 +25,10 @@ module.exports = {
         name: `gatsby-starter-default`,
         short_name: `starter`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#6cc3bf`,
+        theme_color: `#6cc3bf`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -40,22 +42,28 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          {
-            family: `Nunito`,
-            subsets: [`latin`],
-            variants: [`300`, `400`, `300i`]
-          },
-          {
-            family: `Montserrat`,
-            subsets: [`latin`],
-            variants: [`400`, `600`, `800`]
-          }
+          `Nunito\:300,300i,400`,
+          `Montserrat\:400,600,800`
         ]
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-intl`,
+      options: {
+        // language JSON resource path
+        path: `${__dirname}/src/intl`,
+        // supported language
+        languages: languageConfig.languages,
+        // language file path
+        defaultLanguage: languageConfig.defaultLanguage,
+        // option to redirect to `/ko` when connecting `/`
+        redirect: true
+      },
+    },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
