@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from "react";
 import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import { useIntl } from "gatsby-plugin-intl";
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import theme from '../../theme';
@@ -12,6 +13,7 @@ import SectionContext from '../layout/context';
 import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import { useSwipeable } from 'react-swipeable'
+import { getField, buildLink, buildPathUrl } from "../../helpers";
 
 const Wrapper = styled.div`
   display: flex;
@@ -73,6 +75,8 @@ const ProjectList = ({ projects }) => {
   // Use section context
   const { section } = useContext(SectionContext);
 
+  const intl = useIntl();
+
   const navigatorRef = useRef({});
 
   const handlers = useSwipeable({
@@ -100,6 +104,7 @@ const ProjectList = ({ projects }) => {
         <ul className='project-list' {...handlers}>
           {
             projects.map( ({ node }, i) => {
+              const projectPathUrl = buildPathUrl(node, intl.locale);
               return (
                 <li className='project-item' key={`project-item-${i}`} id={`project-item-${i}`} name={`project-item-${i}`}>
                   <ImageContainer className='project-item-image'>
@@ -113,12 +118,12 @@ const ProjectList = ({ projects }) => {
                   <ContentWrapper>
                     <AnimatedInView animationIn='fadeInRight' animationInDelay={200} animationInDuration={animationInDuration} offset={150}>
                       <TagContainer>
-                        {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{tag.name}</Tag>)}
+                        {node.tags.map((tag, j) => <Tag key={`project-item-${i}-tag-${j}`}>{getField(tag, 'name', intl.locale)}</Tag>)}
                       </TagContainer>
                       <ProjectTitle>
-                        <AniLink fade to={`/${node.seo_url}`}>{node.title}</AniLink>
+                        <AniLink fade to={buildLink(projectPathUrl, intl.locale)}>{getField(node, 'title', intl.locale)}</AniLink>
                       </ProjectTitle>
-                      <AniLink className='know-more' fade to={`/${node.seo_url}`}>Know more</AniLink>
+                      <AniLink className='know-more' fade to={buildLink(projectPathUrl, intl.locale)}>{intl.formatMessage({ id: 'knowMore' })}</AniLink>
                     </AnimatedInView>
                   </ContentWrapper>
                 </li>

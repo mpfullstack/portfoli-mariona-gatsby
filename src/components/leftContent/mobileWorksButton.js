@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'gatsby-plugin-intl';
 import styled from 'styled-components';
 import theme from '../../theme';
 import worksArrow from '../../images/worksArrow.png';
@@ -38,11 +39,13 @@ const WorksButtonWrapper = styled.div`
 `;
 
 export default ({ onClick }) => {
+  const intl = useIntl();
+
   return (
     <div onClick={e => onClick(e)}>
       <WorksButtonWrapper>
         <div className='background' />
-        <div className='text'>Works</div>
+        <div className='text'>{intl.formatMessage({ id: 'works' })}</div>
       </WorksButtonWrapper>
     </div>
   )

@@ -1,8 +1,10 @@
 import React from "react";
 import styled from 'styled-components';
+import { useIntl } from "gatsby-plugin-intl";
 import Img from 'gatsby-image';
 import Attribute from './attribute.js';
 import theme from '../../theme';
+import { getField} from '../../helpers';
 
 const Block = styled.div`
   width: 100%;
@@ -59,25 +61,25 @@ const Image = ({ image }) => {
 }
 
 const ProjectBlock = ({ block, project, blockType }) => {
+  const intl = useIntl();
+
   return (
     <Block key={`${project.id}-block-${block.id}`} className={`${blockType}`}>
       {
         blockType === 'full_image_title_text' || blockType === 'img_left_title_text' ?
           <React.Fragment>
             <Image image={block.image} />
-            <Attribute name={block.title} value={block.content} />
+            <Attribute name={getField(block, 'title', intl.locale)} value={getField(block, 'content', intl.locale)} />
           </React.Fragment>
         :
         blockType === 'img_right_title_text' ?
           <React.Fragment>
-            <Attribute name={block.title} value={block.content} />
+            <Attribute name={getField(block, 'title', intl.locale)} value={getField(block, 'content', intl.locale)} />
             <Image image={block.image} />
           </React.Fragment>
         :
         blockType === 'title_quoted_text' ?
-          <React.Fragment>
-            <Attribute name={block.title} value={block.content} quoted={true} />
-          </React.Fragment>
+          <Attribute name={getField(block, 'title', intl.locale)} value={getField(block, 'content', intl.locale)} quoted={true} />
         :
           null
       }

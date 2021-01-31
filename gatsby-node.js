@@ -1,7 +1,11 @@
+const common = require('./src/helpers/common');
+const config = require('./gatsby-config');
+const languageConfig = require('./language-config');
+
 // Implement the Gatsby API “createPages”. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
 exports.createPages = async ({ graphql, actions, reporter }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
   // Query for projects model in strapi
   const projectsResult = await graphql(
@@ -11,7 +15,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             strapiId
+            title
+            title_es
             seo_url
+            seo_url_es
           }
         }
       }
@@ -55,12 +62,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         prevId = projects[0].node.strapiId;
       }
     }
-    createPage({
-      path: `/${node.seo_url}`, //TODO: In case seo_url is not present, create a seo friendly url from title
-      component: projectTemplate,
-      // In your project template's graphql query, you can use id
-      // as a GraphQL variable to query for data from the strapi project.
-      context: { id: node.strapiId, nextId, prevId }
+    languageConfig.languages.forEach(lang => {
+      // In case seo_url is not present, create a seo friendly url from title
+      const path = common.buildPathUrl(node, lang);
+      createPage({
+        path: `/${path}`,
+        component: projectTemplate,
+        // In your project template's graphql query, you can use id
+        // as a GraphQL variable to query for data from the strapi project.
+        context: { id: node.strapiId, nextId, prevId }
+      });
     });
   });
 }

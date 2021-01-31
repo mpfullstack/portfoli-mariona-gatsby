@@ -6,6 +6,7 @@ export default styled.div`
   margin: 0 auto;
   padding: 20px 20px 0;
   max-width: 1280px;
+  position: relative;
   @media only screen and (max-width: ${theme.SIZES.M}) {
     padding: 0;
   }

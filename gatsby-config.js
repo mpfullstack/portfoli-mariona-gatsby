@@ -1,7 +1,9 @@
+const languageConfig = require('./language-config');
+
 module.exports = {
   siteMetadata: {
-    title: `UI & UX Designer`,
-    description: `Portfolio Mariona Mercadal`,
+    title: `metaTitle`,
+    description: `metaDescription`,
     author: `@mpfullstack`,
   },
   plugins: [
@@ -47,7 +49,21 @@ module.exports = {
           `Montserrat\:400,600,800`
         ]
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-intl`,
+      options: {
+        // language JSON resource path
+        path: `${__dirname}/src/intl`,
+        // supported language
+        languages: languageConfig.languages,
+        // language file path
+        defaultLanguage: languageConfig.defaultLanguage,
+        // option to redirect to `/ko` when connecting `/`
+        redirect: true
+      },
+    },
+
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
