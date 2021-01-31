@@ -19,6 +19,7 @@ import RightContent from '../rightContent';
 import { ThemeProvider } from 'styled-components';
 import theme from '../../theme';
 import SectionContext from './context';
+import LanguageSelector from '../languageSelector';
 import { isDevice } from '../../helpers';
 
 // Main layout css
@@ -44,7 +45,7 @@ const getDefaultSection = locale => {
   return defaultSection;
 }
 
-const Layout = ({ location, children, hideMenu }) => {
+const Layout = ({ location, children, hideMenu, project = null }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -77,6 +78,10 @@ const Layout = ({ location, children, hideMenu }) => {
           <main>
             <ContainerWrapper>
               <InnerContainerWrapper>
+                {/*
+                  Language selector
+                  ------------------------------------------------------------------------------ */}
+                <LanguageSelector project={project} />
                 {/*
                   Left content including Menu, Title and introduction with a contact form button
                   ------------------------------------------------------------------------------ */}

@@ -13,14 +13,14 @@ export default ({ data, path }) => {
 
   const intl = useIntl();
 
-  if (typeof window !== undefined) {
-    if (path !== buildLink(buildPathUrl(project, intl.locale), intl.locale)) {
-      navigate('/404');
-    }
-  }
+  // if (typeof window !== undefined) {
+  //   if (path !== buildLink(buildPathUrl(project, intl.locale), intl.locale)) {
+  //     navigate('/404');
+  //   }
+  // }
 
   return (
-    <Layout hideMenu={isDevice()}>
+    <Layout hideMenu={isDevice()} project={project}>
       <ProjectDetail project={project} blocks={blocks} next={next} previous={previous} />
     </Layout>
   );
