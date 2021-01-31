@@ -1,7 +1,7 @@
 {
   "introMessage": "Hi, my name is{br1}{name} and{br2}I'm a UX & UI designer",
-  "portfolioTitle": "Porfolio Mariona Mercadal UX and UI designer",
-  "aboutTitle": "About Mariona Mercadal UX and UI designer",
+  "projectTitle": "Projects",
+  "aboutTitle": "About me",
   "knowMore": "Know more",
   "home": "Home",
   "works": "Works",
@@ -26,5 +26,7 @@
   "moreProjects": "More projects",
   "notFound": "404 - Page not found",
   "notFoundMessage": "You just hit a route that doesn't exist... the sadness.",
-  "downloadCV": "Download CV"
+  "downloadCV": "Download CV",
+  "metaTitle": "Mariona Mercadal UX & UI designer",
+  "metaDescription": "Portfolio Online Mariona Mercadal UX & UI designer"
 }

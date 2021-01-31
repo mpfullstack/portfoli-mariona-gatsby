@@ -91,9 +91,12 @@ export const query = graphql`
           meta_description
           creation_date
           credits
+          credits_es
           content
+          content_es
           tags {
             name
+            name_es
           }
           color {
             hex_code

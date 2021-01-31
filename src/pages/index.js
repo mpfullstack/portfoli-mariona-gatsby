@@ -9,8 +9,8 @@ const IndexPage = ({ location, data }) => {
   const intl = useIntl();
   return (
     <Layout location={location}>
-      <SEO title={intl.formatMessage({ id: "portfolioTitle" })} />
-      <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "portfolioTitle" })}</h1>
+      <SEO title={intl.formatMessage({ id: "projectTitle" })} lang={intl.locale} />
+      <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "projectTitle" })}</h1>
       <ProjectList projects={data.allStrapiProject.edges} />
     </Layout>
   );
@@ -27,8 +27,10 @@ export const query = graphql`
           title
           title_es
           seo_url
+          seo_url_es
           tags {
             name
+            name_es
           }
           color {
             hex_code

@@ -1,7 +1,7 @@
 {
   "introMessage": "Hola, mi nombre es{br1}{name} y{br2}soy diseñadora UX/UI",
-  "portfolioTitle": "Porfolio Mariona Mercadal diseñadora UX y UI",
-  "aboutTitle": "Acerca de Mariona Mercadal diseñadora UX y UI",
+  "projectTitle": "Proyectos",
+  "aboutTitle": "Sobre mí",
   "knowMore": "Saber más",
   "home": "Incio",
   "works": "Proyectos",
@@ -26,5 +26,7 @@
   "moreProjects": "Más proyectos",
   "notFound": "404 - Página no encontrada",
   "notFoundMessage": "Justo la página que buscabas no existe... Lo siento.",
-  "downloadCV": "Descargar CV"
+  "downloadCV": "Descargar CV",
+  "metaTitle": "Mariona Mercadal diseñadora UX y UI",
+  "metaDescription": "Portfolio Online Mariona Mercadal diseñadora UX y UI"
 }

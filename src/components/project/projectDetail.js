@@ -13,13 +13,13 @@ import ImageContainer from './imageContainer.style';
 import ContentWrapper from './contentWrapper.style';
 import Attribute from './attribute.js';
 import ProjectBlock from './projectBlock';
-import { isDevice, getField, buildLink } from '../../helpers';
+import { isDevice, getField, buildLink, capitalize } from '../../helpers';
 import ArrowUp from './arrowUp';
 import { CleanButton } from '../../components/button';
 import ProjectNavigator from './projectNavigator';
 import { ProjectDetailWrapper, ProjectDetailInnerWrapper } from './projectDetailWrapper.style';
+import moment, { changeLocale } from '../../helpers/moment';
 
-const moment = require('moment');
 const MarkdownIt = require('markdown-it');
 const md = new MarkdownIt();
 
@@ -29,6 +29,8 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
   const [projectNavigatorVisible, setProjectNavigatorVisible] = useState(false);
 
   const intl = useIntl();
+
+  changeLocale(intl.locale);
 
   useEffect(() => {
     // Start project detail css animations
@@ -53,7 +55,7 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
 
   return (
     <ProjectDetailWrapper>
-      <SEO title={projectTitle} description={project.meta_description} />
+      <SEO title={projectTitle} description={project.meta_description} lang={intl.locale} />
       <Animated className='back-to-works' animationIn='fadeIn' animationInDelay={1000} animationInDuration={500}>
         <AniLink className='link' fade to={isDevice() ? buildLink('#mobile-works', intl.locale) : buildLink('', intl.locale)}>{intl.formatMessage({ id: 'backToWorks' })}</AniLink>
         <span className='link-poject-title'>{projectTitle}</span>
@@ -88,9 +90,9 @@ const ProjectDetail = ({ project, blocks, next, previous }) => {
 
           <ContentWrapper className='extra-content'>
             <AnimatedInView animationIn='fadeInRight' animationInDelay={1000} animationInDuration={1000} offset={0}>
-              <Attribute name={intl.formatMessage({ id: 'date' })} value={moment(project.creation_date).format('MMMM YYYY')} />
-              <Attribute name={intl.formatMessage({ id: 'credits' })} value={project.credits} />
-              <div dangerouslySetInnerHTML={{ __html: md.render(project.content) }}/>
+              <Attribute name={intl.formatMessage({ id: 'date' })} value={capitalize(moment(project.creation_date).format('MMMM YYYY'))} />
+              <Attribute name={intl.formatMessage({ id: 'credits' })} value={getField(project, 'credits', intl.locale)} />
+              <div dangerouslySetInnerHTML={{ __html: md.render(getField(project, 'content', intl.locale)) }}/>
             </AnimatedInView>
           </ContentWrapper>
 

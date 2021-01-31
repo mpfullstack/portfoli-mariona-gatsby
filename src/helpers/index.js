@@ -37,11 +37,17 @@ const buildLink = (link, language) => {
   return link;
 }
 
+const capitalize = s => {
+  if (typeof s !== 'string') return ''
+  return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
 export {
   getSize,
   isDevice,
   isDesktop,
   getField,
   buildPathUrl,
-  buildLink
+  buildLink,
+  capitalize
 }

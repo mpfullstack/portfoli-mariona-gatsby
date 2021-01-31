@@ -16,7 +16,7 @@ const NotFoundPage = () => {
   return (
     <Layout>
       <NotFoundWrapper>
-        <SEO title="404: Not found" />
+        <SEO title="404: Not found" lang={intl.locale} />
         <h1>{intl.formatMessage({ id: 'notFound' })}</h1>
         <p>{intl.formatMessage({ id: 'notFoundMessage' })}</p>
       </NotFoundWrapper>

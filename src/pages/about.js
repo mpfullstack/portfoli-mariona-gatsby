@@ -96,7 +96,7 @@ const AboutPage = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <SEO title={intl.formatMessage({ id: "aboutTitle" })} />
+      <SEO title={intl.formatMessage({ id: "aboutTitle" })} lang={intl.locale} />
       <h1 style={{display: 'none'}}>{intl.formatMessage({ id: "aboutTitle" })}</h1>
       <AboutPageWrapper>
         <Scrollbar style={{ height: '100vh'}}>
