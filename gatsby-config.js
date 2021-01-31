@@ -2,8 +2,8 @@ const languageConfig = require('./language-config');
 
 module.exports = {
   siteMetadata: {
-    title: `Mariona Mercadal`,
-    description: `Portfolio Mariona Mercadal`,
+    title: `metaTitle`,
+    description: `metaDescription`,
     author: `@mpfullstack`,
   },
   plugins: [
